@@ -774,6 +774,13 @@ input[type="date"].set-in{min-width:150px}
 .tex math{font-family:"STIX Two Math","Cambria Math","Latin Modern Math",math}
 .tex-d{display:block;margin:4px 0;overflow-x:auto}
 .tex-d math{display:block}
+.memo-rich{white-space:normal!important;padding-top:2px!important}
+.memo-body{display:flex;flex-direction:column;gap:3px;padding-top:0;font-size:inherit;line-height:inherit;color:inherit}
+.memo-body .cd-li{display:block;white-space:pre-wrap}
+.memo-body .cd-li.dot::before{top:.68em}
+.memo-body .cd-gap{display:block;height:4px}
+.memo-tools .cd-tools{margin:6px 0 0}
+.cd-blue.sm{height:28px;padding:0 10px;font-size:13px}
 .tex-prev{margin-top:8px;padding:10px 12px;border-radius:var(--r);box-shadow:inset 0 0 0 1px var(--sep)}
 .tex-prev .tp-l{display:block;margin-bottom:4px;font-size:11.5px;font-weight:600;color:var(--muted)}
 .tex-prev p{margin:0;font-size:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--fg-2)}
@@ -1471,8 +1478,17 @@ button.sg-c:active{transform:scale(.85)}
 .hm-grid>[data-unit]{min-width:0;container-type:inline-size}
 .hm-grid>[data-unit]:nth-child(-n+2){align-self:center;margin:26px 0}
 .hm-grid>.hm-dd:nth-child(-n+2){padding:0 2px}
-.hm-grid>.hm-q{box-shadow:none}
+.hm-grid>.hm-q,.hm-side>.hm-q:first-child{box-shadow:none}
 .hm-grid>[data-unit]:nth-child(n+3){align-self:start}
+.hm-side{display:flex;flex-direction:column}
+.hm-side>.hm-q+.hm-q{margin-top:6px;box-shadow:inset 0 1px 0 var(--sep)}
+.hm-cards{gap:10px}
+.hm-cards .hm-qbig{font-size:clamp(44px,7cqi,72px)}
+.hm-cards .hm-qmeta{gap:22px;padding-bottom:.15em}
+.hm-cards .hm-qmeta b{font-size:22px}
+.hm-cards .hm-qmeta b.rest{color:var(--accent)}
+.hm-cards .hm-cells{grid-template-columns:repeat(auto-fill,10px);gap:3px}
+.hm-cards .hm-cells i{height:14px}
 .hm-grid::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;grid-row:2;grid-column:1/-1;background:var(--sep);pointer-events:none}
 @supports (font-size:1cqi){
   .hm-grid .hm-big{font-size:clamp(64px,30cqi,224px)}
@@ -1651,6 +1667,21 @@ button.sg-c:active{transform:scale(.85)}
 .pj-row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:12px}
 .pj-sum{margin:14px 2px 0;font-size:13px;color:var(--fg-2)}
 /* 레일: 검색(맨 위) · 마감(휴무 위) */
+.rail-att{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:40px;margin:0 6px 8px;padding:4px 2px;overflow:hidden;border-radius:var(--r);background:rgba(255,59,48,.08);box-shadow:inset 0 0 0 1.5px rgba(255,59,48,.55);color:var(--danger);text-align:center;transition:transform .2s var(--ease)}
+.rail-att[hidden]{display:none}
+.rail-att:active{transform:scale(.94)}
+.ra-fill{position:absolute;inset:0;background:rgba(255,59,48,.26);transform:scaleX(0);transform-origin:left center;transition:transform 1s linear}
+.ra-l,.ra-t{position:relative;white-space:nowrap;letter-spacing:-.03em}
+.ra-l{font-size:10.5px;font-weight:700;line-height:1.2}
+.ra-t{font-size:11px;font-weight:800;line-height:1.25;font-variant-numeric:tabular-nums}
+.rail-att.hot .ra-fill{background:rgba(255,59,48,.5)}
+.rail-att.live{background:var(--danger);box-shadow:none;color:#fff;animation:attPulse 1.2s ease-in-out infinite}
+.rail-att.live .ra-fill{display:none}
+@keyframes attPulse{50%{opacity:.6}}
+:root[data-theme="dark"] .rail-att:not(.live){color:#ff8f87;background:rgba(255,69,58,.12)}
+:root[data-theme="dark"] .ra-fill{background:rgba(255,69,58,.32)}
+:root[data-theme="dark"] .rail-att.hot .ra-fill{background:rgba(255,69,58,.55)}
+@media (prefers-reduced-motion:reduce){.rail-att.live{animation:none}.ra-fill{transition:none}}
 .rail-find{display:flex;align-items:center;justify-content:center;gap:4px;height:32px;margin:0 8px 8px;border-radius:var(--r);background:var(--fill);font-size:12px;font-weight:500;color:var(--muted);transition:background-color .2s,transform .2s var(--ease)}
 .rail-find .ic{width:14px;height:14px}
 .rail-find:active{transform:scale(.94);background:var(--fill-2)}
@@ -1793,6 +1824,9 @@ button.sg-c:active{transform:scale(.85)}
 .dw-part.off{opacity:.35;pointer-events:none}
 /* 분석 */
 .anal{display:flex;flex-direction:column;gap:18px}
+.mk-anal-h{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mk-anal-h .mk-h{margin-top:10px}
+.mk-anal-h .an-copy{margin-top:10px}
 .an-copy{height:36px;padding:0 16px;border-radius:var(--r);background:var(--accent);font-size:14px;font-weight:600;color:var(--on-accent);transition:transform .2s var(--ease)}
 .an-copy:active{transform:scale(.95)}
 .an-gate{display:flex;flex-direction:column;gap:12px}
@@ -1865,9 +1899,355 @@ html:root[class*="bg-"]{background:var(--bg)}
 .th-sw{display:flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:var(--r);background:var(--fill);font-size:13.5px;font-weight:600;color:var(--fg-2)}
 .th-sw i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(128,128,128,.45)}
 .th-sw[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent);color:var(--fg)}
+.th-rest .th-sw{opacity:.45}
+/* 암기카드 */
+.cards{display:flex;flex-direction:column;gap:16px}
+.set-jump{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 18px}
+.set-jb{height:32px;padding:0 13px;border-radius:var(--r);background:var(--fill);font-size:13.5px;font-weight:600;color:var(--fg-2);transition:transform .2s var(--ease)}
+.set-jb:active{transform:scale(.95);background:var(--fill-2)}
+.add-btn.lab{display:flex;flex-direction:row;align-items:center;gap:4px;width:auto;height:36px;padding:0 14px;font-size:14px;font-weight:600}
+.add-btn.lab .ic{width:16px;height:16px}
+.mk-acts .add-btn.lab,.mk-acts .mk-cfg{height:40px}
+.cd-subs{display:flex;flex-wrap:wrap;gap:6px}
+.cd-sub{display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:var(--r);background:var(--fill);font-size:14px;font-weight:600;color:var(--muted);transition:background-color .2s,color .2s}
+.cd-sub b{font-size:12px;font-weight:700;color:var(--faint)}
+.cd-sub[aria-selected="true"],.cd-sub[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.cd-sub[aria-selected="true"] b,.cd-sub[aria-pressed="true"] b{color:inherit;opacity:.75}
+.cd-subs.in-sheet{margin-bottom:2px}
+.ck-new{--mk:var(--lv0)}.ck-ok{--mk:var(--ring)}.ck-no{--mk:var(--danger)}.ck-hard{--mk:var(--imp)}.ck-due{--mk:var(--accent)}
+.cd-acts{display:flex;align-items:center;gap:8px}
+.cd-test{display:flex;align-items:center;gap:7px;height:36px;padding:0 15px;border-radius:var(--r);background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:700;transition:transform .25s var(--ease),opacity .2s}
+.cd-test .ic{width:12px;height:12px}
+.cd-test b{font-variant-numeric:tabular-nums}
+.cd-test:disabled{opacity:.35}
+.cd-test:active:not(:disabled){transform:scale(.94)}
+.cd-sub .cd-dot{width:6px;height:6px;margin-left:-2px;border-radius:50%;background:var(--danger)}
+.cd-sub[aria-selected="true"] .cd-dot{background:currentColor}
+.cd-fs{display:flex;flex-wrap:wrap;gap:6px}
+.cd-f{display:flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:var(--r);background:var(--fill);font-size:13px;font-weight:600;color:var(--muted);transition:background-color .2s,box-shadow .2s,color .2s}
+.cd-f i{width:7px;height:7px;border-radius:50%;background:var(--mk)}
+.cd-f b{font-weight:700;color:var(--fg-2);font-variant-numeric:tabular-nums}
+.cd-f[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--mk)}
+.cd-list{display:flex;flex-direction:column;border-radius:var(--r);background:var(--surface);box-shadow:var(--card-shadow);overflow:hidden}
+.cd{position:relative;box-shadow:inset 0 1px 0 var(--sep)}
+.cd:first-child{box-shadow:none}
+.cd.flash{animation:flash 1.6s ease}
+.cd::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--mk)}
+.cd-head{display:flex;align-items:center;gap:12px;width:100%;min-height:50px;padding:8px 14px 8px 18px;text-align:left;transition:background-color .15s}
+.cd-head:active{background:var(--fill)}
+.cd-title{flex:1 1 auto;min-width:0;overflow:hidden;font-size:15.5px;font-weight:600;line-height:1.35;white-space:nowrap;text-overflow:ellipsis}
+.cd.open .cd-title{white-space:normal;word-break:keep-all}
+.cd-cue{flex:0 1 auto;max-width:40%;padding:3px 9px;border-radius:var(--r);background:var(--accent-soft);font-size:15px;font-weight:800;letter-spacing:-.01em;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd-due{flex:none;min-width:34px;font-size:12px;font-weight:600;color:var(--faint);text-align:right;font-variant-numeric:tabular-nums}
+.cd-due.on{color:var(--accent)}
+.cd-head .ic{width:8px;height:13px;color:var(--faint);transform:rotate(90deg);transition:transform .3s var(--ease)}
+.cd.open .cd-head .ic{transform:rotate(-90deg)}
+.cd-more{padding:2px 16px 12px 18px;box-shadow:inset 0 1px 0 var(--sep)}
+.cd-body{display:flex;flex-direction:column;gap:5px;padding-top:12px;font-size:15px;line-height:1.5}
+.cd-li{position:relative;padding-left:calc(var(--lv,0)*20px)}
+.cd-li.dot{padding-left:calc(var(--lv,0)*20px + 14px)}
+.cd-li.dot::before{content:'';position:absolute;left:calc(var(--lv,0)*20px + 3px);top:.62em;width:5px;height:5px;border-radius:50%;background:var(--muted)}
+.cd-li.top.dot::before{background:var(--accent)}
+.cd-li b{font-weight:700}
+.cd-cue2{font-weight:700;color:var(--accent)}
+.cd-gap{height:6px}
+.cd-none{margin:12px 0 0;font-size:14px;color:var(--muted)}
+.cd-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.cd-st{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:var(--r);background:var(--fill);font-weight:600;color:var(--fg-2)}
+.cd-st i{width:7px;height:7px;border-radius:50%;background:var(--mk)}
+.cd-hist{display:inline-flex;gap:3px}
+.cd-hist i{width:6px;height:6px;border-radius:50%;background:var(--danger)}
+.cd-hist i.k{background:var(--ring)}
+.cd-edit{height:30px;margin-left:auto;padding:0 12px;border-radius:var(--r);font-size:13px;font-weight:600;color:var(--accent)}
+.cd-edit:active{background:var(--fill)}
+.cd-selb{height:36px;padding:0 13px;border-radius:var(--r);background:var(--fill);font-size:14px;font-weight:600;color:var(--fg-2);transition:transform .2s var(--ease)}
+.cd-selb:active:not(:disabled){transform:scale(.95)}
+.cd-selb:disabled{opacity:.35}
+.cd-seltop{position:sticky;top:0;z-index:6;margin:0 -4px;padding:10px 4px;background:var(--bg);box-shadow:0 1px 0 var(--sep)}
+.cd-seltop .lt{font-size:22px}
+.cd-selc{font-variant-numeric:tabular-nums}
+.cd-del{height:36px;padding:0 15px;border-radius:var(--r);background:var(--danger);font-size:14px;font-weight:700;color:#fff;transition:transform .2s var(--ease),background-color .2s}
+.cd-del:disabled{opacity:.35}
+.cd-del.armed{animation:delPulse .9s ease-in-out infinite}
+@keyframes delPulse{50%{opacity:.75}}
+.cd-chk{flex:none;width:22px;height:22px;border-radius:var(--r);box-shadow:inset 0 0 0 2px var(--faint);transition:background-color .15s,box-shadow .15s}
+.cd.picked .cd-chk{background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/16px no-repeat;box-shadow:none}
+.cd.picked{background:var(--accent-soft)}
+.toast.has-act{display:flex;align-items:center;gap:14px;pointer-events:auto}
+.toast-act{margin:-4px -6px -4px 0;padding:4px 8px;border-radius:var(--r);background:rgba(255,255,255,.18);font-size:14px;font-weight:700;color:inherit}
+.cd-moreb{height:44px;border-radius:var(--r);background:var(--fill);font-size:14px;font-weight:600;color:var(--accent)}
+/* 암기카드 시험 */
+.cx-wrap{position:fixed;inset:0;z-index:40;display:flex;justify-content:center;background:var(--bg);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);overflow:hidden;touch-action:manipulation}
+.cx{display:flex;flex-direction:column;width:100%;max-width:640px;height:100%;padding:12px 20px 18px}
+.cx-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;min-height:44px}
+.cx-btn{justify-self:start;display:flex;align-items:center;gap:5px;height:36px;padding:0 10px;border-radius:var(--r);font-size:14.5px;font-weight:600;color:var(--accent)}
+.cx-top .cx-btn:last-child{justify-self:end}
+.cx-btn .ic{width:15px;height:15px}
+.cx-btn:disabled{color:var(--faint)}
+.cx-btn:active:not(:disabled){background:var(--fill)}
+.cx-ttl{display:flex;align-items:center;gap:8px;margin:0;font-size:16px;font-weight:700;white-space:nowrap}
+.cx-mode{padding:3px 8px;border-radius:var(--r);background:var(--accent-soft);font-size:12px;font-weight:700;color:var(--accent)}
+.cx-mode.prac{background:var(--fill);color:var(--muted)}
+.cx-prog{height:3px;margin-top:10px;border-radius:2px;background:var(--fill);overflow:hidden}
+.cx-prog i{display:block;width:0;height:100%;background:var(--accent);transition:width .4s var(--ease)}
+.cx-n{margin-top:8px;font-size:12.5px;font-weight:600;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.cx-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px 0 18px}
+.cx-card{position:relative;width:100%;height:100%;max-height:560px;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;outline:none}
+.cx-card.drag{cursor:grabbing}
+@media (orientation:portrait) and (min-height:900px){.cx-card{max-height:740px}}
+.cx-on .toast{left:50%;top:calc(env(safe-area-inset-top,0px) + 100px);bottom:auto}
+.cx-in{position:absolute;inset:0;border-radius:var(--r);background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.05),0 14px 44px rgba(0,0,0,.12);overflow:hidden}
+.cx-in::before{content:"";position:absolute;left:0;top:0;bottom:0;z-index:1;width:4px;background:var(--mk)}
+.cx-face{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
+.cx-face.cx-front{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 34px}
+.cx-tag{position:absolute;top:16px;left:22px;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.cx-tag i{width:7px;height:7px;border-radius:50%;background:var(--mk)}
+.cx-q{font-size:clamp(22px,3.4vw,30px);font-weight:800;line-height:1.38;letter-spacing:-.015em;text-align:center;word-break:keep-all;text-wrap:balance}
+.cx-hint{position:absolute;bottom:16px;left:0;right:0;font-size:12.5px;color:var(--faint);text-align:center}
+.cx-face.cx-back{padding:22px 26px 28px 28px}
+.cx-bt{font-size:14px;font-weight:600;line-height:1.4;color:var(--muted);word-break:keep-all}
+.cx-cue{margin-top:8px;font-size:clamp(26px,4vw,36px);font-weight:800;line-height:1.25;letter-spacing:-.01em;color:var(--accent);word-break:keep-all}
+.cx-face.cx-back .cd-body{padding-top:16px;font-size:16.5px;line-height:1.55}
+.cx-stamp{position:absolute;top:16px;z-index:2;padding:4px 12px;border:2.5px solid currentColor;border-radius:var(--r);background:var(--surface);font-size:20px;font-weight:800;opacity:0;pointer-events:none}
+.cx-stamp.ok{left:18px;color:var(--up);transform:rotate(-8deg)}
+.cx-stamp.no{right:18px;color:var(--danger);transform:rotate(8deg)}
+.cx-acts{display:grid;grid-template-columns:1fr auto 1fr;gap:10px}
+.cx-acts.end{grid-template-columns:1fr}
+.cx-ans{display:flex;align-items:center;justify-content:center;gap:8px;height:54px;border-radius:var(--r);font-size:16px;font-weight:700;transition:transform .2s var(--ease)}
+.cx-ans.no{background:rgba(255,59,48,.11);color:var(--danger)}
+.cx-ans.ok{background:rgba(52,199,89,.14);color:var(--up)}
+.cx-ans.fl{padding:0 18px;background:var(--fill);color:var(--fg-2);font-size:14.5px}
+.cx-ans:active{transform:scale(.96)}
+.cx-end{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.cx-end h2{margin:0;font-size:28px;font-weight:800}
+.cx-sum{display:flex;gap:12px}
+.cx-sum>div{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:112px;padding:16px 18px;border-radius:var(--r);background:var(--surface);box-shadow:var(--card-shadow);font-size:13px;font-weight:600;color:var(--muted)}
+.cx-sum b{font-size:34px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.cx-sum .ok b{color:var(--up)}
+.cx-sum .no b{color:var(--danger)}
+.cx-note{max-width:420px;margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
+.cx-note.imp{color:var(--imp);font-weight:600}
+.cx-big{height:54px;border-radius:var(--r);background:var(--fill);font-size:16px;font-weight:700;color:var(--fg)}
+.cx-big.pri{background:var(--accent);color:var(--on-accent)}
+.cd-empty{padding:32px 16px;border-radius:var(--r);background:var(--surface);text-align:center}
+.cd-empty p{margin:0;font-size:15px;font-weight:600}
+.cd-empty .cd-hint{margin-top:8px;font-size:13px;font-weight:400;color:var(--muted)}
+.cd-cue-in{font-size:17px;font-weight:700}
+.cd-hl{font-weight:700;color:var(--accent)}
+.cd-tools{display:flex;align-items:center;gap:10px;margin:4px 0 -2px}
+.cd-blue{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:var(--r);background:var(--accent-soft);font-size:14px;font-weight:700;color:var(--accent);transition:transform .2s var(--ease)}
+.cd-blue i{width:10px;height:10px;border-radius:2px;background:var(--accent)}
+.cd-blue:active{transform:scale(.95)}
+.cd-tip{min-width:0;font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cd-body-in{min-height:200px;font-size:16px;line-height:1.55;tab-size:4}
+.sr-cd{display:grid;place-items:center;width:28px;height:28px;border-radius:var(--r);background:var(--accent-soft);color:var(--accent)}
+.sr-cd .ic{width:16px;height:16px}
+/* 레일: 탭이 9개라 화면 높이에 맞춰 줄임 */
+@media (min-width:600px) and (max-height:900px){
+  .tab{height:52px}
+  .tab-hl{height:52px;transform:translateY(calc(var(--i,0)*54px))}
+}
+@media (min-width:600px) and (max-height:780px){
+  .rail-dd{margin-bottom:4px;padding-bottom:6px}
+  .rail-find{height:28px;margin-bottom:6px}
+  .tab{height:46px;gap:2px;font-size:10.5px}
+  .tab .ic{width:20px;height:20px}
+  .tab-hl{height:46px;transform:translateY(calc(var(--i,0)*48px))}
+  .tab.tab-off{height:46px}
+  .tab.tab-close{height:44px}
+}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
 }
+
+/* ================= 디자인 테마 =================
+   색 변수 + 글꼴 + 질감만 바꿈. 로고·워드마크는 안 씀 */
+html.skinned{--card-shadow:none}
+.skinned body{background:var(--bg)}
+
+/* 닉시: 진공관 숫자. 따뜻한 검정 위에 주황 불빛, 숫자에 번짐 */
+html:root.skin-nixie{
+  --bg:#0c0705;--surface:#170f0b;--surface-2:#20150f;
+  --fg:#ffd2a1;--fg-2:#f0b47a;--muted:#a0765a;--faint:#6b4c3a;--done:#7d5b45;
+  --sep:rgba(255,140,60,.16);--fill:rgba(255,140,60,.1);--fill-2:rgba(255,140,60,.2);
+  --accent:#ff8a2a;--accent-rgb:255,138,42;--accent-soft:rgba(255,138,42,.16);--on-accent:#1a0b02;
+  --glass:rgba(23,15,11,.86);--glass-line:rgba(255,140,60,.18);
+  --water:#3a1d0a;--water-b:#2a160a;--water-on:#5a2a0c;--water-b-on:#3b1d0b;
+  --toast-bg:#ff8a2a;--toast-fg:#1a0b02;
+  --font:"Avenir Next Condensed","DIN Condensed","Arial Narrow","Apple SD Gothic Neo",system-ui,sans-serif;
+}
+.skin-nixie :is(.hm-big,.hm-qbig,.kpi b,.kpi .v,.rail-dd,#rail-time,.tr-big,.mt-big,.cl-tile b,.hm-qmeta b,.cx-q,.cx-cue){
+  color:#ffb15a;text-shadow:0 0 6px rgba(255,140,40,.75),0 0 22px rgba(255,90,0,.45),0 0 48px rgba(255,60,0,.25);font-variant-numeric:tabular-nums}
+.skin-nixie .set-card,.skin-nixie .st-sec,.skin-nixie .cd-list{box-shadow:inset 0 0 0 1px rgba(255,140,60,.14)}
+
+/* 딜로이트: 흰 바탕·검정 글자·초록 점 하나. 각 잡힌 굵은 글씨 */
+html:root.skin-deloitte{
+  --bg:#ffffff;--surface:#ffffff;--surface-2:#f4f4f4;
+  --fg:#000000;--fg-2:#1a1a1a;--muted:#53565a;--faint:#a7a8aa;--done:#97999b;
+  --sep:rgba(0,0,0,.14);--fill:rgba(0,0,0,.05);--fill-2:rgba(0,0,0,.1);
+  --accent:#86bc25;--accent-rgb:134,188,37;--accent-soft:rgba(134,188,37,.16);--on-accent:#000000;
+  --glass:rgba(255,255,255,.9);--glass-line:rgba(0,0,0,.12);
+  --toast-bg:#000;--toast-fg:#fff;
+  --font:"Helvetica Neue","Arial","Apple SD Gothic Neo",system-ui,sans-serif;
+}
+.skin-deloitte :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.skin-deloitte :is(h1.lt,.page-title,.hm-big){font-weight:800;letter-spacing:-.03em}
+.skin-deloitte h1.lt::after,.skin-deloitte .page-title::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.06em;border-radius:50%;background:#86bc25;vertical-align:baseline}
+.skin-deloitte .tab[aria-current="page"],.skin-deloitte .tab.on{color:#000}
+
+/* 블룸버그: 터미널. 검정 바탕에 주황 글씨, 노랑·하늘색 보조, 고정폭 */
+html:root.skin-bloomberg{
+  --bg:#000000;--surface:#0b0b0b;--surface-2:#141414;
+  --fg:#fb8b1e;--fg-2:#f2a65a;--muted:#b07a3e;--faint:#6d4a22;--done:#7a5530;
+  --sep:rgba(251,139,30,.22);--fill:rgba(251,139,30,.1);--fill-2:rgba(251,139,30,.2);
+  --accent:#4af6c3;--accent-rgb:74,246,195;--accent-soft:rgba(74,246,195,.14);--on-accent:#000;
+  --glass:rgba(0,0,0,.9);--glass-line:rgba(251,139,30,.25);
+  --up:#4af6c3;--down:#ff433d;--danger:#ff433d;
+  --toast-bg:#fb8b1e;--toast-fg:#000;
+  --font:"SF Mono","Menlo","Consolas","Courier New","Apple SD Gothic Neo",monospace;
+  --r:0px;
+}
+.skin-bloomberg :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px rgba(251,139,30,.28)}
+.skin-bloomberg :is(h1.lt,.page-title,.set-title,.hm-lbl,.grp-name,.mk-h){color:#ffe600;text-transform:uppercase;letter-spacing:.02em}
+.skin-bloomberg :is(.hm-big,.hm-qbig){color:#fff;font-weight:700}
+
+/* 사이버펑크: 보라빛 밤에 네온 노랑·하늘·분홍, 모서리 잘린 칸 */
+html:root.skin-cyber{
+  --bg:#0a0414;--surface:#130a24;--surface-2:#1b0f33;
+  --fg:#eafcff;--fg-2:#c6e9f2;--muted:#8a7fb3;--faint:#4f4672;--done:#5d557f;
+  --sep:rgba(0,240,255,.2);--fill:rgba(0,240,255,.08);--fill-2:rgba(0,240,255,.16);
+  --accent:#00f0ff;--accent-rgb:0,240,255;--accent-soft:rgba(0,240,255,.14);--on-accent:#0a0414;
+  --danger:#ff2a6d;--down:#ff2a6d;--imp:#d300c5;
+  --glass:rgba(19,10,36,.88);--glass-line:rgba(255,42,109,.35);
+  --toast-bg:#fcee0a;--toast-fg:#0a0414;
+  --font:"Avenir Next","Futura","Apple SD Gothic Neo",system-ui,sans-serif;
+}
+.skin-cyber body{background:radial-gradient(1200px 600px at 80% -10%,rgba(211,0,197,.18),transparent 60%),radial-gradient(900px 500px at 0% 110%,rgba(0,240,255,.12),transparent 60%),var(--bg);background-attachment:fixed}
+.skin-cyber :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px rgba(0,240,255,.22),0 0 18px rgba(0,240,255,.06);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.skin-cyber :is(h1.lt,.page-title,.hm-big){color:#fcee0a;text-shadow:2px 0 0 rgba(255,42,109,.75),-2px 0 0 rgba(0,240,255,.6);letter-spacing:.01em}
+.skin-cyber .hm-qbig{color:#00f0ff;text-shadow:0 0 18px rgba(0,240,255,.5)}
+
+/* 뉴욕타임즈: 신문지. 명조 제목, 굵은 검정 괘선, 그림자 없음 */
+html:root.skin-nyt{
+  --bg:#f7f4ec;--surface:#fffdf8;--surface-2:#f1ede2;
+  --fg:#121212;--fg-2:#2b2b2b;--muted:#5a5a5a;--faint:#a5a29a;--done:#8f8c85;
+  --sep:rgba(18,18,18,.16);--fill:rgba(18,18,18,.05);--fill-2:rgba(18,18,18,.1);
+  --accent:#326891;--accent-rgb:50,104,145;--accent-soft:rgba(50,104,145,.1);--on-accent:#fff;
+  --glass:rgba(247,244,236,.92);--glass-line:rgba(18,18,18,.14);
+  --toast-bg:#121212;--toast-fg:#f7f4ec;
+  --font:"Georgia","Times New Roman","Noto Serif KR","AppleMyungjo","Nanum Myeongjo","Batang",serif;
+  --r:0px;
+}
+.skin-nyt :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px rgba(18,18,18,.12)}
+.skin-nyt :is(h1.lt,.page-title){padding-bottom:6px;border-bottom:3px double #121212;font-weight:700;letter-spacing:-.01em}
+.skin-nyt :is(.hm-big,.hm-qbig){font-weight:700;letter-spacing:-.04em}
+.skin-nyt :is(.set-title,.hm-lbl,.mk-h){font-style:italic}
+
+/* DOS: 녹색 형광 모니터. 고정폭, 주사선, 글자 번짐 */
+html:root.skin-dos{
+  --bg:#020a03;--surface:#041406;--surface-2:#072009;
+  --fg:#38ff6a;--fg-2:#2fdc5c;--muted:#1f9c41;--faint:#145f28;--done:#1a7a35;
+  --sep:rgba(56,255,106,.25);--fill:rgba(56,255,106,.08);--fill-2:rgba(56,255,106,.18);
+  --accent:#38ff6a;--accent-rgb:56,255,106;--accent-soft:rgba(56,255,106,.14);--on-accent:#020a03;
+  --up:#38ff6a;--ring:#38ff6a;--danger:#ff5a3c;--down:#ff5a3c;
+  --glass:rgba(2,10,3,.92);--glass-line:rgba(56,255,106,.3);
+  --toast-bg:#38ff6a;--toast-fg:#020a03;
+  --font:"Courier New","Menlo","SF Mono","Apple SD Gothic Neo",monospace;
+  --r:0px;
+}
+.skin-dos body{text-shadow:0 0 4px rgba(56,255,106,.45),-.7px 0 0 rgba(255,40,90,.28),.7px 0 0 rgba(40,170,255,.28)}
+.skin-dos body::after{content:"";position:fixed;inset:0;z-index:45;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.45) 100%)}
+.skin-dos :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px rgba(56,255,106,.35)}
+.skin-dos :is(h1.lt,.page-title)::before{content:"C:\\> "}
+/* CRT 모니터: 둥근 유리 화면 + 플라스틱 테두리, 가장자리가 휘어 어두워지고, 유리 반사, 내려가는 밝은 띠, 미세한 깜빡임 */
+#crt{position:fixed;inset:0;z-index:46;pointer-events:none;overflow:hidden}
+#crt .crt-scr{position:absolute;inset:7px;border-radius:38px/30px;
+  box-shadow:0 0 0 60px #0d100c,0 0 0 61px #1f251d,inset 0 0 0 1px rgba(56,255,106,.12),inset 0 0 16px 3px rgba(0,0,0,.8),inset 0 0 110px 24px rgba(0,0,0,.45)}
+#crt .crt-glare{position:absolute;inset:7px;border-radius:38px/30px;background:radial-gradient(120% 70% at 28% 6%,rgba(220,255,230,.09),transparent 46%),linear-gradient(115deg,transparent 38%,rgba(220,255,230,.035) 44%,transparent 50%)}
+#crt .crt-roll{position:absolute;left:0;right:0;top:0;height:22vh;background:linear-gradient(180deg,transparent,rgba(120,255,150,.05) 45%,rgba(120,255,150,.09) 50%,rgba(120,255,150,.05) 55%,transparent);transform:translateY(-30vh);animation:crtRoll 7s linear infinite}
+#crt .crt-flick{position:absolute;inset:0;background:rgba(0,0,0,.06);animation:crtFlick .12s steps(2) infinite}
+@keyframes crtRoll{to{transform:translateY(130vh)}}
+@keyframes crtFlick{50%{opacity:.35}}
+/* 켤 때: 한 줄로 번쩍 → 화면이 위아래로 펴짐 */
+.crt-boot{position:fixed;inset:0;z-index:60;pointer-events:none;background:#000}
+.crt-boot i{position:absolute;left:50%;top:50%;width:100%;height:2px;margin-left:-50%;margin-top:-1px;background:#d8ffe0;box-shadow:0 0 30px 8px rgba(120,255,150,.7);transform:scaleX(0)}
+@media (prefers-reduced-motion:reduce){#crt .crt-roll,#crt .crt-flick{animation:none;display:none}}
+.skin-dos :is(h1.lt,.page-title)::after{content:"_";animation:dosBlink 1s steps(1) infinite}
+@keyframes dosBlink{50%{opacity:0}}
+
+/* 에퍼쳐: 하얀 실험실 패널 격자, 주황·파랑 두 색 */
+html:root.skin-aperture{
+  --bg:#e9ecee;--surface:#fbfcfc;--surface-2:#f1f3f4;
+  --fg:#1b1f22;--fg-2:#33393d;--muted:#6b7378;--faint:#aab1b5;--done:#959ca0;
+  --sep:rgba(27,31,34,.12);--fill:rgba(27,31,34,.06);--fill-2:rgba(27,31,34,.12);
+  --accent:#2a9df4;--accent-rgb:42,157,244;--accent-soft:rgba(42,157,244,.13);--on-accent:#fff;
+  --open:#ff9a00;--imp:#ff9a00;--imp-soft:rgba(255,154,0,.14);
+  --glass:rgba(251,252,252,.9);--glass-line:rgba(27,31,34,.12);
+  --toast-bg:#1b1f22;--toast-fg:#fff;
+  --font:"Avenir Next","Helvetica Neue","Apple SD Gothic Neo",system-ui,sans-serif;
+}
+.skin-aperture body{background:linear-gradient(rgba(27,31,34,.05) 1px,transparent 1px) 0 0/64px 64px,linear-gradient(90deg,rgba(27,31,34,.05) 1px,transparent 1px) 0 0/64px 64px,var(--bg);background-attachment:fixed}
+.skin-aperture :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px rgba(27,31,34,.1),0 1px 0 rgba(27,31,34,.08)}
+.skin-aperture :is(h1.lt,.page-title){font-weight:500;letter-spacing:.01em}
+.skin-aperture :is(h1.lt,.page-title)::after{content:"";display:inline-block;width:.5em;height:.16em;margin-left:.25em;vertical-align:middle;background:linear-gradient(90deg,#ff9a00 50%,#2a9df4 50%)}
+
+/* 테마별 왼쪽 타이머 물(평균·페이스·오늘) 색 */
+html:root.skin-nixie{--water-avg:#22140c;--water-avg-b:#1a100a;--water-avg-line:rgba(255,160,90,.35);--water-pace:#22140c;--water-pace-b:#1a100a;--water-pace-line:rgba(255,160,90,.35)}
+html:root.skin-bloomberg{--water:#2a1a05;--water-b:#1c1205;--water-on:#3d2606;--water-b-on:#2a1a05;--water-avg:#121212;--water-avg-b:#0c0c0c;--water-avg-line:rgba(251,139,30,.4);--water-pace:#121212;--water-pace-b:#0c0c0c;--water-pace-line:rgba(251,139,30,.4)}
+html:root.skin-cyber{--water:#06323a;--water-b:#08242b;--water-on:#07444f;--water-b-on:#06323a;--water-avg:#1d1236;--water-avg-b:#170e2c;--water-avg-line:rgba(255,42,109,.45);--water-pace:#1d1236;--water-pace-b:#170e2c;--water-pace-line:rgba(255,42,109,.45)}
+html:root.skin-dos{--water:#0a3a12;--water-b:#072a0d;--water-on:#0e4d18;--water-b-on:#0a3a12;--water-avg:#061a08;--water-avg-b:#041306;--water-avg-line:rgba(56,255,106,.4);--water-pace:#061a08;--water-pace-b:#041306;--water-pace-line:rgba(56,255,106,.4)}
+html:root.skin-nyt{--water:#e3dccb;--water-b:#ece6d8;--water-on:#d8cfb9;--water-b-on:#e3dccb;--water-avg:#ebe6da;--water-avg-b:#f1ede3;--water-avg-line:rgba(18,18,18,.3);--water-pace:#ebe6da;--water-pace-b:#f1ede3;--water-pace-line:rgba(18,18,18,.3)}
+html:root.skin-deloitte{--water:#e6f1d3;--water-b:#eff6e3;--water-on:#d6eab3;--water-b-on:#e6f1d3}
+html:root.skin-aperture{--water:#d8ebfb;--water-b:#e6f2fc;--water-on:#c4e1f9;--water-b-on:#d8ebfb}
+.skinned .hm-big{white-space:nowrap}
+
+/* 감사보고서(DART): 흰 종이, 회색 머리 칸의 각진 표, 얇은 괘선, 숫자는 명조, 파란 머리띠 */
+html:root.skin-dart{
+  --bg:#ffffff;--surface:#ffffff;--surface-2:#f3f3f3;
+  --fg:#111111;--fg-2:#222222;--muted:#555555;--faint:#9a9a9a;--done:#8a8a8a;
+  --sep:#c8c8c8;--fill:#eeeeee;--fill-2:#dddddd;
+  --accent:#1f5bd6;--accent-rgb:31,91,214;--accent-soft:rgba(31,91,214,.1);--on-accent:#fff;
+  --glass:#f2f5fa;--glass-line:#b9c6d6;
+  --water:#dbe7f7;--water-b:#e8f0fa;--water-on:#c7daf3;--water-b-on:#dbe7f7;
+  --water-avg:#ececec;--water-avg-b:#f4f4f4;--water-pace:#ececec;--water-pace-b:#f4f4f4;
+  --toast-bg:#1f5bd6;--toast-fg:#fff;
+  --font:"Apple SD Gothic Neo","Malgun Gothic","Dotum",system-ui,sans-serif;
+  --r:0px;
+}
+.skin-dart .tabbar,.skin-dart .trail{background:#f2f5fa;box-shadow:none}
+.skin-dart .tabbar{border-left:1px solid #b9c6d6}
+.skin-dart .trail{border-right:1px solid #b9c6d6}
+.skin-dart .tab-hl{background:#dbe7f7;box-shadow:inset 0 0 0 1px #9fb8de}
+.skin-dart .tab{color:#333}
+.skin-dart .tab[aria-current="page"]{color:#1d4fa3;font-weight:700}
+.skin-dart .rail-dd{margin:-12px 0 10px;padding:calc(env(safe-area-inset-top,0px) + 14px) 0 12px;background:linear-gradient(135deg,#2a5bd0,#3d7fe6 60%,#2f6fe0);box-shadow:none;color:#fff}
+.skin-dart :is(.set-card,.st-sec:not(.wh-grid),.cd-list,.grp-card,.an-panel,.kpi){box-shadow:inset 0 0 0 1px #8f8f8f}
+.skin-dart :is(.hm-big,.hm-qbig,.hm-qmeta b,.hs-v b,.hs-l b,.qh-stat b,.cl-tile b,.mk-score,.kpi b,.rail-dd,#rail-time,.tr-big,.cd-due,.q-meta){font-family:"Times New Roman","Noto Serif KR","AppleMyungjo",serif;font-variant-numeric:tabular-nums lining-nums}
+.skin-dart :is(h1.lt,.page-title){font-weight:700;letter-spacing:.35em}
+.skin-dart .set-title,.skin-dart .mk-h,.skin-dart .grp-name{letter-spacing:.08em}
+/* 못 한 것은 괄호, 0은 '-' */
+.skin-dart :is(.hm-qmeta b.rest,.qs-rest):not(.zero)::before{content:"("}
+.skin-dart :is(.hm-qmeta b.rest,.qs-rest):not(.zero)::after{content:")"}
+.skin-dart :is(.hm-qmeta b.rest,.qs-rest){color:var(--fg)}
+.skin-dart :is(.hm-qmeta b.rest,.qs-rest).zero{font-size:0}
+.skin-dart :is(.hm-qmeta b.rest,.qs-rest).zero::after{content:"-";font-size:22px}
+.skin-dart .qs-rest.zero::after{font-size:inherit;font-size:20px}
+/* 결산서 머리 */
+.dart-top{position:relative;display:block;padding:6px 0 14px;text-align:center;box-shadow:inset 0 -1px 0 #8f8f8f;color:var(--fg)}
+.dt-t{font-size:19px;font-weight:600;letter-spacing:.2em}
+.dt-p{margin-top:6px;font-family:"Times New Roman","Noto Serif KR","AppleMyungjo",serif;font-size:16px}
+.dt-m{display:flex;justify-content:space-between;margin-top:10px;padding:0 4px;font-size:14px;color:var(--fg-2)}
+.skin-dart .qcard{box-shadow:inset 0 0 0 1px #8f8f8f}
+.skin-dart .qc-head{margin:0 0 4px;padding:8px 12px;background:#e3e3e3;box-shadow:inset 0 0 0 1px #8f8f8f,inset 0 -1px 0 #8f8f8f}
+.skin-dart .qc-head h2{font-weight:600;letter-spacing:.06em}
+.dt-op{position:absolute;top:-10px;right:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:74px;height:74px;border:3px solid currentColor;border-radius:50%;font-size:17px;font-weight:800;line-height:1.1;transform:rotate(-12deg);opacity:.88}
+.dt-op small{font-size:10px;font-weight:700;letter-spacing:.1em}
+.dt-op.op-ok{color:#c8102e}
+.dt-op.op-qual{color:#d9822b}
+.dt-op.op-adv,.dt-op.op-dis{color:#6b1fa8}
+.dt-op.op-dis{font-size:15px}
+.dt-op.op-ing{width:auto;height:auto;padding:4px 10px;border:1.5px dashed #9a9a9a;border-radius:0;font-size:12px;font-weight:600;color:#888;transform:none}
+@media (max-width:900px){.dt-op{position:static;margin:10px auto 0;width:70px;height:70px;font-size:15px}.dt-op.op-ing{width:fit-content;height:auto}}
 </style>
 
 <div class="wrap"><main id="view"></main></div>
@@ -2287,6 +2667,46 @@ function analyzeWrongs(rows){
   if(half)rows.forEach(function(r){if(isOld[r.rk]){old[r.reason]=(old[r.reason]||0)+1;oldN++;}else{neu[r.reason]=(neu[r.reason]||0)+1;newN++;}});
   return {n:rows.length,rounds:rks.length,reasons:reasons,top:top,again:again,bySubj:bySubj,trend:{old:old,neu:neu,oldN:oldN,newN:newN}};
 }
+/* 암기카드 일정 (퀘스트와 완전히 따로). 새 카드는 넣은 날 바로 시험.
+   앎 → 일퀘와 같은 주기(1·3·3·7·14…)로 한 칸씩, 모름 → 1일 단계로 리셋.
+   모름이 4번 쌓이면 보라 → 3일마다, 보라에서 3번 연속 알면 초록으로 복귀(3일 단계부터, 모름 횟수는 0부터) */
+var CARD_HARD=4;
+function cardKind(c){var r=c&&c.srs;if(!r)return 'new';if(r.hard)return 'hard';return r.last==='u'?'no':'ok';}
+function cardDue(c,t){return c.srs?c.srs.due:t;}
+function cardAnswer(b,know,t,iv){
+  var o={stage:b?b.stage:0,due:t,wrong:b?b.wrong:0,hard:!!(b&&b.hard),hs:b?b.hs:0,last:know?'k':'u',n:(b?b.n||0:0)+1,hist:(b&&b.hist)?b.hist.slice(-29):[]};
+  o.hist.push([t,know?1:0]);
+  if(know){
+    if(o.hard){
+      o.hs++;
+      if(o.hs>=IMP_NEED){o.hard=false;o.hs=0;o.wrong=0;o.stage=1;o.due=addDays(t,intervalFor(iv,1));}
+      else o.due=addDays(t,IMP_GAP);
+    }else{o.stage=b?o.stage+1:0;o.due=addDays(t,intervalFor(iv,o.stage));}
+  }else{
+    o.wrong++;o.stage=0;o.hs=0;
+    if(o.hard||o.wrong>=CARD_HARD){o.hard=true;o.due=addDays(t,IMP_GAP);}
+    else o.due=addDays(t,intervalFor(iv,0));
+  }
+  return o;
+}
+/* 함현재 출석: 월~금 7번, 토 5번(4시 반까지), 일 없음. 출석 시각 지나고 10분 동안은 '출석!'
+   게이지는 앞 교시 시각부터 이번 교시까지 차오름(그날 첫 교시는 90분 전부터) */
+var ATT_SLOTS=[[9,0],[10,30],[13,30],[15,0],[16,30],[19,0],[20,30]],ATT_GRACE=10,ATT_LEAD=90;
+function attSlots(dow){return dow===0?[]:(dow===6?ATT_SLOTS.slice(0,5):ATT_SLOTS);}
+function attNext(now){
+  var d=new Date(now);
+  for(var k=0;k<8;k++){
+    var Y=d.getFullYear(),M=d.getMonth(),D=d.getDate()+k,dow=new Date(Y,M,D).getDay(),sl=attSlots(dow);
+    for(var i=0;i<sl.length;i++){
+      var at=new Date(Y,M,D,sl[i][0],sl[i][1]).getTime();
+      if(at+ATT_GRACE*60000>now){
+        var from=i?new Date(Y,M,D,sl[i-1][0],sl[i-1][1]).getTime():at-ATT_LEAD*60000;
+        return {n:i+1,at:at,from:from,days:k,dow:dow,live:now>=at};
+      }
+    }
+  }
+  return null;
+}
 /*LOGIC_END*/
 
 /*STORE_START*/
@@ -2590,13 +3010,31 @@ function sanitize(s){
     if(Number.isInteger(pf)&&Number.isInteger(pt)&&pf>=0&&pf<1440&&pt>=0&&pt<1440&&typeof ph==='number'&&isFinite(ph)&&ph>=0&&ph<=18&&prel(pt)>prel(pf))out.pace={from:pf,to:pt,h:Math.round(ph*2)/2};
   }
   if(s.introOff===true)out.introOff=true;
+  if(s.attOff===true)out.attOff=true;
+  /* 한 번만 넣는 카드 묶음 중 이미 넣은 것 */
+  if(Array.isArray(s.packs)){var pk=s.packs.filter(function(x){return typeof x==='string'&&x;}).slice(0,100);if(pk.length)out.packs=pk;}
+  /* 암기카드: {id, sid(과목), title, cue(앞글자), body(줄마다, 들여쓰면 아래 단계), d} */
+  if(Array.isArray(s.cards)){
+    out.cards=s.cards.filter(function(c){return c&&typeof c==='object'&&typeof c.sid==='string'&&(String(c.title||'').trim()||String(c.cue||'').trim()||String(c.body||'').trim());})
+      .slice(0,20000).map(function(c){
+        var o={id:String(c.id||uid()).slice(0,40),sid:c.sid.slice(0,40),title:String(c.title||'').trim().slice(0,200),cue:String(c.cue||'').trim().slice(0,80),body:String(c.body||'').replace(/\r\n?/g,'\n').slice(0,6000),d:isYmd(c.d)?c.d:null};
+        /* 시험 일정: {stage, due, wrong(모름 누적), hard(보라), hs(보라에서 연속 앎), last('k'|'u'), n(시험 횟수), hist[[날짜,1|0]] 최근 30개} */
+        var r=c.srs;
+        if(r&&typeof r==='object'&&isYmd(r.due)){
+          var ni=function(x,mx){return Number.isInteger(x)&&x>=0?Math.min(x,mx):0;};
+          o.srs={stage:ni(r.stage,30),due:r.due,wrong:ni(r.wrong,999),hard:r.hard===true,hs:ni(r.hs,9),last:r.last==='u'?'u':'k',n:ni(r.n,999999),
+            hist:(Array.isArray(r.hist)?r.hist:[]).filter(function(x){return Array.isArray(x)&&isYmd(x[0])&&(x[1]===0||x[1]===1);}).slice(-30).map(function(x){return [x[0],x[1]];})};
+        }
+        return o;});
+  }
   if(s.theme&&typeof s.theme==='object'){
     var th={},T=s.theme,bgOld={navy:'indigo',forest:'green',purple:'violet'},acOld={purple:'violet',graphite:'mono'};
     var bgv=bgOld[T.bg]||T.bg,acv=acOld[T.accent]||T.accent;
     if(/^(white|black|red|orange|yellow|green|blue|indigo|violet)$/.test(bgv))th.bg=bgv;
     else if(T.mode==='light')th.bg='white';else if(T.mode==='dark')th.bg='black';
     if(/^(red|orange|yellow|green|indigo|violet|mono)$/.test(acv))th.accent=acv;
-    if(th.bg||th.accent)out.theme=th;
+    if(/^(nixie|deloitte|bloomberg|cyber|nyt|dos|aperture|dart)$/.test(T.skin))th.skin=T.skin;
+    if(th.bg||th.accent||th.skin)out.theme=th;
   }
   /* 하루 마감: 날짜 → 마감 누른 시각(ms) 목록. 하루 6개, 최근 120일만 */
   if(s.closed&&typeof s.closed==='object'&&!Array.isArray(s.closed)){
@@ -2647,8 +3085,8 @@ function sanitize(s){
 
 var LV=['복습 전','개념소실','개념미흡','계산미흡','숙련도 부족','완벽'];
 var KEY='cpa-review-warehouse-v1';
-var TABS=['home','quest','stats','study','mock','reads','anal','settings'];
-var TAB_LABEL={home:'홈',quest:'퀘스트',stats:'상태',study:'공부 기록',mock:'모의고사',reads:'회독표',anal:'분석',settings:'설정'};
+var TABS=['home','quest','cards','mock','reads','study','stats','settings'];
+var TAB_LABEL={home:'홈',quest:'퀘스트',stats:'통계',study:'공부 기록',mock:'모의고사',reads:'회독표',cards:'암기카드',settings:'설정'};
 var EASE='cubic-bezier(.32,.72,0,1)';
 /* 스프링(살짝 넘쳤다가 제자리, 감쇠비 0.7). linear() 를 못 쓰는 브라우저는 비슷한 곡선으로 */
 var SPRING=(window.CSS&&CSS.supports&&CSS.supports('transition-timing-function','linear(0, 1)'))?'linear(0, 0.0255, 0.0908, 0.1814, 0.2858, 0.395, 0.5023, 0.6032, 0.6945, 0.7747, 0.8429, 0.8993, 0.9446, 0.9796, 1.0057, 1.0241, 1.0361, 1.0429, 1.0458, 1.0456, 1.0432, 1.0395, 1.0349, 1.0299, 1.0249, 1.0201, 1.0157, 1.0118, 1.0085, 1.0056, 1.0034, 1.0016, 1.0002, 0.9992, 0.9985, 0.9981, 1)':'cubic-bezier(.34,1.26,.64,1)';
@@ -2669,9 +3107,12 @@ var ICONS={
   questfill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><defs><clipPath id="qi-clip"><rect x="4" y="4" width="16" height="16" rx="4.5"/></clipPath></defs><g clip-path="url(#qi-clip)"><rect class="qi-fill" x="3" y="3" width="18" height="18" stroke="none"/></g><rect x="4" y="4" width="16" height="16" rx="4.5"/><path class="qi-check" d="m8.4 12.3 2.5 2.5 4.8-5.3"/></svg>',
   play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a.8.8 0 0 0 1.22.68l10.6-6.8a.8.8 0 0 0 0-1.36L9.22 4.52A.8.8 0 0 0 8 5.2z"/></svg>',
   stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="3.8" height="14" rx=".8"/><rect x="13.7" y="5" width="3.8" height="14" rx=".8"/></svg>',
+  cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="13" height="13" rx="2.2"/><path d="M8 4h10.3A2.2 2.2 0 0 1 20.5 6.2V16.5"/><path d="M6.8 11.5h6.4M6.8 15h4"/></svg>',
   anal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.4 15.4 4.6 4.6"/><path d="M7.6 12.6v-1.4M10.5 12.6V8.4M13.4 12.6v-2.6"/></svg>',
   search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="10.6" cy="10.6" r="6.1"/><path d="m15.3 15.3 4.4 4.4"/></svg>',
-  moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.6 14.7A7.7 7.7 0 0 1 9.3 4.4a7.7 7.7 0 1 0 10.3 10.3z"/></svg>'
+  moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.6 14.7A7.7 7.7 0 0 1 9.3 4.4a7.7 7.7 0 1 0 10.3 10.3z"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>',
+  undo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>'
 };
 
 var state=null,storageOk=true,saveTimer=null,armTimer=null,busy=false,lastDay=null,navSeq=0,activeSheet=null;
@@ -2697,17 +3138,120 @@ function findItem(id){var i=findIndex(id);return i<0?null:state.items[i];}
 /* 내용이 실제로 바뀐 저장만 savedAt(바뀐 시각)을 새로 찍고 클라우드로 보냄. 불러오기 직후 첫 저장은 시각을 안 바꿈 */
 var lastBody=null;
 function bodyOf(){var sa=state.savedAt;delete state.savedAt;var b=JSON.stringify(state);if(sa!=null)state.savedAt=sa;return b;}
-function writeLocal(){try{localStorage.setItem(KEY,JSON.stringify(state));storageOk=true;}catch(e){storageOk=false;}}
+/* 기기 저장: 기기 데이터베이스(IndexedDB, 용량 넉넉)가 본 저장소, localStorage엔 들어가는 동안 같은 사본.
+   at = 저장한 시각. 열 때는 둘 중 늦게 저장된 쪽(같으면 데이터베이스). localStorage가 꽉 차서 못 쓰면 그쪽 시각을 지워
+   옛 사본이 이기지 않게 하고, 데이터베이스에 새 판이 확실히 들어간 뒤엔 옛 사본을 비워 다른 설정이 저장될 자리를 남김.
+   .idb 표시 = 이 기기에서 데이터베이스를 쓴 적 있음 → 데이터베이스를 못 읽은 날엔 낡은 사본으로 덮지 않게 저장을 멈춤 */
+var IDB_NAME='cpah-store';
+var IDB={db:null,off:true,busy:false,pend:null,ok:null,lsOk:null,lsFail:0,ro:false,marked:false,wrote:false};
+function idbOpen(cb){
+  var done=false;function fin(db){if(done)return;done=true;cb(db);}
+  try{
+    if(!window.indexedDB)return fin(null);
+    var rq=indexedDB.open(IDB_NAME,1);
+    rq.onupgradeneeded=function(){try{if(!rq.result.objectStoreNames.contains('kv'))rq.result.createObjectStore('kv');}catch(e){}};
+    rq.onsuccess=function(){
+      var db=rq.result;
+      db.onversionchange=function(){try{db.close();}catch(e){}if(IDB.db===db)IDB.db=null;};
+      db.onclose=function(){if(IDB.db===db)IDB.db=null;};
+      fin(db);
+    };
+    rq.onerror=function(){fin(null);};
+  }catch(e){fin(null);}
+}
+function idbGet(db,key,cb){
+  try{var rq=db.transaction('kv','readonly').objectStore('kv').get(key);rq.onsuccess=function(){cb(true,rq.result);};rq.onerror=function(){cb(false);};}
+  catch(e){cb(false);}
+}
+function idbPutKey(key,val){try{if(IDB.db)IDB.db.transaction('kv','readwrite').objectStore('kv').put(val,key);}catch(e){}}
+function idbPut(rec){if(IDB.off||IDB.ro)return;IDB.pend=rec;idbFlush(false);}
+function idbReopen(){IDB.busy=true;idbOpen(function(db){IDB.busy=false;IDB.db=db;if(db)idbFlush(true);else idbFail();});}
+function idbFlush(retried){
+  var rec=IDB.pend;if(!rec||IDB.busy)return;
+  if(!IDB.db){if(retried)idbFail();else idbReopen();return;}
+  IDB.busy=true;IDB.pend=null;
+  var fired=false;
+  function done(ok){
+    if(fired)return;fired=true;IDB.busy=false;
+    if(ok){IDB.ok=true;idbDone();idbFlush(false);return;}
+    if(!IDB.pend)IDB.pend=rec;
+    try{IDB.db.close();}catch(e){}
+    IDB.db=null;
+    if(retried)idbFail();else idbReopen();
+  }
+  try{
+    var tx=IDB.db.transaction('kv','readwrite');
+    tx.objectStore('kv').put(rec,'state');
+    tx.oncomplete=function(){done(true);};
+    tx.onerror=function(){done(false);};
+    tx.onabort=function(){done(false);};
+  }catch(e){done(false);}
+}
+function idbFail(){IDB.ok=false;storeOk();}
+function idbDone(){
+  if(!IDB.marked){try{localStorage.setItem(KEY+'.idb','1');IDB.marked=true;}catch(e){}}
+  /* localStorage 사본이 못 따라오는 크기면(낡은 사본) 비움: 새 판은 방금 데이터베이스에 들어감 */
+  if(IDB.lsOk===false){try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+'.at');}catch(e){}}
+  storeOk();
+}
+function storeOk(){
+  var was=storageOk;
+  storageOk=!IDB.ro&&(IDB.lsOk!==false||(!IDB.off&&IDB.ok!==false));
+  if(was!==storageOk&&typeof updateSaveDot==='function')updateSaveDot();
+}
+function writeLocal(){
+  if(IDB.ro){storageOk=false;return;}
+  var json=JSON.stringify(state),at=Date.now();
+  if(!IDB.lsFail||json.length<IDB.lsFail){
+    try{localStorage.setItem(KEY,json);localStorage.setItem(KEY+'.at',String(at));IDB.lsOk=true;IDB.lsFail=0;}
+    catch(e){IDB.lsOk=false;IDB.lsFail=json.length;try{localStorage.removeItem(KEY+'.at');}catch(e2){}}
+  }
+  idbPut({at:at,json:json});
+  storeOk();
+}
 function saveNow(){
   clearTimeout(saveTimer);
   var b=bodyOf(),changed=b!==lastBody;
   /* 클라우드를 켠 상태에선 시작 직후 첫 맞추기가 끝나기 전 자동 변경(하루 기록 등)은 시각을 안 찍음 → 오래된 기기가 최신 클라우드를 덮지 않게 */
   if(changed&&lastBody!==null&&(!cloud.meta||cloud.stampOK))state.savedAt=Date.now();
   lastBody=b;
-  writeLocal();
+  if(changed||!IDB.wrote){IDB.wrote=true;writeLocal();}
   if(changed)cloudSchedule();
 }
 function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,400);}
+/* 삭제 방지: 기기 공간이 모자라도 브라우저가 이 앱 데이터를 지우지 않게 요청(navigator.storage.persist) */
+var PST={st:null,use:null};
+function persistCheck(ask,cb){
+  var S=navigator.storage;
+  if(!S||!S.persisted){PST.st='na';storeInfo();if(cb)cb();return;}
+  S.persisted().then(function(p){return (p||!ask||!S.persist)?p:S.persist();})
+    .then(function(p){PST.st=p?'yes':'no';storeInfo();if(cb)cb();},function(){PST.st='na';storeInfo();if(cb)cb();});
+  if(S.estimate)S.estimate().then(function(e){PST.use=e&&typeof e.usage==='number'?e.usage:null;storeInfo();},function(){});
+}
+function fmtSize(b){return b<1048576?Math.max(1,Math.round(b/1024))+'KB':(b/1048576).toFixed(b<10485760?1:0)+'MB';}
+function storeTxt(){
+  var where=IDB.ro?'저장 멈춤 · 앱을 다시 열어 주세요':(!IDB.off&&IDB.ok!==false)?(IDB.lsOk?'기기 데이터베이스 + 예비 사본':'기기 데이터베이스'):(IDB.lsOk!==false?'브라우저 기본 저장소':'저장 안 됨');
+  var size=0;try{size=lastBody?new Blob([lastBody]).size:0;}catch(e){size=lastBody?lastBody.length:0;}
+  var ps={yes:'켜짐',no:'꺼짐',na:'이 브라우저는 지원 안 함'}[PST.st]||'확인 중';
+  return {where:where,size:fmtSize(size),ps:ps};
+}
+function storeInfo(){
+  var T=storeTxt(),set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
+  set('st-where',T.where);set('st-size',T.size);set('st-persist',T.ps);
+  var b=document.getElementById('st-pbtn');if(b)b.hidden=PST.st!=='no';
+}
+function storeRows(){
+  var T=storeTxt();
+  var ask=actBtn('켜기',function(){
+    persistCheck(true,function(){toast(PST.st==='yes'?'삭제 방지를 켰어요':'브라우저가 아직 허락을 안 했어요. 홈 화면에 추가해서 쓰면 켜지기 쉬워요');});
+  },'mini accent');
+  ask.id='st-pbtn';ask.hidden=PST.st!=='no';
+  return [
+    setRow(h('span',{class:'lbl'},'저장 위치'),h('span',{class:'val',id:'st-where'},T.where)),
+    setRow(h('span',{class:'lbl'},'데이터 크기'),h('span',{class:'val',id:'st-size'},T.size)),
+    setRow(h('span',{class:'lbl'},'삭제 방지'),h('div',{class:'set-ctl'},h('span',{class:'val',id:'st-persist'},T.ps),ask))
+  ];
+}
 /* ---------- 클라우드 자동 저장 (GitHub Gist) ----------
    본인 GitHub 계정의 비공개 Gist 한 개에 앱 데이터를 통째로 저장. 바뀌면 몇 초 뒤 자동으로 올리고,
    앱을 열 때·다시 볼 때 클라우드가 더 새것이면 받아옴. Gist는 저장할 때마다 이전 판이 남아서 되돌릴 수도 있음.
@@ -2928,13 +3472,22 @@ function freshState(){
   state.presets={};state.presets[MOCK_PRESET_ID]=1;
   return state;
 }
-function load(){
-  var raw=null,loaded=null;
-  try{raw=localStorage.getItem(KEY);}catch(e){storageOk=false;}
-  if(raw){
-    try{loaded=sanitize(JSON.parse(raw));}
-    catch(e){try{localStorage.setItem(KEY+'.bak',raw);}catch(e2){}}
-  }
+/* rec = 데이터베이스에서 읽은 {at, json}, idbRead = 데이터베이스를 제대로 읽었는지 */
+function load(rec,idbRead){
+  var raw=null,lsAt=0,loaded=null,c=[];
+  try{raw=localStorage.getItem(KEY);lsAt=+(localStorage.getItem(KEY+'.at')||0)||0;IDB.marked=localStorage.getItem(KEY+'.idb')==='1';}catch(e){}
+  if(rec&&typeof rec.json==='string')c.push({j:rec.json,at:+rec.at||0,idb:1});
+  if(raw)c.push({j:raw,at:lsAt,idb:0});
+  /* 데이터베이스를 쓰던 기기인데 못 읽었고 localStorage 사본도 최신 표시가 없으면: 보여만 주고 저장은 멈춤 */
+  if(!idbRead&&IDB.marked&&!lsAt)IDB.ro=true;
+  /* 고르는 순서: 데이터 안의 바뀐 시각(savedAt) → 저장한 시각(at) → 데이터베이스. 깨진 쪽은 따로 남겨 둠 */
+  var ok=[];
+  c.forEach(function(x){
+    try{x.s=sanitize(JSON.parse(x.j));x.sa=+x.s.savedAt||0;ok.push(x);}
+    catch(e){if(x.idb)idbPutKey('bak',x.j);else{try{localStorage.setItem(KEY+'.bak',x.j);}catch(e2){}}}
+  });
+  ok.sort(function(a,b){return (b.sa-a.sa)||(b.at-a.at)||(b.idb-a.idb);});
+  if(ok.length)loaded=ok[0].s;
   state=loaded||freshState();
   delete state.chSeeded;
   saveNow();
@@ -3045,7 +3598,7 @@ function toast(msg){
   if(!toastEl){toastEl=h('div',{class:'toast',role:'status','aria-live':'polite'});document.body.appendChild(toastEl);}
   var seq=++toastSeq;
   cancelAnims(toastEl);
-  toastEl.textContent=msg;toastEl.hidden=false;
+  toastEl.textContent=msg;toastEl.hidden=false;toastEl.classList.remove('has-act');
   anim(toastEl,[{opacity:0,transform:'translate(-50%,10px) scale(.96)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:340,easing:EASE});
   clearTimeout(toastTimer);
   toastTimer=setTimeout(function(){
@@ -3080,6 +3633,9 @@ function buildTabbar(){
   });
   var dd=h('div',{class:'rail-dd',id:'rail-dd'});
   nav.appendChild(dd);
+  var att=h('button',{class:'rail-att',id:'rail-att',type:'button',hidden:true},h('i',{class:'ra-fill','aria-hidden':'true'}),h('span',{class:'ra-l'}),h('b',{class:'ra-t'}));
+  att.addEventListener('click',attInfo);
+  nav.appendChild(att);
   var find=h('button',{class:'rail-find',type:'button',id:'find-btn','aria-label':'검색'},iconEl('search'),h('span',null,'검색'));
   find.addEventListener('click',openSearch);
   nav.appendChild(find);
@@ -3095,7 +3651,34 @@ function buildTabbar(){
   off.addEventListener('click',openOffSheet);
   nav.appendChild(off);
   tickClock();setInterval(tickClock,15000);
+  tickAtt();setInterval(tickAtt,1000);
   updateTabbar();
+}
+/* 함현재 출석 박스: 남은 시간이 1초마다 줄고, 빨간 게이지가 왼쪽부터 차오름. 5분 남으면 진하게, 시각 되면 '출석!' */
+var ATT_WD=['일','월','화','수','목','금','토'];
+function attLabel(x){return (x.days===0?'':x.days===1?'내일 ':ATT_WD[x.dow]+' ')+x.n+'교시';}
+function attRemain(ms){
+  var s=Math.max(0,Math.ceil(ms/1000)),hh=Math.floor(s/3600),mm=Math.floor(s%3600/60),ss=s%60;
+  return hh?(hh>=3?hh+'시간':hh+'시간 '+mm+'분'):(mm?mm+'분 '+pad2(ss)+'초':ss+'초');
+}
+function tickAtt(){
+  var el=document.getElementById('rail-att');if(!el)return;
+  var x=state&&!state.attOff?attNext(Date.now()):null;
+  if(!x){if(!el.hidden)el.hidden=true;return;}
+  el.hidden=false;
+  var now=Date.now(),rem=x.at-now,p=x.live?1:Math.max(0,Math.min(1,(now-x.from)/(x.at-x.from)));
+  el.firstChild.style.transform='scaleX('+p.toFixed(4)+')';
+  el.children[1].textContent=attLabel(x);
+  var at=new Date(x.at);
+  el.children[2].textContent=x.live?'출석!':(rem>=6*3600000?at.getHours()+':'+pad2(at.getMinutes()):attRemain(rem));
+  el.classList.toggle('hot',!x.live&&rem<=5*60000);
+  el.classList.toggle('live',x.live);
+  el.setAttribute('aria-label',x.live?attLabel(x)+' 출석 시간이에요':attLabel(x)+' 출석까지 '+attRemain(rem));
+}
+function attInfo(){
+  var x=attNext(Date.now());if(!x)return;
+  var sl=attSlots(new Date(x.at).getDay()),hm=function(a){return a[0]+':'+pad2(a[1]);};
+  toast((x.days===0?'오늘':x.days===1?'내일':ATT_WD[x.dow]+'요일')+' 출석 '+sl.map(function(a,i){return (i+1)+'교시 '+hm(a);}).join(' · '));
 }
 function ddText(t){var n=diffDays(state.examDate,t);return n>0?'D-'+n:(n===0?'D-DAY':'D+'+(-n));}
 function tickClock(){
@@ -3222,6 +3805,7 @@ function switchTab(tab,keepSet){
   var view=document.getElementById('view');
   var dir=TABS.indexOf(tab)>TABS.indexOf(ui.tab)?1:-1;
   ui.readAdmin=false;
+  ui.cardSel=null;
   ui.tab=tab;ui.detail=null;ui.detailPart=null;ui.mockSeries=null;ui.mockNotes=null;ui.confirm=null;
   if(!keepSet)resetSet();
   closeSheet(true);
@@ -3576,8 +4160,33 @@ function loadKatex(){
   sc.onerror=function(){katexState='fail';};
   document.head.appendChild(sc);
 }
+function memoRich(src){return /==.+?==/.test(src)||/^[ \t　]*[-•·*]\s/m.test(src);}
+function mathNodes(str){
+  if(!hasMath(str))return [document.createTextNode(str.replace(/\\\$/g,'$'))];
+  if(katexState!=='ready')return [document.createTextNode(str)];
+  return splitMath(str).map(function(x){
+    if(x.t!=null)return document.createTextNode(x.t);
+    var sp=document.createElement('span');sp.className=x.d?'tex tex-d':'tex';
+    try{sp.innerHTML=window.katex.renderToString(x.m,{output:'mathml',throwOnError:false,displayMode:x.d,strict:'ignore',maxExpand:300,maxSize:20});}
+    catch(e){sp.textContent=(x.d?'$$':'$')+x.m+(x.d?'$$':'$');}
+    return sp;
+  });
+}
+function memoInline(str){
+  var out=[],re=/==(.+?)==/g,last=0,m;
+  while((m=re.exec(str))){if(m.index>last)out=out.concat(mathNodes(str.slice(last,m.index)));out.push(h('span',{class:'cd-hl'},mathNodes(m[1])));last=re.lastIndex;}
+  if(last<str.length)out=out.concat(mathNodes(str.slice(last)));
+  return out;
+}
 function fillMemo(el,src){
   src=String(src||'');el._tex=src;
+  if(memoRich(src)){
+    if(hasMath(src)&&katexState!=='ready'){el.setAttribute('data-tex','1');loadKatex();}else el.removeAttribute('data-tex');
+    el.classList.add('memo-rich');
+    el.replaceChildren(cardBody(src,{inl:memoInline,kv:false,tag:'span',cls:'cd-body memo-body'}));
+    return;
+  }
+  el.classList.remove('memo-rich');
   if(!hasMath(src)){el.removeAttribute('data-tex');el.textContent=src.replace(/\\\$/g,'$');return;}
   if(katexState!=='ready'){el.setAttribute('data-tex','1');el.textContent=src;loadKatex();return;}
   el.removeAttribute('data-tex');
@@ -3598,7 +4207,7 @@ function noteList(it){
   return a;
 }
 function hasNotes(it){return !!((it.memo||'').trim()||it.memoRef||(it.notes&&it.notes.length));}
-function noteText(it){return noteList(it).map(function(n){return (n.ref?n.ref+' ':'')+n.text;}).join(' / ');}
+function noteText(it){return noteList(it).map(function(n){return (n.ref?n.ref+' ':'')+String(n.text||'').replace(/==(.+?)==/g,'$1');}).join(' / ');}
 function notesEl(it){
   var a=noteList(it);if(!a.length)return null;
   if(a.length===1&&!a[0].ref)return memoEl(a[0].text);
@@ -3621,12 +4230,21 @@ function addNote(it,ref,text){
 function memoEl(src,cls){var el=h('p',{class:cls||null});fillMemo(el,src);return el;}
 /* 메모 입력칸 아래 수식 미리보기 (수식이 있을 때만) */
 function texPreview(ta){
-  var box=h('div',{class:'tex-prev',hidden:true},h('span',{class:'tp-l'},'수식 미리보기')),body=h('p',null);box.appendChild(body);
+  var box=h('div',{class:'tex-prev',hidden:true},h('span',{class:'tp-l'},'미리보기')),body=h('p',null);box.appendChild(body);
   var tm=null;
-  function draw(){var v=ta.value;if(!hasMath(v)){box.hidden=true;return;}box.hidden=false;fillMemo(body,v);}
+  function draw(){var v=ta.value;if(!hasMath(v)&&!memoRich(v)){box.hidden=true;return;}box.hidden=false;fillMemo(body,v);}
   ta.addEventListener('input',function(){clearTimeout(tm);tm=setTimeout(draw,160);});
+  ta.addEventListener('keydown',function(e){
+    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&!e.altKey&&/^(b|h|KeyB|KeyH)$/i.test(e.key.length===1?e.key:e.code)){e.preventDefault();toggleBlue(ta);}
+  });
+  var blue=h('button',{class:'cd-blue sm',type:'button','aria-label':'고른 글자 파랑으로'},h('i'),'파랑');
+  blue.addEventListener('pointerdown',function(e){e.preventDefault();});
+  blue.addEventListener('mousedown',function(e){e.preventDefault();});
+  blue.addEventListener('click',function(){toggleBlue(ta);});
   draw();
-  return box;
+  var w=h('div',{class:'memo-tools'},h('div',{class:'cd-tools'},blue,h('span',{class:'cd-tip'},'⌘⇧B · 줄 앞에 - , 공백을 두면 아래 단계')),box);
+  w.reset=function(){box.hidden=true;};
+  return w;
 }
 var TEX_HINT='메모 (수식은 $…$)';
 
@@ -3661,7 +4279,7 @@ function questCells(t){
 }
 function homeView(t){
   var st=dayStats(state.items,t),off=offOf(state.dayLog,t),full=!!(off&&off.kind!=='half');
-  var top=h('div',{class:'hm-top'},
+  var top=skinOn('dart')?dartTop(t,st,full):h('div',{class:'hm-top'},
     h('span',null,ui.pastDay?'이동한 날 ':'오늘 ',h('b',null,fmtLong(t))));
   var ddBlock=h('div',{class:'hm-dd'},h('div',{class:'hm-lbl'},'시험까지'),h('h1',{class:'hm-big'},ddText(t)),h('p',{class:'hm-sub'},fmtLong(state.examDate)));
   var qb;
@@ -3676,16 +4294,42 @@ function homeView(t){
     qb=h('button',{class:'hm-q'+(st.goal&&!rest?' full':''),type:'button','aria-label':'오늘 퀘스트 '+st.goal+'개(복습 '+(st.goal-nw0)+', 신규 '+nw0+') 중 '+st.done+'개 완료, 퀘스트 보기'},
       h('div',{class:'hm-lbl'},'오늘 퀘스트'+(off?' · 무단 절반':'')),
       h('div',{class:'hm-qrow'},h('div',{class:'hm-qbig','data-n':String(st.goal)},String(st.goal)),
-        h('div',{class:'hm-qmeta'},h('span',null,'완료',h('b',null,String(st.done))),h('span',null,'남음',h('b',{class:'rest'},String(rest))),h('span',null,'진행',h('b',null,st.goal?pct+'%':'—')))),
+        h('div',{class:'hm-qmeta'},h('span',null,'완료',h('b',null,String(st.done))),h('span',null,'남음',h('b',{class:'rest'+(rest?'':' zero')},String(rest))),h('span',null,'진행',h('b',null,st.goal?pct+'%':'—')))),
       questCells(t),homeSplits(t,st));
   }
   qb.addEventListener('click',function(){switchTab('quest');});
-  var grid=h('div',{class:'hm-grid'},unit(ddBlock,'dd'),unit(briefCard(t,full,off),'brief'),unit(qb,'quest'),unit(repBlock(t,full),'rep'));
+  var grid=h('div',{class:'hm-grid'},unit(ddBlock,'dd'),unit(briefCard(t,full,off),'brief'),unit(qb,'quest'),unit(h('div',{class:'hm-side'},repBlock(t,full),cardBlock()),'rep'));
   applyLayout(grid,'home');
   return h('section',{class:'home'},top,grid);
 }
 /* 오늘 퀘스트를 복습(넘어온 것)과 신규(오늘 넣은 것)로 나눠 보여 주고, 바로 아래에 이번 주(월~일)도 같은 식으로.
    지난 날은 그날 기록, 오늘은 지금, 앞으로는 지금 일정대로의 예상(신규는 아직 모르니 0) */
+/* 감사보고서 테마: '제 N일 ○년 ○월 ○일 04시부터 다음 날 04시까지' + 하루 마감 때 감사의견 도장.
+   N = 처음 기록한 날부터 센 날수. 의견: 퀘스트 다 함 적정, 70% 이상 한정, 그 아래 부적정, 하나도 안 함 의견거절 */
+function firstDay(){
+  var m=null;
+  state.items.forEach(function(it){if(it.createdAt&&(!m||it.createdAt<m))m=it.createdAt;});
+  (state.sessions||[]).forEach(function(x){var d=splitKey(x.s);if(d&&(!m||d<m))m=d;});
+  return m;
+}
+function dartOpinion(t,st,full){
+  if(full)return null;
+  var closed=t<realToday()||!!closedAt(t);
+  if(!closed)return {k:'ing',n:'감사 진행 중'};
+  if(!st.goal)return {k:'ok',n:'적정'};
+  var p=st.done/st.goal;
+  return p>=1?{k:'ok',n:'적정'}:p>=.7?{k:'qual',n:'한정'}:p>0?{k:'adv',n:'부적정'}:{k:'dis',n:'의견거절'};
+}
+function dartTop(t,st,full){
+  var f=firstDay(),n=f?Math.max(1,diffDays(t,f)+1):1,nx=addDays(t,1);
+  var ymd=function(d){var a=d.split('-');return a[0]+'년 '+(+a[1])+'월 '+(+a[2])+'일';};
+  var op=dartOpinion(t,st,full);
+  return h('div',{class:'hm-top dart-top'},
+    h('div',{class:'dt-t'},'퀘 스 트 결 산 서'),
+    h('div',{class:'dt-p'},'제 '+n+'(당) 일 '+ymd(t)+' 04시부터 '+ymd(nx)+' 04시까지'),
+    h('div',{class:'dt-m'},h('span',null,'수험생 : CPAH'),h('span',null,'(단위 : 개)')),
+    op?h('div',{class:'dt-op op-'+op.k,'aria-label':'감사의견 '+op.n},op.k==='ing'?op.n:[h('small',null,'감사의견'),op.n]):null);
+}
 function newOn(d){var n=0;state.items.forEach(function(it){if(it.createdAt===d)n++;});return n;}
 function weekSplit(t){
   var model=calModel(t),ws=weekStart(t),rv=0,nw=0;
@@ -3718,6 +4362,25 @@ function repBlock(t,full){
     b.appendChild(cells);
   }
   b.addEventListener('click',function(){switchTab('quest');});
+  return b;
+}
+/* 홈의 암기카드: 오늘 볼 카드 수. 카드가 하나도 없으면 칸 자체를 안 보임 */
+function cardBlock(){
+  var all=state.cards||[];
+  if(!all.length)return null;
+  var t=cardT(),due=all.filter(function(c){return cardIsDue(c,t);}),hard=0,no=0;
+  all.forEach(function(c){var k=cardKind(c);if(k==='hard')hard++;else if(k==='no')no++;});
+  var b=h('button',{class:'hm-q hm-cards'+(due.length?'':' full'),type:'button','aria-label':'암기카드 오늘 '+due.length+'장, 전체 '+all.length+'장, 암기카드 보기'},
+    h('div',{class:'hm-lbl'},'암기카드'));
+  b.appendChild(h('div',{class:'hm-qrow'},h('div',{class:'hm-qbig','data-n':String(due.length)},String(due.length)),
+    h('div',{class:'hm-qmeta'},h('span',null,'오늘',h('b',{class:due.length?'rest':null},due.length?'시험':'끝')),h('span',null,'전체',h('b',null,String(all.length))),h('span',null,'모름',h('b',null,String(no))),h('span',null,'보라',h('b',null,String(hard))))));
+  if(due.length){
+    var cells=h('div',{class:'hm-cells','aria-hidden':'true'});
+    var ord={hard:0,no:1,ok:2,new:3};
+    due.map(cardKind).sort(function(a,c){return ord[a]-ord[c];}).slice(0,120).forEach(function(k){cells.appendChild(h('i',{class:'ck-'+k,style:'background:var(--mk)'}));});
+    b.appendChild(cells);
+  }else b.appendChild(h('p',{class:'hm-none'},'오늘 볼 카드는 다 봤어요'));
+  b.addEventListener('click',function(){switchTab('cards');});
   return b;
 }
 /* 오늘의 브리핑: 어느 과목이 많은지, 평소보다 얼마나 많은지, 먼저 챙길 것 */
@@ -3873,7 +4536,7 @@ function detailView(t){
       return b;
     }));
   var list=h('ul',{class:'dt-list'},detailKids(all,t,s.id));
-  var back=h('button',{class:'back',type:'button'},iconEl('back'),'상태');
+  var back=h('button',{class:'back',type:'button'},iconEl('back'),'통계');
   back.addEventListener('click',closeDetail);
   var info=all.length+'개'+(ach.n?' · 성취도 '+ach.pct+'%':'');
   return h('section',{class:'detail'},
@@ -3951,7 +4614,7 @@ function openItemSheet(id){
   var eds=(it.notes||[]).map(function(n){
     var r=h('input',{class:'field nt-ref-in',type:'text',maxlength:'40',autocomplete:'off',placeholder:'쪽 · 문제 번호','aria-label':'쪽 또는 문제 번호',value:n.ref||''});
     var x=h('textarea',{class:'field',rows:'3','aria-label':'댓글',placeholder:TEX_HINT});x.value=n.text||'';
-    var del=h('button',{class:'nt-del',type:'button'},'지우기'),box=h('div',{class:'nt-ed'},h('div',{class:'nt-ed-h'},h('span',null,fmtMD(n.d)+' 댓글'),del),r,x),o={n:n,r:r,x:x,gone:false};
+    var del=h('button',{class:'nt-del',type:'button'},'지우기'),box=h('div',{class:'nt-ed'},h('div',{class:'nt-ed-h'},h('span',null,fmtMD(n.d)+' 댓글'),del),r,x,texPreview(x)),o={n:n,r:r,x:x,gone:false};
     del.addEventListener('click',function(){o.gone=!o.gone;box.classList.toggle('gone',o.gone);del.textContent=o.gone?'되살리기':'지우기';});
     o.box=box;return o;
   });
@@ -4213,7 +4876,7 @@ function lateFade(){
     c.classList.toggle('has-below',b.scrollHeight-b.scrollTop-b.clientHeight>8);
   });
 }
-var PULL_EMPTY='상태 탭 과목 칸의 자세히에서 가져올 수 있어요';
+var PULL_EMPTY='통계 탭 과목 칸의 자세히에서 가져올 수 있어요';
 /* 보드: 위는 따로 챙길 것(미해결·중요, 같은 바탕), 그 아래 반복퀘스트(매일 하는 일, 점수 따로),
    맨 아래 오늘 할 일(흰 바탕) = 오늘 퀘스트가 있는 과목(내가 정한 순서) + 가져온 퀘스트.
    오늘 없는 과목은 맨 아래 한 줄로만 */
@@ -4308,7 +4971,7 @@ function projRow(p,t){
     saveNow();draw();updateProjCount(t);
     var on=row.querySelector('.rt[aria-pressed="true"]');if(on)on.classList.add('pop');
     if(!was&&projDone(p,t)>=p.total){
-      toast(p.title+' 완료! 상태 탭에 남아요');
+      toast(p.title+' 완료! 통계 탭에 남아요');
       anim(row,[{transform:'scale(1)'},{transform:'scale(1.015)'},{transform:'scale(1)'}],{duration:520,easing:EASE});
     }
   }
@@ -4605,7 +5268,7 @@ function updateQuestSummary(t){
     q('.qs-done').textContent=String(st.done);
     q('.qs-goal').textContent='/'+st.goal;
     q('.qh-pct').textContent=st.goal?Math.round(frac*100)+'%':'—';
-    q('.qs-rest').textContent=String(st.goal-st.done);
+    q('.qs-rest').textContent=String(st.goal-st.done);q('.qs-rest').classList.toggle('zero',st.goal-st.done<=0);
   }
   sum.classList.toggle('full',full);
   var bar=q('.qh-meter i');
@@ -4790,8 +5453,8 @@ function saveLayout(grid){
 var LAYOUT_DEF={
   home:['dd','brief','quest','rep'],quest:['proj','rep','subj'],late:['open','imp'],
   stats:['kpis','wh','rep','proj','ch','cal','daily','weekly'],study:['kpis','cols','grass','day','subj','week','hours','wday','sess','range','rest'],
-  mock:['sum','tiles','recent','wrongs','list'],series:['chart','sum','list'],
-  settings:['cloud','exam','past','intro','study','review','color','subj','ch','layout','backup','data']
+  mock:['sum','tiles','recent','wrongs','list','anal'],series:['chart','sum','list'],
+  settings:['exam','subj','ch','review','color','study','att','theme','intro','layout','past','cloud','store','backup','data']
 };
 function rdMaybeCancel(x,y){if(RD.press&&(Math.abs(x-RD.press.x)>RD_TOL||Math.abs(y-RD.press.y)>RD_TOL))rdCancel();}
 function rdCancel(){if(RD.press){clearTimeout(RD.press.timer);RD.press=null;}}
@@ -5225,7 +5888,14 @@ function searchAll(q){
     wrongs.push({x:x,sc:tt.indexOf(full)>=0?3:hitAll(tt,toks)?2:1});
   });
   wrongs.sort(function(a,b){return b.sc-a.sc;});
-  return {toks:toks,items:items,wrongs:wrongs};
+  var cards=[];
+  (state.cards||[]).forEach(function(c){
+    var sj=subjectById(c.sid),tt=normQ(c.title)+'|'+normQ(c.cue);
+    if(!hitAll(tt+'|'+normQ(c.body)+'|'+normQ(sj?sj.name:''),toks))return;
+    cards.push({c:c,sc:hitAll(tt,toks)?2:1});
+  });
+  cards.sort(function(a,b){return b.sc-a.sc;});
+  return {toks:toks,items:items,wrongs:wrongs,cards:cards};
 }
 /* 찾은 낱말을 칠함(띄어쓰기 건너뛰고 맞춤) */
 function markText(text,toks){
@@ -5281,7 +5951,7 @@ function srWrongRow(x,toks){
 }
 function openSearch(){
   if(activeSheet||busy)return;
-  var inp=h('input',{class:'field big sr-in',type:'search',placeholder:'제목 · 메모 · 단원 · 오답',autocomplete:'off',autocapitalize:'off',spellcheck:'false',enterkeyhint:'search','aria-label':'검색'});
+  var inp=h('input',{class:'field big sr-in',type:'search',placeholder:'제목 · 메모 · 단원 · 오답 · 암기카드',autocomplete:'off',autocapitalize:'off',spellcheck:'false',enterkeyhint:'search','aria-label':'검색'});
   inp.value=srchQ;
   var res=h('div',{class:'sr-res','aria-live':'polite'}),tm=null;
   var api=openSheet({title:'검색',primary:false,cancel:'닫기',body:[inp,res],focus:inp});
@@ -5290,7 +5960,14 @@ function openSearch(){
     srchQ=inp.value;
     var r=searchAll(inp.value),t=today(),kids=[];
     if(!r){res.replaceChildren();return;}
-    if(!r.items.length&&!r.wrongs.length)kids.push(h('p',{class:'sr-none'},'찾는 게 없어요'));
+    if(!r.items.length&&!r.wrongs.length&&!r.cards.length)kids.push(h('p',{class:'sr-none'},'찾는 게 없어요'));
+    if(r.cards.length){
+      kids.push(h('div',{class:'sr-h'},'암기카드',h('b',null,String(r.cards.length))),h('div',{class:'sr-list'},r.cards.slice(0,20).map(function(x){
+        var c=x.c,sj=subjectById(c.sid),bt=hitAll(normQ(c.title)+'|'+normQ(c.cue),r.toks)?'':snippet(c.body.replace(/(^|\n)[ \t]*[-•·*][ \t]*/g,'$1'),r.toks);
+        var b=h('button',{class:'sr-row',type:'button','data-card':c.id},h('span',{class:'sr-cd','aria-hidden':'true'},iconEl('cards')),
+          h('span',{class:'sr-main'},h('b',{class:'sr-t'},markText(c.title||c.cue,r.toks)),h('small',{class:'sr-m'},markText((sj?sj.name:'')+(c.cue&&c.title?' · '+c.cue:''),r.toks),bt?' · ':null,bt?markText(bt,r.toks):null)),null);
+        b.addEventListener('click',function(){gotoCard(c.id);});return b;})));
+    }
     if(r.items.length){
       kids.push(h('div',{class:'sr-h'},'박스',h('b',null,String(r.items.length))),h('div',{class:'sr-list'},r.items.slice(0,40).map(function(x){return srItemRow(x.it,t,r.toks);})));
       if(r.items.length>40)kids.push(h('p',{class:'sr-more'},'그 외 '+(r.items.length-40)+'개 · 낱말을 더 넣어 좁혀 봐요'));
@@ -5317,6 +5994,470 @@ function gotoItem(id){
   setTimeout(function(){focusRow(id);},140);
 }
 
+/* ---------- 암기카드: 과목 버튼으로 전환, 카드엔 제목과 앞글자, 누르면 내용(줄마다 · 들여쓰면 아래 단계) ---------- */
+/* 처음 한 번 넣어 두는 예시 카드(상법). 지우면 다시 안 생김 */
+var CARD_SEED=[
+  ['휴면회사의 해산간주','5 = 2 + 3','- 최후의 등기로부터 5년\n- 법원행정처장 공고로부터 2개월\n- 2개월이 경과한 날로부터 3년'],
+  ['청산 시 청산인의 채권신고 공고 및 통지','222알','- 청산인의 취임일로부터 2월 내에\n- 2월 이상\n- 2회 이상 공고하여야 한다\n- 알고있는 채권자에게는 개별통지하여야 한다'],
+  ['해산사유','','- 공통사유 : 특정파 총 합법\n    - 사원(주주)총회 특별결의\n    - 정관으로 정한 사유\n    - 파산\n    - 총사원의 동의\n    - 합병\n    - 법원의 해산명령 • 해산판결\n- 추가사유\n    - 합명 : 사원수 1명 이하\n    - 합자 : 무한 또는 유한 사원수 0명\n    - 유책 : 사원수 0명\n    - 주식 : 분할 • 분할합병 • 휴면회사의 해산의제\n- 계속결의 가능\n    - 공통 : 특정총\n    - 합명 1명이하 • 합자 0명 • 주식 휴면']
+];
+function seedCards(){
+  if(state.cards)return false;
+  var law=state.subjects.filter(function(x){return x.name==='상법';})[0];
+  state.cards=law?CARD_SEED.map(function(c){return {id:uid(),sid:law.id,title:c[0],cue:c[1],body:c[2],d:today()};}):[];
+  return true;
+}
+/* 한 번만 넣는 카드 묶음: 앱이 열릴 때 그 과목에 같은 제목이 없는 것만 넣고, 넣은 묶음 id를 기록해 다시 안 넣음 */
+var CARD_PACKS=[{id:'law-1111',subj:'상법',cards:[["채권자보호절차가 필요한 경우", "조청병단분감", "- 물적회사의 조직변경\n- 인적회사의 임의청산\n- 합병 • 분할합병 • 주식병합\n- 단순분할에 있어서 분할책임 결의를 한 경우\n- 감자\n    - 이사회 결의에 의하여 회사가 보유하는 자기주식을 소각하는 경우에는 제외"], ["서면 또는 전자문서로 하는 것", "전임사제집 불", "- 전자문서도 가능\n- 임시주주총회 소집청구 (3/100 소수주주권)\n- 사채권자집회 소집청구 (1/10 소수사채권자)\n- 주주제안권 (3/100 소수주주권)\n- 집중투표청구 (3/100 소수주주권)\n- 불통일행사 청구\n- 회사의 자기주식 취득절차 중 회사의 주주에 대한 통지 (파이널 91p)"], ["법원의 인가가 필요한 사항", "법인 청소직대 미납 조사단 경주집감 유감", "- 청산시 일부 소액채권 등의 채권신고기간 내의 변제\n- 직무대행자의 통상업무와 권한\n- 대표소송 소의 취하 등\n- 액면 미달발행\n- 납입금보관자 변경\n- 조직변경 (유한→주식←유책)\n- 사채권자집회 결의\n- 거래소 시세없는 주식의 단주 경매외 방법 매각\n- 상사매매 매수인의 목적물 경매\n- 주주의 주총 소집\n- 집행임원의 이사회 소집\n- 감사의 주총 소집\n- 유한책임사원의 감시권"], ["법원 직권으로 가능한 경우", "상해청주이사비", "- 상업장부 제출명령\n- 해산명령\n- 인적회사의 청산인 선임\n- 주총의장 선임\n- 이사회 의장 선임\n- 사채권자 인가비용부담"], ["인접지", "양주집", "- 영업양도인의 경업금지의무 : 동일 또는 ‘인접’지역\n- 주총소집장소 : 본점소재지 또는 ‘인접’지"], ["채권자에게 열람·등사청구권이 인정되는 것", "재정주의 부부분합", "- 재무제표 등 (재무제표, 영업보고서, 감사보고서)\n- 정관\n- 주총의사록\n- 주주명부\n- 사채권자 원부\n- 분할계획서\n- 합병계약서"], ["회사가 열람을 거부할 수 있는 경우 (명문)", "거장이의", "- 주주 및 채권자의 회계장부와 서류 열람요구\n- 주주의 이사회의사록 열람요구\n- 다만, 판례는 그 외에도 ‘주주명부 등’의 열람청구가 정당한 목적이 없다면 거부가 가능하다고 판시하였음."], ["서류 비치장소", "재정주의 · 집사의 부부분합", "- 본점과 지점에 비치 : 재정주의\n    - 재무제표 , 영업보고서, 감사보고서\n    - 정관\n    - 주주총회의사록\n- 본점에만 비치 : 집사의 부부분합\n    - 3% 이상의 주주가 서면으로 집중투표제를 청구할 경우 그 서면\n    - 사채권자집회 의사록\n    - 주주명부\n    - 사채원부\n    - 분할계획서\n    - 합병계획서\n    - 회사의 자기주식 취득 내역서\n    - 주식매수선택권 계약서"], ["재무제표 등 작성절차", "6/4/1/1", "- 이사 → 감사 : 정기주총 6주 전\n- 감사 → 이사\n    - 비상장 : 제출받은 날로부터 4주 내\n    - 정기주총일의 1주 전 까지\n- 재무제표 등의 비치 • 공시 : 정기주총 1주 전"], ["재무제표 등 비치기간", "재영감 일본오지산", "- 재영감 日本おじさん\n- 재무제표\n- 영업보고서\n- 감사보고서\n- 정기총회 1주전부터 본점에 5년간, 그 등본을 지점에 3년간"], ["소규모회사 특칙 (자본금 10억 미만)", "소정이 서면 통증절감", "- 소규모 회사 특칙\n- (발기설립) 시 원시정관 발기인 전원 기명날인으로 공증인 생략\n- 이사 1~2인 가능 → 이사회 X\n    - → 원칙 : 이사는 3인 이상이어야 함.\n    - → 이사회에 관한 권한은 각 이사나 주주총회로 대체됨\n- 주주총회 완전서면총회 → 주주전원 동의 필요\n- 주주총회 소집통지기간 단축 → 2주에서 10일로 단축\n    - 각 주주 동의 시 전자문서로 통지 보낼 수 있음.\n- (발기설립) 시 납입증명서를 잔고증명서로 대체할 수 있음.\n- 주주총회 소집절차 생략 가능 → 주주 전원 동의 필요\n- 감사 선임하지 않아도 됨\n    - 이 경우 감사의 감독기능은 주총이 대체\n- 무기명식 채권 발행한 경우 사채권자집회소집일의 2주 전에 사채권자 집회를 소집하는 뜻과 회의의 목적사항을 공고하여야 함."], ["발기설립일 때에만 되는 경우", "소발 공납잔", "- 소규모 발기설립\n- 발기설립 시 원시정관 발기인 전원 기명날인으로 공증인 생략\n- 발기설립 시 납입증명서를 잔고증명서로 대체할 수 있음."], ["소규모회사(이사 1~2명) 이사회 → 주주총회 위임", "경용자 신사양 중복준비", "- 이사의 경업거래 승인\n- 이사의 영업기회유용 승인\n- 이사의 자기거래 승인\n- 신주발행\n- 사채발행\n- 정관상 주식양도제한 승인\n- 중간배당\n- CB• BW의 발행 (복합금융상품)\n- 준비금의 자본금전입"], ["소규모회사(이사 1~2명) 이사회 → 각 이사·대표이사", "중대지지", "- 중요한 자산의 처분\n- 대규모 재산의 차입\n- 지배인의 선•해임\n- 지점의 설치 및 폐지\n- 주주총회의 소집 결정\n- 전자투표방법 선택\n- 회사보유 자기주식의 소각"], ["소규모회사(이사 1~2명) 이사회 → 삭제되는 보고의무", "대위보고정적", "- 대표이사의 보고의무\n- 감사의 이사의 위법행위에 대한 보고의무\n- 이사의 정기보고의무\n- 이사의 적극적 보고의무"], ["자본금의 3원칙", "확설 · 충실 · 불감", "- 자본금 확정원칙 → 설립시\n- 자본금 충실원칙 → 실질적 보유\n- 자본금 불변원칙 → 감소시에 적용"], ["액면미달발행 요건", "2특저법 1월", "- 설립 후 2년 경과\n- 주총특별결의\n- 최저발행가액 결정\n- 법원의 인가\n→ 연계 : 조단대감 사직 미주경리납소\n- 인가 후 1월 내"], ["발기인 조합 의사결정", "정주리", "- 원칙 : 발기인 인원의 과반수\n- 예외 : 정주리\n    - 정관의 작성 → 발기인 인원의 전원\n    - 설립시 주식발행사항의 결정 → 발기인 인원의 전원\n    - 이사와 감사의 선임 → 발기인 의결권의 과반수"], ["정관의 절대적 기재사항", "설총공일본수상발목", "- 설립시 발행하는 주식의 총수\n- 공고의 방법\n- 액면 1주의 금액\n- 본점 소재지\n- 수권자본 (발행예정총수)\n- 상호\n- 발기인의 성명, 주소, 주민등록번호\n- 목적"], ["등기사항", "공일본수상목 자지해명존임", "- 공일본수상목 (절대적 기재사항에서 설·총·발 빠짐)\n    - 공고의 방법\n    - 액면 1주의 금액\n    - 본점 소재지\n    - 수권자본 (발행예정총수)\n    - 상호\n    - 목적\n- 자본금과 주식에 관한 사항\n    - 자본금의 액\n    - 현재 발행주식 총수\n    - 종류주식의 내용과 수 • 각 주식의 내용과 수\n    - 주식양도에 관하여 이사회의 승인을 얻도록 한 때에는 그 규정\n    - 주식매수선택권 규정\n    - 배당이익으로 주식소각을 결정한 규정\n    - 전환주식발행 사항\n    - 액면미달발행 미상각액\n    - 특수사채\n- 지점소재지\n- 회사의 해산사유 (따로 정한 경우)\n- 명의개서대리인의 상호 및 본점 소재지\n- 회사의 존립기간 (따로 정한 경우)\n- 임원에 관한 사항\n    - 이사•감사•집행임원•감사위원회 위원•대표이사•공동대표이사•공동대표집행임원•직무대행자•일시이사•청산인"], ["정관에 규정이 있어야 효력이 있는 것 (상대적 기재사항)", "상의없이 무명 해변 종주 감행", "- 상대적기재사항\n- 의결권 없는 주식의 발행 370.1 →32p\n    - 정관에 의결권을 행사할 수 없는 사항과 의결권행사 또는 부활의 조건을 정한 경우에는 그 조건 등을 정하여야 한다.\n    - 의결권이 없는 종류주식이나 의결권이 제한되는 종류주식의 총수는 발행주식총수의 1/4를 초과하지 못한다. 만약 이를 초과하여 발행된 경우에는 지체없이 필요한 조치를 하여야 한다.\n    - 의결권 없는 주식도 의결권을 인정하는 경우 : 동창분 정종\n- 이사\n    - 이사의 임기연장 383.3\n    - 이사회의 소집통지기간의 단축 390.3\n    - 이사회결의요건의 가중 391.1\n- 무기명주권의 발행 357.1\n- 명의개서대리인의 설치 337.3\n- 해산사유 517.1, 227.1\n- 변태설립사항\n- 종류주식의 발행 344\n- 주주총회\n    - 이사회 대신 주주총회에 의한 대표이사의 선임 389.1단서\n    - 이사회 대신 주주총회에 의한 신주발행사항의 결정 416단서\n    - 주주총회의 보통결의요건 완화 368.1\n    - 주주총회에 의한 준비금의 자본전입 461.1 단서\n- 감사선임의 경우에 의결권제한비율의 인하 409.2 및3\n- 기타 행사권\n    - 전환주식의 발행 346\n    - 신주인수권부사채의 발행 516의2.2 단서\n    - 제3자에 대한 신주인수권의 약정 418.2\n    - 주식매수선택권(stock option)의 발행 340의3.1"], ["정관에서 배제해야 배제되는 것 (opt out)", "오빠전주집", "- opt out 규정(정관에 규정이 있어야 배제되는 규정)→ 오빠 전주집\n    - 이사회 전화회의 (전자투표 아님에 주의)\n        - 음성통신수단에 의한 결의\n    - 주권불소지제도의 배제 358의2.1\n    - 집중투표제의 배제 382의2.1"], ["변태설립사항", "현재감 설특공", "→ 현•재 : 자1/5이하 + 5천만 이하 or 거래소 시세있는 유가증권 → 해당 시 조사절차 X\n- 현물출자 → 감정인 갈음\n- 재산인수 → 감정인 갈음\n    - 현물출자와 재산인수는 자본금의 1/5이하 이면서 5천만원 이하이거나, 거래소의 시세있는 유가증권인 경우 검사인의 조사를 생략할 수 있음.\n- 설립비용 → 공증인 갈음\n    - 개업준비비용은 설립비용에 포함되지 않는다. 개업준비를 위한 금전차입도 마찬가지 → 정관에 기재하지 않아도 회사가 지출한 비용으로 보아 효력이 유지된다는 뜻임.\n- 특별이익 → 공증인 갈음\n    - 발기인은 특별이익을 타인에게 양도할 수 있다. 신주인수에 대한 우선권은 허용되나, 의결권 특혜는 불가."], ["설립시 검사인 선임청구", "발이모발검사", "- 발기설립 : 이사\n- 모집설립 : 발기인\n- 검사인선임청구"], ["주총 특별결의사항", "양합교리 · 해계사 정복자 할분 · 이사감사 해임", "- 영업양수도 • 임대\n- 합병 • 주식병합\n- 주식의 포괄적 교환•이전\n- 해산\n- 계속\n- 사후설립\n- 정관 변경\n- 복합금융상품 행사\n    - 주식매수선택권 부여\n    - 제3자 CB/BW 부여\n- 자본금의 감소\n- 주식의 할인발행\n- 분할 • 분할합병 • 주식분할\n- 이사 감사 해임\n→특별결의요건은 정관을 통해 가중시키는 것만 가능함"], ["주총 특수결의사항 (총주주 동의)", "특수부서 조절면책", "→ 총주주의 동의로 결의\n- 조직변경으로 주주부담 가중\n    - 분할존속법인이 분할회사의 채무를 모두 부담하게 되는 경우, 주주총회의 분할승인과는 별도로 각 주주로부터 동의를 받아야 한다.\n    - 합병은 제외함\n- [소] 주주총회 서면결의\n- 조직변경 (유한•유책으로의 변경)\n- [소] 주주총회 소집절차 생략\n- 발기인 • 이사 • 감사의 책임면제\n→특수결의요건은 정관을 통한 변경이 불가능"], ["주주총회 전 일정", "6주제안 · 7중투표 · 불3일", "- 6주제안권 : 주주제안권 : 6주 전까지 가능\n- 7중투표권 : 집중투표청구권 : 7일 전까지 가능\n- 불3일행사 : 불통일행사 : 3일 전까지 가능 (3과 ㅌ가 비슷)"], ["정외감 있으면 주총 대신 이사회에서 가능", "자취 재승인 정배 · 정외감", "- 가능사항 : 자취 재승인 정배 (승리자)\n    - 자기주식의 취득\n    - 재무제표 승인\n    - 정기배당\n- 필요조건 : 정외감\n    - 정관규정\n    - 외부감사인의 적정의견\n    - 감사(위원) 전원 동의\n    - 주주총회에 보고"], ["투표방식 규정", "서정전이", "- 서면투표는 정관으로\n- 전자투표는 이사회결의로"], ["종류주총의 결의가 필요한 경우", "종합배정", "- 합병, 분할, 주식교환, 주식이전으로 종류주주에게 손해발생 우려\n- 주식배정에 관하여 주식의 종류에 따라 달리 정하는 경우\n- 정관변경으로 종류주주에게 손해발생 우려"], ["주주총회 소집통지를 하지 않아도 되는 의결권 없는 주주", "종자상", "- 종류주식\n    - 다만 주식매수청구권 행사가 가능한 양합교리를 목적사항으로 하는 경우에는 의결권 없는 종류주식의 주주에게도 소집의 통지를 하여야 함.\n- 자기주식\n- 상호보유주식"], ["의결권 없는 주식도 의결권을 인정하는 경우", "동창분정종 조부책간소서", "- 총주주의 동의가 요구되는 경우\n    - 조부책간소서\n        - 조직변경\n        - 주주의 부담 가중되는 경우 그 주주 전원의 동의\n        - 이사 등의 책임면제 (제3자에 대한 책임은 면제 불가)\n        - 간이영업양수도, 간이분할합병, 간이주식교환, 간이합병\n        - 소규모회사 서면총회\n        → 단 [소]+ 서 규정 총주주의 동의가 요구되나, 의결권 있는 주주만 해당한다.\n- 창립총회 (창립총회에서는 의결권 없는 주식의 주주도 의결권 행사 O 정족수 산정 O)\n- 회사의 분할계획서와 분할합병계약서 승인결의 (회사분할결의)\n- 정관에 정한 의결권 부활 조건 발생시\n- 종류주주총회"], ["의결권의 행사방법 특수사례", "의대전공서 불통일", "- 의결권 행사방법 특수사례\n- 대리행사\n- 전자투표\n- 공유주식의 의결권 행사\n- 서면투표\n- 불통일 행사"], ["특별이해관계인에 해당하는 주주", "보영책", "- 임원의 보수를 결정하는 결의에 있어서 그 임원에 해당하는 주주\n- 영업양수도에 있어서 그 상대방의 주주\n- 임원의 책임을 추궁하거나 면제 또는 유보하는 결의에 있어서 그 임원에 해당하는 주주\n    - 임원의 선 해임 결의에 있어서 당사자인 주주와 재무제표 승인결의에 있어서 이사와 감사인 주주는 특별이해관계인에 해당하지 않음.\n    - 재무제표 승인이 아닌 작성에 대한 책임을 추궁하는 결의에서의 이사와 감사인 주주는 특별이해관계인에 해당한다."], ["주주총회 통지 시 요령을 기재해야 하는 중요의안", "전구감정", "- 전환사채 및 신주인수권부사채 제 3자배정\n- 구조조정 (합병, 분할 및 분할합병)\n- 자본금감소\n- 정관의 변경"], ["주식매수청구권 행사가 가능한 경우", "양합교리 거부", "→ (양합교리는 주총 의결사항이나, 거부는 주총 의결사항이 아님에 유의)\n- 주식매수청구권 행사가 가능한 주주총회 목적사항\n    - 영업양수도 임대 반대주주\n    - 합병과 분할합병 반대주주\n        - 간이(합병•분할합병•주식교환) 포함\n    - 주식의 포괄적 교환 및 이전 반대주주\n- 주식양도의 거부\n    - 위에 있는 정관 규정에 따른 주식양도의 제한 → 이사회 승인 규정을 말함.\n    이사회가 주식양도 승인청구를 거부한 경우, 20일 이내에 회사에 주식매수청구가 가능함."], ["주주총회 소집통지를 생략할 수 있는 경우", "3년연속 상소생략", "- 통지가 주주명부상 주주의 주소에 계속 3년간 도달하지 아니한 경우\n- 총회의 연기와 속행\n- 상장회사 1/100이하 주주\n- 소규모회사 → 주주전원 동의로 소집절차 생략, 주주전원 동의로 서면결의 채택 (소정이 서면 통증절감)\n- 주총 소집통지 생략가능"], ["주주총회 소집권자", "주이감법", "- 주주 : 임시주주총회 소집청구 (3/100 소수주주권)\n    - 발행주식총수의 3/100 이상에 해당하는 주식을 가진 주주는 회의의 목적사항과 소집의 이유를 적은 서면 또는 전자문서를 이사회에 제출하여 주주총회의 소집을 청구할 수 있다.\n    - 이사회가 지체없이 총회소집의 절차를 밟지 아니한 때에는 청구한 주주는 법원의 허가를 받아 총회를 소집할 수 있다.\n- 이사회 : 원칙\n    - 본법에 다른 규정이 있는 경우를 제외하고 이사회가 주주총회 소집을 결정한다.\n- 감사 : 임시주주총회 소집청구\n    - 감사는 필요하면 총회의 목적사항과 소집의 이유를 적은 서면(NOT 전자문서)을 이사회에 제출하여 임시주주총회 소집을 청구할 수 있다.\n    - 이사회가 지체없이 총회소집의 절차를 밟지 아니한 때에는 청구한 감사는 법원의 허가를 받아 총회를 소집할 수 있다.\n- 법원 : 법원의 직권으로 소집"], ["의결권 없는 주식", "종자상 총수 특별감사 출석", "- 의결권 없는 종류주식\n- 자기주식\n- 상호보유주식\n    - 종자상은 발행주식 총수 불산입\n- 특별이해관계인에 해당하여 행사할 수 없는 주식의 의결권 수\n- 감사의 선임에 있어서 그 비율을 초과하는 주식으로서 행사할 수 없는 주식의 의결권 수\n    - 특별감사는 출석한 주주 의결권 수 불산입"], ["의결권 없는 종류주식을 주식 수 판단에서 제외하는 규정", "의결권없는 선제 집감", "- 의결권 없는 종류주식은 제외\n- 주식매수선택권 부여금지 대주주 (10% 판단)\n    - 회사의 이사라 하더라도 의결권 없는 주식을 제외한 발행주식총수의 10/100 이상의 주식을 가진 주주에게는 주식매수선택권을 부여할 수 없다.\n    - 그의 배우자와 직계존비속에게도 부여할 수 없다.\n- 주주제안권 행사요건 판정 (3% 판단)\n    - 주주제안권 행사요건 3/100 (상장회사는 10/1,000) 계산 시 의결권 없는 주식은 제외\n- 집중투표청구권 행사요건 판정 (3% 판단)\n    - 집중투표청구권 행사요건 3/100 (대규모 상장회사는 1/100) 계산 시 의결권 없는 주식은 제외\n- 감사의 선임시 의결권 제한 (3% 판단)\n    - 3/100 판단 시 의결권 없는 주식은 제외"], ["회사소송 공통 절차", "전공병재담", "- 전속관할 : 본점 소재지\n- 소제기의 공고\n- 병합심리\n- 재량기각\n- 담보제공명령 → 회사가 원고(주주)의 악의 소명 시"], ["주주평등원칙의 예외", "종소감단불평등", "- 종류주식\n- 소수주주권\n- 감사 선임시 의결권 제한\n- 단주의 처리\n- 불평등\n- → 대주주가 스스로 배당받을 권리를 포기하거나 소액주주의 배당률보다 낮게 하기 위하여 주주총회에서 차등배당을 하기로 한 결의는 유효하다. (주주평등원칙에 위배되지 않음)"], ["1/100 소수주주권", "1위대표 주검사", "- 1 / 100\n- 위법행위 유지청구권\n- 대표소송 및 다중대표소송\n- 주주총회 검사인 선임청구 (§367 검사인)"], ["3/100 소수주주권", "임업검사 해장집 제안", "- 임시주주총회 소집청구\n- 업무조사 검사인 선임청구 (§467 검사인)\n- 임원해임청구\n- 회계장부 열람청구\n- 집중투표청구\n- 주주제안"], ["기타 비율 (5/100 · 10/100)", "소금사자 · 해상선채소주", "- 5/100 비율 : 소금사자\n    - 소규모합병 및 주식교환시 금전교부한도\n    - 사후설립\n    - 자기주식 질취한도\n- 10/100 비율 : 해상선채소주\n    - 해산판결청구권\n    - 상호보유주식\n    - 주식매수선택권 제한\n    - 사채권자집회 소집\n    - 소규모 합병 및 주식교환시 주식교부한도"], ["주주만 행사 가능한 것", "주주만 대신이해", "- 대표소송 (1/100)\n- 신주발행유지청구\n- 이사해임청구 (3/100)\n- 해산판결청구 (10/100)"], ["상장회사 특례 소수주주권 중 6개월 보유 필요", "육개장대표 임업검사 위해 제안", "- 육개월 상장 특례\n- 회계장부 열람청구\n- 대표소송 및 다중대표소송\n- 임시주주총회 소집청구\n- 위법행위 유지청구권\n- 업무조사 검사인 선임청구 (아무때나 검사인)\n- 임원해임청구\n- 주주제안권"], ["집중투표 대규모상장회사 특례", "대규모집중 1·3별", "- 13광땡치니 대규모로 집중됨\n- 대규모상장회사 : 자산총액 2조원 이상인 상장회사\n- 주식 1/100 보유하면 집중투표 청구가능\n- 집중투표 배제하는 정관변경 시 3/100 초과 주식은 의결권 행사 불가\n- 다른 정관변경 의안과 별도로 상정"], ["주주제안을 이사회가 거부할 수 있는 경우", "한삼고소해", "- 한자리수 동의 후 3년 내에 다시 제안\n- 주주 개인의 고충\n- 소수주주권에 관한 사항\n- 임기중인 상장회사의 임원의 해임"], ["주주유한책임의 예외", "유통부자", "- 유한책임 예외\n- 통모인수인의 책임\n- 주주부담가중\n- 자발적 채무부담"], ["명의개서의 효력", "개추면대", "- 명의개서의 효력\n- 추정력\n- 면책력\n- 대항력\n- 정관 상대적 기재 시 명의개서대리인을 둘 수 있음"], ["주주명부 폐쇄기간에도 행사할 수 있는 것", "폐소불행", "- 폐쇄기간\n- 소재지 변경\n- 주권불소지 신고\n- 기타 권리의 행사\n    - 전환사채 및 전환주식 행사\n    - 신주인수권부사채 행사\n    - 주식매수선택권 행사"], ["주요주주 금지사항", "자외선 공여 금지", "- 상장사 자기거래\n- 상장사 사외이사\n- 주식매수선택권\n- 상장사 신용공여\n- 금지"], ["정관상 주식양도 제한시 양도절차", "승거지통매", "1. 양도승인청구 (이사회) (30일)\n2. 회사의 거부통지 (20일)\n3. 상대방 지정청구 (14일)\n4. 상대방 지정통지 (10일)\n5. 상대방의 매도청구"], ["배당가능이익·절차와 무관하게 자기주식 취득 가능", "합전단매실 / 무위신질", "- 합병으로 인한 상대회사가 보유하고 있는 우리회사 주식의 취득\n- 영업전부의 양수로 인한 상대회사가 보유하고 있는 우리회사 주식의 취득\n- 단주의 처리를 위해 보유해야만 하는 주식\n- 주주의 주식매수청구권의 행사로 인한 자기주식 취득\n- 권리의 실행 → 채권자로써 채무자의 자산을 압류 및 강제집행을 하다가 우리회사 주식을 취득한 경우\n    - 이 경우에는 회사는 그 자기주식이 채무자의 유일한 재산이며, 채무자의 무자력을 입증하여야 한다.\n- 무상취득, 매매위탁, 신탁에 의한 취득\n- 자기의 주식을 질권의 목적으로 받은 경우(자기주식의 질취)\n    - 발행주식총수의 1/20을 초과하여 질취할 수 없다.\n    - 다만 합병, 영업전부의 양수, 권리의 실행의 경우에는 그 한도를 초과하여 질취할 수 있다."], ["모회사 주식을 취득할 수 있는 경우", "합전실포대", "- 엄마한테는 포대로 사줘야지\n→ 단, 6개월 내 처분하여야 한다\n- 합병으로 인한 모회사 주식의 취득\n- 영업전부의 양수로 인한 모회사 주식의 취득\n- 권리의 실행\n- 주식의 포괄적 교환 및 이전으로 모회사 주식을 대가로 수령하는 경우\n- 합병 및 분할합병 및 주식교환의 대가제공 목적으로 일시적으로 모회사 주식을 취득하는 경우"], ["이사회가 위원회에 위임 불가", "주정대위", "- 주주총회의 승인을 요하는 사항의 제안\n- 정관에서 정하는 사항\n- 대표이사의 선임 및 해임\n- 위원회의 설치와 그 위원의 선임 및 해임"], ["이사회 승인이 필요한 이사의 의무", "경용자", "- 경업회피의무 (겸업금지의무)\n    - 개손해\n        - 개입권 (1년)\n            - 거래가 있었던 날로부터 1년\n            - 거래를 안 날로부터 2주규정은 적용되지 않음 (상행위 파트에서만 적용) (알았다는 주체가 누군지 불분명하므로)\n        - 손해배상청구 및 해임\n- 사업기회유용금지의무\n- 자기거래금지의무"], ["이사의 겸직제한의무 위반 시", "손해", "- 손해배상청구 및 해임"], ["이사의 기타의무", "적정수비", "- 적극적 보고의무\n- 정기보고의무\n    - 3월에 1회이상\n- 수시보고의무\n- 비밀유지의무 : 이집준감대가\n    - 비밀유지의무는 이사뿐만 아니라 다음도 해당한다.\n    → 이사, 집행임원, 준법지원인, 감사, 대리상, 가맹상"], ["이사 전원 2/3 이상 찬성 (이사회 특별결의)", "감자용", "- 감사위원 해임\n- 이사의 자기거래 승인\n- 회사기회유용 승인"], ["합병절차", "계결통청 채ø보등√", "→ 흡수합병 • 신설합병\n1. 합병계약서의 작성과 공시\n2. 특별결의 • 총회 소집통지 • 반대주주의 주식매수청구권 행사\n3. 채권자보호절차\n4. 포괄승계 및 합병대가 지급\n5. 합병보고총회 또는 이사회 공고\n6. 합병등기 또는 분할등기 (효력발생)"], ["분할절차", "계결청 채ø보등√", "→ 단순분할 • 분할합병\n1. 합병계약서의 작성과 공시\n2. 특별결의 • *총회 소집통지* • 반대주주의 주식매수청구권 행사\n3. 채권자보호절차\n4. 신설법인 설립과 권리 의무 포괄승계\n5. 합병보고총회 또는 이사회 공고\n6. 합병등기 또는 분할등기 (효력발생)\n- 단, 단순분할의 경우 청•채 X\n    - 순자산 등의 실질적 변경이 없고, 분할존속회사와 분할신설회사가 연대채무를 부담하기 때문\n    - 단, 분할계획서에서 분할신설회사가 승계하기로 한 채무만 부담하기로 정한 경우 채권자보호절차 필요."], ["주식교환 절차", "계결통청 제실ø√등", "1. 주식교환계약서의 작성과 공시\n2. 특별결의 • 총회 소집통지 • 반대주주의 주식매수청구권 행사\n3. 주권의 제출 • 실효에 대한 공고 • 통지\n4. 완전모회사의 주식과 교환  (효력발생)\n5. 자본금변경등기"], ["주식이전 절차", "계결청 제실ø√등", "1. 주식이전계약서의 작성과 공시\n2. 특별결의 • *총회 소집통지* • 반대주주의 주식매수청구권 행사\n3. 주권의 제출 • 실효에 대한 공고 • 통지\n4. 완전모회사의 설립과 이전  (효력발생)\n5. 완전모회사 설립등기"], ["합병·주식교환 주총 → 이사회 결의 갈음", "간소이 · 소존이", "- 간소이\n    - 간이합병•간이주식교환 시 소멸회사의 이사회 결의로 갈음\n- 소존이\n    - 소규모합병•소규모주식교환 시 존속회사의 이사회 결의로 갈음"], ["간이합병", "B사 생략", "- 피합병회사(B)의 총주주가 동의한 경우 : 소멸회사(피합병회사) 주총승인 → 이사회 승인 갈음가능\n    - 주식매수청구권 행사 X (피합병회사)\n    - 채권자보호절차 필요 O\n    - 합병회사의 경우에는 일반합병이므로 주식매수청구권 O\n- 피합병회사(B)가 합병법인인 모회사(A)가 90%이상을 가진 자회사인 경우 : 소멸회사(피합병회사) 주총승인 → 이사회 승인 갈음가능\n    - 주식매수청구권 행사 O\n    - 채권자보호절차 필요 O"], ["소규모합병", "A사 생략", "- 합병으로 인하여 발행하는 신주 및 이전하는 자기주식의 총수가 그 회사의 발행주식 총수의 10/100을 이하이면서 합병대가 총 재산가액이 존속회사의 순자산액의 5/100 이하인 경우\n    - 주식수의 10%이하 & 총 순자산액의 5% 이하\n- 존속회사(A)의 주주총회의 승인을 이사회의 승인으로 갈음할 수 있다."], ["간이주식교환", "B사 생략", "- 완전자회사(B)의 총주주가 동의한 경우 : 완전자회사 주총승인 → 이사회 승인 갈음가능\n    - 주식매수청구권 행사 X (피합병회사)\n    - 채권자보호절차 필요 X\n- 피합병회사(B)가 합병법인인 모회사(A)가 90%이상을 가진 자회사인 경우 : 소멸회사(피합병회사) 주총승인 → 이사회 승인 갈음가능\n    - 주식매수청구권 행사 O\n    - 채권자보호절차 필요 X"], ["소규모주식교환", "A사 생략", "- 주식교환으로 인하여 발행하는 신주 및 이전하는 자기주식의 총수가 A사의 발행주식 총수의 10/100 이하이면서 합병대가 총 재산가액이 B사의 순자산액의 5/100 이하인 경우\n    - 주식수의 10%이하 & 총 순자산액의 5% 이하\n- A사의 주주총회의 승인을 이사회의 승인으로 갈음할 수 있다.\n→ 간이 : 피합병법인과 완전자회사에 적용\n→ 소규모 : 합병법인과 완전모회사에 적용"]]},{id:'law-1111b',subj:'상법',cards:[["소상인의 범위", "지상등장", "- 자본금 1천만원 미만 + 회사가 아닌 자\n    - 지배인, 상호, 상업등기, 상업장부 규정 적용하지 않음\n        - 다만 행위의무가 아니므로 굳이 해도 상관은 없다.\n    - 단순히 ‘소상인은 자본금 1천만원 미만인 자‘라고 제시된 경우 회사가 아닌 자를 포함하지 않으므로 틀린 문장이다."], ["쌍방적 상행위여야만 상법이 적용되는 경우", "쌍대일유 공경 검보확", "- 대리상 특별상사유치권\n- 일반상사유치권\n- 매도인 목적물 공탁 • 경매권\n    - 단, 위탁매매인의 매수물에 대한 공탁•경매권은 위탁자가 비상인이라도 적용가능\n- 매수인 목적물 검사 • 하자 통지 의무\n- 계약 해지시 매수인 목적물 보관 • 공탁의무\n- 확정기 매매의 해제"], ["상업사용인의 경업금지의무", "2주 1년 · 사무이", "- 거래금지의무 → 2주, 1년\n    - 영업주의 영업부류에 속한 거래 불가\n    - 위반한 거래의 효력은 상대방의 선의 및 악의를 불문하고 유효하나 영업주는 개입권 행사 가능\n        - 개입권\n            - 그 거래를 안 날로부터 2주 내 행사 가능\n                - 이사의 개입권에는 이 규정이 없음\n            - 그 거래가 있은 날로부터 1년 내 행사 가능\n        - 개입권 행사와 별개로 손해배상청구가능\n- 겸직제한의무 → 사무이\n    - 상업사용인은 다른회사의 사용인, 무한책임사원, 이사 가되지 못함.\n        - (비교 : 이사의 겸직제한의무 → 다른회사의 무한책임사원, 이사 )\n    - 동종이 아니더라도 적용함.\n    - 참고로 같은 회사에서는 감사의 겸직이 불가하다. 다만 업무집행사원과 (상무)이사는 겸직이 가능하다."], ["상업사용인의 종임", "사성파", "- 당연종임사유 : 사성파\n    - 지배인(본인)의 사망, 성년후견인의 개시, 파산\n    → 영업주의 사망은 지배인의 당연종임사유에 해당하지 않는다.\n- 영업의 종료\n    - 영업의 폐지, 영업주의 파산, 회사의 해산\n- 기타 종임사유\n    - 지배인의 사임의사표시, 임기만료, 영업주의 해임\n    → 회사의 경우 지배인의 해임에도 선임과 같은 의사결정 절차를 거쳐야 한다."], ["상호전용권 행사가 가능한 경우", "상호등기인 · 부오손", "→ 해당 시 상호의 폐지청구, 손해배상청구, 등기말소청구 가능\n→ 해당 시 상호의 폐지청구 가능, 손해배상청구 가능, 등기말소청구 가능\n- 상호전용권 행사(상호폐지청구)가 가능한 자\n    - 상호를 등기한 자\n    - 또는 부오손이 있는 자에게 상호전용권을 행사하는 경우\n        - 부정한 목적\n            - 동일한 시군에서 동종영업으로 타인이 등기한 상호를 사용하는 자는 부정한 목적으로 사용하는 것으로 추정한다\n            - (↔)인접한 지역은 상관없다.\n                - “인접” → 표현은 주주총회 장소 설정시 본점과 인접 규정과, 영업양도시 경업금지의무 규정에서만 나온다. → 주총장소는 외웠으니 헷갈리는건 인접양도로 외우기\n        - 타인의 영업으로 오인할 수 있는 상호\n            - 오인가능성은 동종영업에 한정되지 않고 종합적으로 판단한다.\n            - 동일한 상호가 아니라 하더라도 영업의 종류,규모,지역성 등을 고려하여 타인의 영업으로 오인할 수 있는 상호가 될 수 있다.\n        - 손해를 받을 염려"], ["상호속용 관련 책임", "등통광통", "- 원칙적으로 상호속용 시 영업양도인이 기존에 보유하던 채무에는 양수인도 변제할 책임이 존재한다. → 외관상 같으므로 연대책임\n- 예외 : 등통광통\n    - 상호속용시 책임 안지려면 → 등기 또는 통지\n        - 양수인이 지체없이 등기\n        양도인과 양수인이 함께 지체없이 통지\n    - 상호불속용임에도 굳이 책임 지려면 → 광고 또는 통지\n        - 채무인수인의 광고\n        채무인수인에게 개별적 통지\n        양수인이 기존 거래처에 대하여 상호를 변경한다는 통지"], ["계약 해지 예고기간", "창대가리 익명 22상36", "- 창고업자 : 2주전 예고 후 해지\n    - 임치기간은 정하지 않은 경우 6개월 경과 후 2주전 예고하고 반환\n- 대리상 : 2개월 전 예고\n    - 존속기간을 약정하지 않은 경우\n- 가맹계약 : 상당한 기간 예고\n    - 존속기간 약정유무 불문 부득이한 사정이 있는 경우\n- 리스계약 : 3개월 전 예고\n    - 중대한 사정변경이 있는 경우\n- 익명조합 : 6개월 전 예고\n    - 존속기간 정하지 않았거나 종신계약인 경우\n- 가리는 부득이해도 예고 필요\n- 가리 외 나머지는 부득이하면 예고없이 바로 가능"], ["부득이한 계약 해지 (예고기간 불필요)", "창대 익명", "- 창고업자\n- 대리상\n- 익명조합\n- 가맹업·리스계약은 부득이해도 예고 필요\n    - 가맹업 : 상당기간\n    - 리스계약 : 3월 (단, 금융리스업자에게 손해배상 O)"], ["상호등기의 효력", "동동등", "- 동일 시 • 군에서\n- 동종영업으로\n- 타인이 등기한 상호는 등기할 수 없다."], ["상호가등기가 인정되는 경우", "회상목본 / 주유설", "- 모든회사의 가등기 사유 : 상목본\n    - 상호 변경\n    - 목적 변경\n    - 본점 소재지 변경\n- 주식회사 • 유한회사 • 유한책임회사 (물적회사)의 가등기사유 : 설\n    - 설립 시"], ["상호의 폐지", "2년폐지 2주말소청구", "- 2년 미사용 → 폐지간주\n- 변경•폐지 후 2주내 미등기 → 말소청구 가능"], ["상사시효기간 적용사례", "상사 하지원 손배 / 불행하지않음", "- 상사채권\n- 하자담보책임청구권\n- 지연손해금채권\n- 원상회복청구권\n- 손해배상청구권 (상행위로 인하여야 함)\n- 불법행위로 인한 손해배상채권은 해당하지 않음.\n- 원칙 : 5년 (민법은 10년)\n- 예외 : 책임의 단기소멸과 권리의 단기소멸 (책권공증해 중 책•권)\n    - 책임의 단기소멸 : (1년) 창•운•주 | (6월)공\n    - 권리의 단기소멸 : (1년) 창•운•주 | (6월)대\n- 상사법정이율 6% 적용 (민법상 법정이율 5%)"], ["대리상", "대통령경 특별보육하자", "- 의무\n    - 거래통지의무\n    - 영업비밀준수의무\n    - 경업•겸직금지의무\n- 권리\n    - 특별상사유치권\n    - 계약종료 후 보상청구권\n        - 계약종료일로부터 6월이 경과하면 보상청구권은 소멸한다\n        - 보상금액은 계약 종료전 5년간(5년 미만의 계약의 경우 그 전체기간)의 평균연보수액을 초과할 수 없다\n    - 하자통지수령권\n- 약정이 없는 경우의 해지\n    - 원칙 : 2월전 예고\n    - 예외 : 부득이한 경우 언제든지"], ["위탁매매업", "위하자 거지계이 · 개특별공경", "- 참고 : 위탁자 = 요청자, 위탁매매인 = 대행회사\n- 의무\n    - 하자통지의무\n        - 목적물 수령 후 지체없이 (훼손•하자•부패•가격하락)\n    - 거래통지의무\n        - 매매시 지체없이 통지 발송\n    - 지정가액준수의무\n        - 위탁자의 손해 : 위탁자에 대한 효력 X\n        - 위탁자의 이익 : 위탁자의 이익으로 함\n    - 계산서제출의무\n    - 이행담보책임\n        - 상대방이 위탁매매인에게 채무를 이행하지 않을 경우 위탁매매인이 위탁자에게 그 채무를 이행\n- 권리\n    - 개입권\n        - 거래소의 시세있는 물건 • 유가증권의 매매를 위탁받은 경우\n        - 위탁매매인이 매수인으로서 참여가능\n        - 위탁보수 청구 가능\n    - 특별상사유치권\n    - 매수물의 공탁•경매권"], ["중개업자", "견교한 통일을 말없이 이행 · 보급", "- 의무\n    - 견품보관의무\n    - 결약서 교부의무\n        - 계약이 성립된 때 지체없이 결약서 교부의무\n    - 통지의무 (결약서 교부와 관련한)\n        - 일방이 결약서 수령을 거부하거나 기명날인 또는 서명하지 아니한 경우 상대방에게 그 통지 의무\n    - 일기장(중개장부) 작성 및 등본교부의무\n        - 당사자는 언제든지 중개업자에게 장부의 등본의 교부 청구 가능\n    - 묵비의무\n        - 북한이 전투기를 록하트마틴으로부터 구입시 대리상에게 나 북한인거 비밀로 해달라고 할 수 있음\n    - 이행담보책임 (묵비의무 하)\n        - 묵비의무로 인해 북한이 누군지 록하트마틴에게 공개하지 않았을때, 북한이 돈을 내지 않는다면 중개인이 이행해야 함. →중개인의 개입 의무\n        - 개입의무를 이행한다 하여도 전투기는 여전히 북한꺼임\n        - 구상권 청구해서 돈 돌려받아야 함\n- 권리\n    - 보수청구권\n        - 결약서 교부의무절차 종료 시 활성화\n        - 계약이행 및 중개장부 작성 여부와 무관하게 교부의무만 마치면 활성화됨\n    - 급여수령대리권\n        - 약정이나 관습이 있는 경우에만 당사자를 위하여 대리수령 가능"], ["수하인", "돈줄게 내놔", "- 의무\n    - 운임지급의무\n- 권리\n    - 운송물인도청구권"], ["운송주선인", "하자거지계", "- 거지계이에서 이(이행담보책임)만 빠짐\n- 의무 (이행담보책임 제외 위탁매매인과 동일)\n    - 하자통지의무\n    - 지정가액준수의무\n    - 거래통지의무\n    - 계산서제출의무\n- 권리\n    - 보수청구권\n        - 시효 1년\n    - 특별상사유치권\n    - 개입권\n        - 다른 약정이 없으면 직접 운송 가능 (위탁매매인과 달리 ‘시세가 있는 경우’ 조건 X)\n        - 위탁자가 청구하여 화물상환증을 작성한 경우 직접 운송하는 것으로 간주한다\n            - 화물상환증은 원래 운송인이 발행하는 증권이므로 운송주선인이 화물상환증을 발행하였다는 것은 운송인이 되기로 결정한 것이다. 반면에, 운송업에서 운송인이 송하인의 요구에 따라 화물상환증을 발행한 경우에는 운송인과 송하인 사이에 화물상환증에 적힌 대로 운송계약이 체결되고 운송물을 수령한 것으로 추정한다."], ["상법 총칙·상행위법 추정규정", "공리영상부 추정", "- 공권의 추정\n- 리스수령증의 추정\n- 영업을 위하여 추정\n- 상호사용의 부정한 목적 추정\n    - →동동등"]]},{id:'law-1111c',subj:'상법',cards:[["공인회계사의 의무", "성공비전 손공장", "- 성실\n- 공정\n- 비밀엄수(유지)\n- 전문가적 적격성과 정당한 주의 • 전문가적 품위\n- 손해배상책임 보장조치\n- 공인회계사회 회칙 준수\n- 장부 작성 • 비치"], ["공인회계사의 금지사항", "계부 2명 금지", "- 계쟁권리의 양수\n- 부정청탁의 수수\n- 2개 이상의 사무소 개설\n    - 회계법인의 경우 주사무소 외의 1개 이상의 분사무소를 둘 수 있으며, 각 분사무소에는 3인 이상의 공인회계사가 상근하여야 한다.\n- 명의대여"], ["개업공인회계사 직무제한 (공§21)", "사보택 · 무약회 퇴비삼 집신담보", "- 본인\n    - 1년이내 임원, 직원\n    - 본인과 채권 채무 있는 곳 (배우자는 제외) →사보택\n        - 무상으로 또는 저가로 사무소나 영업용 차량을 제공하고 있는 곳\n        - CPA 업무 외의 업무로 계속적 보수를 지급하고 있는 곳\n        - 자기회사의 주식 CB BW 주식선택권을 제공하였거나 제공하기로 한 곳\n- 배우자\n    - 1년이내 임원, 재무 직원 이었던 곳\n- 본인 + 배우자\n    - 출자지분을 보유한 곳 (1주라도)\n    - 감사기간 중 합병 상속 소송 등에 의해 비자발적 취득후 지체 없이 처분한 경우엔 제외\n    - 채권 채무 관계 있는곳\n        - 단, 다음은 제외함 → (무약회 퇴비삼 집신이(2)담보) or 아내 퇴직 부산집 담보 약 3천 가능\n            - 기본직무 관련채권\n            - 약관에 따라 체결한 계약으로 발생한 채권 채무\n                - 부동산 집단대출 채무\n                - 신용카드 지급기일 2개월이내 채무 중 연체되지 않은 채무\n                - 주택담보대출 및 예금담보대출 채무\n                    - 감사계약 전 발생 → 감사기간 중 신규 및 증액은 불가함. 연장만 가능\n                - 보험상품 계약에 따른 채권 채무\n                    - 감사계약 전 발생 → 감사기간 중 신규 및 증액은 불가함. 연장만 가능\n            - 감사 수임전 구입한 회원권 및 시설물이용권 (골프)\n                - 감사계약 전 발생 → 감사기간 중 신규 및 증액은 불가함.\n            - 퇴직연금 등 채권\n            - 감사기간 중 비자발적 발생 채권 채무\n            - 상거래를 위해 약관에따라 체결된 3천만원 미만의 채권 또는 채무"], ["회계법인 직무제한 (공§33)", "1억 · 무약회퇴비삼 집신담보 · 사보택", "- 회계법인의 사원과 21조에 해당되는 관계가 있는 경우\n    - 비사원 소속공인회계사가 21조에 해당하는 경우\n    → 회계법인 업무수임 가능, 해당 회계사만 업무배제\n- 회계법인이 주식소유 • 출자관계\n- 회계법인과 1억원 이상의 채권•채무관계\n    - 단, 무약회퇴비삼 집신담보 제외\n- 회계법인과 1년 이내 뚜렷한 이해관계를 가지고 있는 자.\n    - 그 회사를 감사하던 감사담당자(그 배우자 포함)가 동 대상회사의 임원 또는 재무관련 준임원이 된 경우\n    → 업무수임 자체 불가능.\n        - 1년 초과 시엔 해당사항 없음.\n        - 회계법인 재직 시절 동 회사의 감사담당자가 아니었다면 해당사항 없음.\n        - 동 대상회사의 일반직원으로 재직중인 경우엔 해당사항 없음.\n- 회계법인과 사/보/택 관계인 경우\n- 1년 이내 감사업무를 행한 담당사원(배우자)이 임원 • 재무책임자로 있는 회사"], ["감사계약 체결 전 발생분만 예외 (정리)", "담보기회", "- 주택담보•예금담보 채무\n- 보험계약상 채권 • 채무\n- 기타 감사계약 체결 전 발생 채권•채무\n- 정상가로 구입한 회원권 • 시설물이용권"], ["재무제표 관련 비감사 용역의 겸임제한", "작구실타계 + 임원", "- 회계기록과 재무제표의 작성\n- 재무정보체제의 구축•운영\n- 자산 등에 대한 실사•재무보고•가치평가\n- 자산등의 매도 매수거래 또는 계약의 타당성에 대한 의견제시\n- F/S에 계상되는 보험충당부채 금액 산출과 관련되는 보험계리업무\n- 임원의 업무 : 법무, 노무, CFO, 중대지지 등 경영에 관한 의사결정\n→ 해당하지 않더라도 감사와 협의, 이해상충의 소지가 높은 업무는 감사의 동의 필요"], ["회계법인 설립요건", "5337", "- 자본금 : 5억 이상\n    - 전기말 자본(자본금X)이 5억 미달 → 6개월 내 유상증자 • 사원증여보전 필요\n    - 회계법인이 6개월 내 증자 • 증여보전을 하지 않는 경우 금융위는 기간을 정하여 증자 • 증여보전을 명할 수 있다.\n    - 증여를 받아 보전한 경우 회계법인은 특별이익으로 회계처리하여야 한다.\n- 사원 : 3명 이상\n    - 외국공인회계사 포함 가능 (유일)\n- 이사 : 3명 이상\n    - 대표이사 : 3명 이내 선임가능\n- 이사 + 소속CPA : 7명 이상"], ["회계법인 정관의 절대적 기재사항", "1존사이 출자대결 명목업소", "- 회계사 끼리는 1촌이니까 법인세울때 출자대결 하지마라\n- 출자 1좌의 금액\n- 존립 시기나 해산사유\n- 사원총회에 관한 사항\n- 사원 및 이사의 성명, 주소\n- 각사원의 출자 좌수\n- 자본금 총액\n- 대표이사\n- 결손금 보전에 관한 사항\n- 명칭 → 회계법인이라는 이름 사용해야함\n- 목적\n- 업무에 관한 사항\n- 소재지(주사무소, 분사무소)"], ["회계법인 등록취소 및 업무정지", "미미삼", "- 무조건 등록취소 :  미미삼\n    - 회계법인 등록요건 미달\n        - 등록요건 : 5337\n    - 이를 미보완 (3개월 내)\n- 등록취소 또는 업무정지\n    - 그 외 각종 의무위반"], ["회계법인 이사 결격사유", "이사결격 사직 외국 3년 취업", "- 사원이 아닌자\n- 직무정지처분 (일부 직무정지처분 포함)\n    - 일부업무정지처분 : (이사 : X) (소속 CPA : O)\n    - 전부업무정지처분 : (이사 : X) (소속 CPA : X)\n- 외국공인회계사\n- 등록취소된 회계법인의 이사였던자로서 등록취소 후 3년이 지나지 않은 자\n- 업무정지된 회계법인의 이사였던자로서 업무정지기간 중에 있는 자"], ["자본시장법과의 관계", "감자처리해", "- 회계감사규정 : 자본시장법이 우선\n- 회계처리기준 : 외부감사법이 우선"], ["회사 3형제", "상금대비", "- 주권상장법인\n- 금융회사\n    - 은행 등 금융회사 및 농협 및 수협 포함\n- 대형비상장주식회사\n    - 직전말 자산총액 5천억 이상\n        - 단, 공시대상기업집단 국내회사와 자시법상 사업보고서 제출대상법인은 1천억 이상"], ["외부감사 대상법인", "자매매종자부 / 자매매종사자부", "- 500 500 100 100 50 50\n- 주권상장법인\n- 주권상장예정법인\n- 비상장회사 (직전연도, 단위 억)\n    - 단일기준\n        - 자산총액 500 • 매출 500 중 하나만 충족해도 외감대상법인\n    - 복수기준\n        - 주식회사 : 매종자부 100 100 50 중 2가지 해당시 외감대상\n        - 유한회사 : 매종사자부 100 100 50 50중 3가지 해당 시 외감대상 (유한회사는 외감대상기준 완화)\n    - 주식 → 유한 조직변경 시\n        - 변경 후 5년간 주식회사로 간주 외감대상 여부 판단\n    - 표의 50 줄 : 자산 120억 이상 · 부채 70억 이상 (유한회사는 사원수 50 추가)"], ["외부감사 제외법인", "신설 비공계 제외", "- 신설회사\n- 비상장 공기업 → 공기업은 다른 법률에서 외부감사 받고 있음\n- 계속기업이 아닌 회사 → SPC 특수목적회사\n    - 자본시장법에 따른 투자회사, 기업구조조정 투자회사, 유동화전문회사, 거래정지, 회생절차, 해산 파산, 1년이상 휴업, 합병절차 등"], ["내부회계관리제도 적용대상회사", "금공사", "- 주권상장법인\n    - 주권상장예정법인 X\n    - 유한회사 X\n- 대형비상장주식회사 (전기말 자산총액 5천억 이상)\n- 비상장주식회사 + (전기말 자산총액 1천억 이상 ~ 5천억 미만) : 금공사\n    - 금융회사\n    - 공시대상 기업집단\n    - 사업보고서 제출대상"], ["코넥스 상장사 제외 규정", "코넥스 국주 예정직", "- 국제회계기준 적용대상\n- 주기적 지정대상\n- 상장예정법인에 대한 직권지정"], ["주권상장법인만 적용하는 규정", "등내의 비취 3연속 사공 수출", "- 등록회계법인만 감사 가능\n- 내부회계관리제도 감사의견 대상\n- 재무비율 취약 등을 이유로 한 직권지정사유\n- 3년 연속 감사시 소속공인회계사 2/3 이상 교체\n- 회사의 재무제표 제출기간 도과시 사유공시\n- 감사인의 수시보고서 제출의무"], ["대형비상장회사만 적용하는 규정", "대비주소증", "- 주식소유현황 증선위 제출"], ["주권상장법인 + 대형비상장회사", "상대 주지 공감제한", "- 주기적 지정\n- 소속 공인회계사의 감사업무 제한"], ["외감법상 금융위 권한", "과부 처제품회사전 증 상감등록", "- 과징금 부과\n- 회계처리기준 제정\n- 품질관리기준 사전승인\n- 회계감사기준 사전승인\n- 증선위 업무수행사항 결정\n- 주권상장법인 감사인의 등록 및 취소"], ["주권상장법인 + 금융회사", "상금국회", "- 한국채택국제회계기준 적용"], ["감사인이 이사의 부정 발견 시", "감사인 → 주증보고 감사통보", "- 감사인이 주총에 보고\n- 감사인이 증선위에 보고\n- 감사(감사위원회)에게 통보"], ["감사(감사위)가 이사의 부정 발견 시", "감사 → 증보고 감사인통보 · 감사인 → 주총보고", "- 감사인에게 통보\n- 감사인이 주총에 보고 (감사가 주총에 직접 보고하지 않음)\n- 감사가 증선위에 보고"], ["연속감사업무참여 금지", "5+1 · 3+3 · 3→2/3", "- 이사\n    - 일반 : 5+1\n        - 5개 사업연도마다 교체\n        = 연속하는 6개 사업연도에 대한 감사업무를 할 수 없다.\n    - 주권상장 : 3+3\n        - 3개 사업연도마다 교체\n        = 연속하는 4개 사업연도에 대한 감사업무를 할 수 없다.\n        - 이후 3개 사업연도동안 해당 회사의 감사업무 X\n    - 금융회사 • 대형비상장주식회사 : 3+3\n        - 3개 사업연도마다 교체\n        = 연속하는 4개 사업연도에 대한 감사업무를 할 수 없다.\n        - 이후 3개 사업연도동안 해당 회사의 감사업무 X\n- 소속공인회계사\n    - 일반 : N/A\n    - 주권상장 : 동일구성 3 → 구성원 2/3 교체\n        - 동일한 소속CPA에게 주권상장법인인 회사의 연속하는 3개 사업연도에 대한 감사업무를 수행하게 한 경우 그 다음 사업연도에는 2/3 이상을 교체하여야 한다.\n    - 대형비상장 및 금융회사 : n/a"], ["감사인 선임 강도", "동일전선 · 대상 대금 대비 상금", "- 강도 1 : 3개 사업연도 동일 감사인 선임 : 대상 대금 대비 상 금\n    - 3형제 모두 포함\n- 강도 2 : + 3개 사업연도 일시계약 : 대상 대금 대비\n    - 대형 3형제만\n- 강도 3 : + 사업연도 개시 전 감사인 선임 : 대상 대금\n    - 대비 제외, 진짜 중요한 애들만"], ["주권상장법인 직권지정 사유", "시현이 최(2)대(3) 관리 위해 일배 고소예정", "    - 표준감사시간에 현저히 미달하는 경우\n    - 주권상장법인 중 3년 연속 영업현금흐름 (-)\n    - 주권상장법인 중 3년연속 영업이익 (-)\n    - 주권상장법인 중 3년간 최대주주 변경이 2회이상\n    - 주권상장법인 중 3년간 대표이사의 교체가 3회 이상\n    - 관리종목으로 지정된 회사로서 증선위가 공정감사가 필요하다고 인정하여 지정한 회사\n    - 회사가 외감법상 의무를 위반한 경우 (경미한 위반은 제외)\n    - 회사의 귀책사유로 감사인이 감사계약을 해지한 경우\n    - 주권상장법인 중 3년 연속 1미만의 이자보상배율  (이자비용 > 영업이익)\n    - 주권상장법인 중 금융위가 정한 금액 이상의 횡령 또는 배임을 하였다는 이유로 주권상장 법인이 자기네 임직원을 고소 및 공소 제기된 회사 (하이브-민희진)\n    - 주권상장예정법인\n        - 코넥스시장 상장예정법인은 제외"], ["주기적 지정", "6+3", "    - 금융회사는 해당되지 않는다.\n        - 지배구조가 우수하면 감사인 지정을 면제해준다. 근데 금융회사는 금융회사의 지배구조에 관한 법률에 따라 이미 엄격하게 관리된다.\n    - 6개사업연도 자유선임, 이후 3개 사업연도 주기적 지정 감사인\n        - 대상법인\n            - 주권상장법인\n                - 코넥스 상장법인은 제외\n            - 소유와 경영의 분리가 미비한 대형비상장주식회사 중 요건 모두 충족한 경우\n                1. 대형비상장주식회사\n                2. (대주주 + 대주주 특수관계인)이 50%이상 소유하고 있는 과점주주\n                3. 그 대주주 또는 대주주의 특수관계인이 대표이사인 경우\n- 주기적 지정 면제\n    - 6년이내 증선위 감리결과 무혐의인 회사"], ["코넥스 시장 특례", "주직스", "    - 코넥스 상장법인 : 주기적 지정 대상 제외\n    - 코넥스 예정법인 : 직권 지정대상 제외\n    - 상장 + 예정 : IFRS 적용 의무 배제"], ["재무제표·감사보고서 제출기한", "612 412 612 344", "- 암기 : 개연개연 / 재감 감회 주 재보증\n- IFRS 개별 : 감사전 F/S → 감사인 6주 전 · 감사보고서 → 회사 1주 전 · 결산 F/S·감사보고서 → 증선위 2주 내\n- IFRS 연결 : 4주 전 · 1주 전 · 2주 내\n- GAAP 개별 : 6주 전 · 1주 전 · 2주 내\n- GAAP 연결 : 3월말(+90) · 4월말(+120) · 4월말(+120)\n- 숫자는 주총 기준 (-6이면 6주 전, 2는 주총 후 2주 내)\n    - 2열과 3열은 주총 vs 사업보고서 제출기한 중 빠른 날 기준"], ["3형제 특칙", "3형제 대 감동 요술해 전내 부자", "- 대규모 [상], [금융]은 감사위원회 설치 의무 있음 ⇒ 따라서 사업연도 개시 전 감사인 선임 의무\n- 감사위원회 설치의무 없는 경우→ 감사인선임위원회 설치\n    - 감사인선임위원회 관련 규정 - 문지해술사정\n        - 문서화\n            - 감선위 승인받아 문서화\n        - 감사인 지정요청\n            - 감선위 승인받아 감사가 회사에 지정요청 → 회사는 증선위에 지정요청\n        - 감사 →회사 감사인 해임요청\n            - 감사가 감선위 승인받아 회사에 해임요청\n        - 전기감사인 의견진술\n            - 전기감사인 → 감선위에게 의견진술함\n        - 사후확인(제출)\n            - 감사가 혼자작성하고 감선위에 제출\n        - 감사인선정\n            - 감선위 승인 받아 감사가 선정함\n- 동일감사인 3년연속 선임의무\n- 동일이사 3년 ⇒ 3년휴식 (3+3)\n- 부득이 or 감사인 귀책  해임요청 - 감선위 승인 필요\n- 전기감사인의견진술권 - 감선위에 의견진술\n- 감사인 직무제한 위반 해임\n    - 증선위 보고\n- 전기감사인 재선임 시\n    - 증선위 보고 → 3형제 외 회사는 재선임 시 증선위 보고 의무 없음. 선임절차도 생략됨\n- 감사전 재무제표\n    - 증선위 제출\n- 내부회계 관리제도 (1천억 기준)\n    - 1천억 미만 [금] : 내부회계관리제도 감사배제\n    - 1천억 이상 [상] : 내부회계관리제도 감사필요\n        - 2년 연속 중요한 취약점 발견시 감사인 계약 해지 가능\n- 부당한 압력\n    - 감사인 계약 해지권 → 증선위 보고\n- 자료미제출\n    - 감사인 계약 해지권 → 증선위보고"], ["감사인선임위원회 관련 규정", "문지해술사정", "    - 문서화\n        - 감선위 승인받아 문서화\n    - 감사인 지정요청\n        - 감선위 승인받아 감사가 회사에 지정요청 → 회사는 증선위에 지정요청\n    - 감사 →회사 감사인 해임요청\n        - 감사가 감선위 승인받아 회사에 해임요청\n    - 전기감사인 의견진술\n        - 전기감사인 → 감선위에게 의견진술함\n    - 사후확인(제출)\n        - 감사가 혼자작성하고 감선위에 제출\n    - 감사인선정\n        - 감선위 승인 받아 감사가 선정함"], ["주권상장법인 한정특례", "전내수소등", "- 감사전 재무제표 제출위반 → 증선위 사유제출\n- 내부회계관리제도\n    - 1천억 이상 [상]이면 감사대상\n    - 2년연속 중요한 취약점 발견시 감사인 계약 해지\n- 수시보고서 → 증선위 제출\n    - 한공회에는 안함\n- 동일 소속 CPA 3년 → 2/3 교체\n- 감사인 등록제\n    - 주권상장법인 감사인은 등록 한번 더 해야함. 회계법인 등록으로 끝 아님"], ["회계법인 손해배상책임 보장제도", "손회 5억 출자 배상", "- 다른 버전 : 준공5억출손회\n    - 최저자본금 5억\n    - 타법인 출자제한\n    - 손해배상준비금\n    - 손해배상공동기금"]]}];
+function seedPacks(){
+  var done=(state.packs||[]).slice(),ch=false;
+  CARD_PACKS.forEach(function(p){
+    if(done.indexOf(p.id)>=0)return;
+    var sj=state.subjects.filter(function(x){return x.name===p.subj;})[0];
+    if(!sj)return;
+    if(!state.cards)state.cards=[];
+    var key=function(t){return String(t||'').replace(/\s+/g,'');},have={},d=realToday();
+    state.cards.forEach(function(c){if(c.sid===sj.id)have[key(c.title)]=1;});
+    p.cards.forEach(function(c){if(have[key(c[0])])return;have[key(c[0])]=1;state.cards.push({id:uid(),sid:sj.id,title:c[0],cue:c[1],body:c[2],d:d});});
+    done.push(p.id);ch=true;
+  });
+  if(ch)state.packs=done;
+  return ch;
+}
+function cardsOf(sid){return (state.cards||[]).filter(function(c){return c.sid===sid;});}
+/* ==글자== 는 파랑 강조 */
+function richText(str){
+  var out=[],re=/==(.+?)==/g,last=0,m;
+  while((m=re.exec(str))){if(m.index>last)out.push(str.slice(last,m.index));out.push(h('span',{class:'cd-hl'},m[1]));last=re.lastIndex;}
+  if(last<str.length)out.push(str.slice(last));
+  return out.length?out:[''];
+}
+/* 고른 글자를 ==…== 로 감싸거나(파랑) 이미 감싸져 있으면 풀기. 여러 줄을 고르면 줄마다 따로 */
+function toggleBlue(ta){
+  var v=ta.value,s=ta.selectionStart,e=ta.selectionEnd;
+  while(s<e&&/\s/.test(v[s]))s++;
+  while(e>s&&/\s/.test(v[e-1]))e--;
+  if(s>=2&&v.slice(s-2,s)==='=='&&v.slice(e,e+2)==='=='){ta.value=v.slice(0,s-2)+v.slice(s,e)+v.slice(e+2);ta.setSelectionRange(s-2,e-2);}
+  else if(e-s>=4&&v.slice(s,s+2)==='=='&&v.slice(e-2,e)==='=='&&v.slice(s+2,e-2).indexOf('==')<0){ta.value=v.slice(0,s)+v.slice(s+2,e-2)+v.slice(e);ta.setSelectionRange(s,e-4);}
+  else if(s===e){ta.value=v.slice(0,s)+'===='+v.slice(s);ta.setSelectionRange(s+2,s+2);}
+  else{
+    var seg=v.slice(s,e).split('\n').map(function(l){var m=l.match(/^(\s*(?:[-•·*]\s+)?)(.*?)(\s*)$/);return m[2]?m[1]+'=='+m[2].replace(/==/g,'')+'=='+m[3]:l;}).join('\n');
+    ta.value=v.slice(0,s)+seg+v.slice(e);ta.setSelectionRange(s,s+seg.length);
+  }
+  ta.focus();
+  ta.dispatchEvent(new Event('input',{bubbles:true}));
+}
+/* 내용: 줄마다 한 항목. '- '로 시작하면 점, 앞 칸(공백 2칸·탭)만큼 아래 단계 */
+function cardBody(text,o){
+  o=o||{};var inl=o.inl||richText,kv=o.kv!==false;
+  var root=h(o.tag||'div',{class:o.cls||'cd-body'}),lines=String(text||'').split('\n'),widths=[];
+  var ind=function(l){return l.match(/^[ \t　]*/)[0].replace(/\t/g,'    ').replace(/　/g,'  ').length;};
+  lines.forEach(function(l){if(l.trim()){var w=ind(l);if(widths.indexOf(w)<0)widths.push(w);}});
+  widths.sort(function(a,b){return a-b;});
+  lines.forEach(function(line){
+    if(!line.trim()){root.appendChild(h(o.tag?'span':'div',{class:'cd-gap'}));return;}
+    var lv=Math.min(4,widths.indexOf(ind(line))),tx=line.trim(),dot=/^[-•·*]\s*/.test(tx);
+    if(dot)tx=tx.replace(/^[-•·*]\s*/,'');
+    var k=kv?tx.indexOf(' : '):-1;
+    root.appendChild(h(o.tag?'span':'div',{class:'cd-li'+(dot?' dot':'')+(lv?'':' top'),style:'--lv:'+lv},
+      k>0?[h('b',null,inl(tx.slice(0,k))),h('span',{class:'cd-sep'},' : '),h('span',{class:lv?'cd-v':'cd-cue2'},inl(tx.slice(k+3)))]:inl(tx)));
+  });
+  return root;
+}
+/* 카드 일정 표시. 암기카드는 실제 오늘(지난 날 모드와 상관없음) */
+var CK_NAME={new:'새 카드',ok:'앎',no:'모름',hard:'보라'};
+function cardT(){return realToday();}
+function cardIsDue(c,t){return cardDue(c,t)<=t;}
+function cardDueTxt(c,t){var n=diffDays(cardDue(c,t),t);return n<=0?['오늘',1]:[n===1?'내일':n+'일 뒤',0];}
+function cardStatus(c){
+  var k=cardKind(c),r=c.srs;
+  if(k==='new')return '아직 시험 안 봄';
+  if(k==='hard')return '보라 · 3일마다 · 연속 앎 '+(r.hs||0)+'/'+IMP_NEED;
+  return CK_NAME[k]+(r.wrong?' · 모름 '+r.wrong+'회':'');
+}
+function cardById(id){var a=state.cards||[];for(var i=0;i<a.length;i++)if(a[i].id===id)return a[i];return null;}
+function shuffled(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=a[i];a[i]=a[j];a[j]=x;}return a;}
+/* 한 줄: 색 띠(회색 새 카드 · 초록 앎 · 빨강 모름 · 보라) | 제목 | 앞글자 | 다음 시험. 누르면 내용 */
+function cardEl(c,t,sel){
+  if(sel)return cardSelEl(c,t,sel);
+  var open=!!(ui.cardOpen&&ui.cardOpen[c.id]),k=cardKind(c),du=cardDueTxt(c,t);
+  var head=h('button',{class:'cd-head',type:'button','aria-expanded':String(open)},
+    h('span',{class:'cd-title'},c.title||'(제목 없음)'),
+    c.cue?h('span',{class:'cd-cue'},c.cue):null,
+    h('span',{class:'cd-due'+(du[1]?' on':'')},du[0]),
+    iconEl('chev'));
+  var more=h('div',{class:'cd-more'}),built=false;
+  more.hidden=!open;
+  function build(){
+    if(built)return;built=true;
+    var edit=h('button',{class:'cd-edit',type:'button'},'편집');
+    edit.addEventListener('click',function(){openCardSheet(c);});
+    var hist=c.srs&&c.srs.hist?c.srs.hist.slice(-12):[];
+    setKids(more,[
+      String(c.body||'').trim()?cardBody(c.body):h('p',{class:'cd-none'},'내용이 없어요'),
+      h('div',{class:'cd-foot'},
+        h('span',{class:'cd-st'},h('i'),cardStatus(c)),
+        h('span',{class:'cd-next'},'다음 시험 '+(du[1]?'오늘':fmtKMD(cardDue(c,t)))),
+        hist.length?h('span',{class:'cd-hist','aria-label':'최근 시험'},hist.map(function(x){return h('i',{class:x[1]?'k':null});})):null,
+        edit)]);
+  }
+  if(open)build();
+  var el=h('article',{class:'cd ck-'+k+(open?' open':''),'data-id':c.id},head,more);
+  head.addEventListener('click',function(){
+    if(!ui.cardOpen)ui.cardOpen={};
+    var on=!ui.cardOpen[c.id];ui.cardOpen[c.id]=on;
+    if(on)build();
+    el.classList.toggle('open',on);head.setAttribute('aria-expanded',String(on));more.hidden=!on;
+    if(on)anim(more,[{opacity:0,transform:'translateY(-4px)'},{opacity:1,transform:'none'}],{duration:240,easing:EASE});
+  });
+  return el;
+}
+/* 선택 모드의 한 줄: 왼쪽 체크 칸, 누르면 선택/해제 (내용은 안 펼침) */
+function cardSelEl(c,t,sel){
+  var on=!!ui.cardSel.ids[c.id],du=cardDueTxt(c,t);
+  var head=h('button',{class:'cd-head',type:'button',role:'checkbox','aria-checked':String(on)},
+    h('span',{class:'cd-chk','aria-hidden':'true'}),
+    h('span',{class:'cd-title'},c.title||'(제목 없음)'),
+    c.cue?h('span',{class:'cd-cue'},c.cue):null,
+    h('span',{class:'cd-due'+(du[1]?' on':'')},du[0]));
+  var el=h('article',{class:'cd sel-mode ck-'+cardKind(c)+(on?' picked':''),'data-id':c.id},head);
+  head.addEventListener('click',function(){
+    var v=!ui.cardSel.ids[c.id];
+    if(v)ui.cardSel.ids[c.id]=1;else delete ui.cardSel.ids[c.id];
+    el.classList.toggle('picked',v);head.setAttribute('aria-checked',String(v));
+    sel.update();
+  });
+  return el;
+}
+/* 지운 카드를 원래 자리로 되돌리는 알림 */
+function toastUndo(msg,fn){
+  toast(msg);
+  var b=h('button',{class:'toast-act',type:'button'},'되돌리기');
+  b.addEventListener('click',function(){clearTimeout(toastTimer);toastEl.hidden=true;fn();});
+  toastEl.appendChild(b);toastEl.classList.add('has-act');
+  var seq=toastSeq;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){if(seq!==toastSeq)return;var a=anim(toastEl,[{opacity:1},{opacity:0}],{duration:240,fill:'forwards'});finished(a).then(function(){if(seq!==toastSeq)return;toastEl.hidden=true;toastEl.classList.remove('has-act');if(a)a.cancel();});},6000);
+}
+function deleteCards(ids){
+  var gone=[],keep=[];
+  (state.cards||[]).forEach(function(c,i){if(ids[c.id])gone.push([i,c]);else keep.push(c);});
+  if(!gone.length)return;
+  state.cards=keep;
+  if(ui.cardOpen)gone.forEach(function(g){delete ui.cardOpen[g[1].id];});
+  ui.cardSel=null;saveNow();renderView();
+  toastUndo(gone.length+'장 지웠어요',function(){
+    var have={};state.cards.forEach(function(c){have[c.id]=1;});
+    gone.forEach(function(g){if(!have[g[1].id])state.cards.splice(Math.min(g[0],state.cards.length),0,g[1]);});
+    saveNow();renderView();toast(gone.length+'장 되돌렸어요');
+  });
+}
+var CARD_PAGE=200;
+var CK_FILTERS=[['due','오늘 시험'],['new','새 카드'],['ok','앎'],['no','모름'],['hard','보라']];
+function cardsView(){
+  if(seedCards()|seedPacks())saveNow();
+  var t=cardT(),subs=state.subjects;
+  if(!ui.cardSid||!subjectById(ui.cardSid)){var law=subs.filter(function(x){return x.name==='상법';})[0];ui.cardSid=(law||subs[0]||{}).id||null;}
+  var all=cardsOf(ui.cardSid),cnt={due:0,new:0,ok:0,no:0,hard:0};
+  all.forEach(function(c){cnt[cardKind(c)]++;if(cardIsDue(c,t))cnt.due++;});
+  var F=(ui.cardF&&cnt[ui.cardF])?ui.cardF:null;
+  var list=F?all.filter(function(c){return F==='due'?cardIsDue(c,t):cardKind(c)===F;}):all;
+  /* 선택 모드: 체크해서 여러 장 지우기 */
+  var S=ui.cardSel,sel=null,top;
+  if(S){
+    var cntEl=h('span',{class:'cd-selc'}),allB=h('button',{class:'cd-selb',type:'button'}),cancel=h('button',{class:'cd-selb',type:'button'},'취소');
+    var del=h('button',{class:'cd-del',type:'button'});
+    var armed=false,armT=null;
+    var n=function(){return Object.keys(S.ids).length;};
+    sel={update:function(){
+      var k=n(),every=list.length&&list.every(function(c){return S.ids[c.id];});
+      cntEl.textContent=k?k+'장 선택':'지울 카드를 골라요';
+      allB.textContent=every?'전체 해제':'전체 선택';
+      armed=false;clearTimeout(armT);del.classList.remove('armed');
+      del.textContent=k?k+'장 삭제':'삭제';del.disabled=!k;
+    }};
+    allB.addEventListener('click',function(){
+      var every=list.every(function(c){return S.ids[c.id];});
+      list.forEach(function(c){if(every)delete S.ids[c.id];else S.ids[c.id]=1;});
+      Array.prototype.forEach.call(document.querySelectorAll('.cd.sel-mode'),function(el){var v=!!S.ids[el.dataset.id];el.classList.toggle('picked',v);el.firstChild.setAttribute('aria-checked',String(v));});
+      sel.update();
+    });
+    cancel.addEventListener('click',function(){ui.cardSel=null;renderView();});
+    del.addEventListener('click',function(){
+      if(!n())return;
+      if(!armed){armed=true;del.classList.add('armed');del.textContent='한 번 더 누르면 '+n()+'장 삭제';armT=setTimeout(sel.update,4000);return;}
+      deleteCards(S.ids);
+    });
+    top=h('div',{class:'q-top cd-seltop'},h('h1',{class:'lt'},cntEl),h('div',{class:'cd-acts'},allB,cancel,del));
+    sel.update();
+  }
+  var test=h('button',{class:'cd-test',type:'button',disabled:!all.length},iconEl('play'),cnt.due?['시험 ',h('b',null,String(cnt.due))]:'연습');
+  test.addEventListener('click',function(){startCardTest(ui.cardSid,!cnt.due);});
+  var add=h('button',{class:'add-btn lab',type:'button'},iconEl('plus'),'카드');
+  add.addEventListener('click',function(){openCardSheet(null);});
+  var pick=h('button',{class:'cd-selb',type:'button',disabled:!all.length},'선택');
+  pick.addEventListener('click',function(){ui.cardSel={ids:{}};renderView();});
+  if(!top)top=h('div',{class:'q-top','data-fade':'1'},h('h1',{class:'lt'},'암기카드'),h('div',{class:'cd-acts'},test,pick,add));
+  var tabs=h('div',{class:'cd-subs',role:'tablist','aria-label':'과목'},subs.map(function(x){
+    var xs=cardsOf(x.id),n=xs.length,on=x.id===ui.cardSid,due=xs.some(function(c){return cardIsDue(c,t);});
+    var b=h('button',{class:'cd-sub',type:'button',role:'tab','aria-selected':String(on)},subjShortOf(x),n?h('b',null,String(n)):null,due?h('i',{class:'cd-dot','aria-label':'오늘 시험 있음'}):null);
+    b.addEventListener('click',function(){if(ui.cardSid===x.id)return;ui.cardSid=x.id;ui.cardF=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();});
+    return b;}));
+  var fs=h('div',{class:'cd-fs'},CK_FILTERS.map(function(f){
+    if(!cnt[f[0]])return null;
+    var on=F===f[0];
+    var b=h('button',{class:'cd-f ck-'+f[0],type:'button','aria-pressed':String(on)},h('i'),f[1],h('b',null,String(cnt[f[0]])));
+    b.addEventListener('click',function(){ui.cardF=on?null:f[0];ui.cardMore=0;renderView();});
+    return b;}));
+  var lim=Math.max(CARD_PAGE,ui.cardMore||0),moreB=null;
+  if(list.length>lim){moreB=h('button',{class:'cd-moreb',type:'button'},(list.length-lim)+'장 더 보기');moreB.addEventListener('click',function(){ui.cardMore=lim+CARD_PAGE;renderView();});}
+  return h('section',{class:'cards'+(S?' selecting':'')},
+    top,
+    h('div',{'data-fade':'1'},tabs),
+    all.length?h('div',{'data-fade':'1'},fs):null,
+    all.length?h('div',{class:'cd-list'},list.slice(0,lim).map(function(c){return cardEl(c,t,sel);})):h('div',{class:'cd-empty','data-fade':'1'},h('p',null,'아직 카드가 없어요'),h('p',{class:'cd-hint'},'제목, 앞글자, 내용만 적으면 돼요. 내용은 줄마다 하나씩, 앞에 공백을 두면 아래 단계로 들어가요.')),
+    moreB);
+}
+
+/* ---------- 암기카드 시험: 앞면 제목 → 누르면 뒤집혀 앞글자+내용. 오른쪽으로 밀면 앎, 왼쪽은 모름 ----------
+   시험 = 오늘 볼 카드(복습 먼저, 새 카드 나중, 각각 섞음)를 일정에 기록. 연습 = 기록 안 함 */
+var CX=null;
+function startCardTest(sid,practice,ids){
+  if(activeSheet||busy)return;
+  var t=cardT(),all=cardsOf(sid),list;
+  if(ids)list=shuffled(ids.map(cardById).filter(Boolean));
+  else if(practice)list=shuffled(all);
+  else{
+    var due=all.filter(function(c){return cardIsDue(c,t);});
+    list=shuffled(due.filter(function(c){return c.srs;})).concat(shuffled(due.filter(function(c){return !c.srs;})));
+  }
+  if(!list.length){toast('볼 카드가 없어요');return;}
+  var sj=subjectById(sid);
+  CX={sid:sid,t:t,rec:!practice,ids:list.map(function(c){return c.id;}),i:0,res:[],undo:[],flip:false,busy:false,cur:null,name:sj?sj.name:'암기카드'};
+  cxOpen();
+}
+function cxOpen(){
+  var close=h('button',{class:'cx-btn',type:'button'},iconEl('x'),'닫기');
+  var undo=h('button',{class:'cx-btn',type:'button'},iconEl('undo'),'되돌리기');
+  var ttl=h('h2',{class:'cx-ttl'}),prog=h('div',{class:'cx-prog'},h('i')),cnt=h('div',{class:'cx-n'});
+  var stage=h('div',{class:'cx-stage'}),acts=h('div',{class:'cx-acts'});
+  var panel=h('div',{class:'cx',role:'dialog','aria-modal':'true','aria-label':'암기카드 시험'},h('div',{class:'cx-top'},close,ttl,undo),prog,cnt,stage,acts);
+  var wrap=h('div',{class:'cx-wrap'},panel);
+  document.body.appendChild(wrap);
+  function key(e){
+    if(activeSheet!==api||e.isComposing||e.altKey)return;
+    if((e.metaKey||e.ctrlKey)&&(e.key==='z'||e.key==='Z')){e.preventDefault();cxUndo();return;}
+    if(e.metaKey||e.ctrlKey)return;
+    if(e.key==='ArrowRight'){e.preventDefault();cxSwipe(true,0);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();cxSwipe(false,0);}
+    else if(e.key===' '||e.key==='Enter'){if(e.target&&e.target.tagName==='BUTTON')return;e.preventDefault();cxFlip();}
+  }
+  document.addEventListener('keydown',key);
+  document.documentElement.classList.add('cx-on');
+  var api={kind:'cx',wrap:wrap,scrim:wrap,sheet:panel,detach:function(){document.removeEventListener('keydown',key);document.documentElement.classList.remove('cx-on');},
+    close:function(){if(activeSheet!==api)return;closeSheet(false);CX=null;renderView();}};
+  activeSheet=api;
+  CX.el={ttl:ttl,prog:prog,cnt:cnt,stage:stage,acts:acts,undo:undo};
+  close.addEventListener('click',api.close);
+  undo.addEventListener('click',cxUndo);
+  anim(wrap,[{opacity:0},{opacity:1}],{duration:200,easing:'ease-out'});
+  anim(panel,[{opacity:0,transform:'translateY(22px) scale(.98)'},{opacity:1,transform:'none'}],{duration:520,easing:SPRING});
+  cxDraw(true);
+}
+function cxDraw(enter,from){
+  if(!CX)return;
+  var E=CX.el,n=CX.ids.length;
+  setKids(E.ttl,[CX.name,h('span',{class:'cx-mode'+(CX.rec?'':' prac')},CX.rec?'시험':'연습 · 기록 안 됨')]);
+  E.prog.firstChild.style.width=(n?Math.min(CX.i,n)/n*100:0)+'%';
+  E.undo.disabled=!CX.undo.length;
+  if(CX.i>=n){cxEnd();return;}
+  var c=cardById(CX.ids[CX.i]);
+  if(!c){CX.ids.splice(CX.i,1);cxDraw(enter,from);return;}
+  E.cnt.textContent=(CX.i+1)+' / '+n;
+  CX.flip=false;
+  var C=cxCard(c);CX.cur=C;
+  setKids(E.stage,C.el);
+  var no=h('button',{class:'cx-ans no',type:'button'},'← 모름'),fl=h('button',{class:'cx-ans fl',type:'button'},'뒤집기'),ok=h('button',{class:'cx-ans ok',type:'button'},'앎 →');
+  no.addEventListener('click',function(){cxSwipe(false,0);});
+  ok.addEventListener('click',function(){cxSwipe(true,0);});
+  fl.addEventListener('click',cxFlip);
+  E.acts.className='cx-acts';setKids(E.acts,[no,fl,ok]);
+  if(from)anim(C.el,[{opacity:0,transform:'translateX('+(from*120)+'px) rotate('+(from*6)+'deg)'},{opacity:1,transform:'none'}],{duration:420,easing:SPRING});
+  else if(enter)anim(C.el,[{opacity:0,transform:'scale(.94)'},{opacity:1,transform:'none'}],{duration:420,easing:SPRING});
+}
+function cxCard(c){
+  var k=cardKind(c),r=c.srs;
+  var face=h('div',{class:'cx-face cx-front'});
+  var stNo=h('div',{class:'cx-stamp no'},'모름'),stOk=h('div',{class:'cx-stamp ok'},'앎');
+  var inner=h('div',{class:'cx-in ck-'+k},face,stNo,stOk);
+  var el=h('div',{class:'cx-card'},inner);
+  var C={el:el,inner:inner,face:face,stNo:stNo,stOk:stOk,anim:false,gone:false};
+  C.front=function(){
+    face.className='cx-face cx-front';
+    setKids(face,[
+      h('div',{class:'cx-tag'},h('i'),k==='new'?'새 카드':k==='hard'?'보라 · 연속 앎 '+(r.hs||0)+'/'+IMP_NEED:CK_NAME[k]+(r.wrong?' · 모름 '+r.wrong+'회':'')),
+      h('div',{class:'cx-q'},c.title||c.cue||'(제목 없음)'),
+      h('div',{class:'cx-hint'},'눌러서 뒤집기 · 오른쪽 앎 · 왼쪽 모름')]);
+  };
+  C.back=function(){
+    face.className='cx-face cx-back';
+    var body=String(c.body||'').trim();
+    setKids(face,[
+      c.title?h('div',{class:'cx-bt'},c.title):null,
+      c.cue?h('div',{class:'cx-cue'},c.cue):null,
+      body?cardBody(c.body):(!c.cue?h('p',{class:'cd-none'},'내용이 없어요'):null)]);
+    face.scrollTop=0;
+  };
+  C.front();
+  cxDrag(C);
+  return C;
+}
+function cxFlip(){
+  var C=CX&&CX.cur;if(!C||C.anim||C.gone||CX.busy)return;
+  var to=!CX.flip;
+  if(!motion()){CX.flip=to;if(to)C.back();else C.front();return;}
+  C.anim=true;
+  var P='perspective(1400px) ';
+  var a=anim(C.inner,[{transform:P+'rotateY(0deg)'},{transform:P+'rotateY('+(to?90:-90)+'deg)'}],{duration:140,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});
+  finished(a).then(function(){
+    CX&&(CX.flip=to);if(to)C.back();else C.front();
+    var b=anim(C.inner,[{transform:P+'rotateY('+(to?-90:90)+'deg)'},{transform:P+'rotateY(0deg)'}],{duration:280,easing:EASE});
+    if(a)a.cancel();
+    finished(b).then(function(){C.anim=false;});
+  });
+}
+/* 끌기: 가로로 10px 넘게 움직이면 카드가 손가락을 따라옴. 110px 넘게 밀거나 빠르게 튕기면 넘김, 아니면 제자리 */
+function cxDrag(C){
+  var el=C.el,x0=0,y0=0,t0=0,dx=0,down=false,drag=false,moved=false,pid=null;
+  function tf(x){return 'translateX('+x+'px) rotate('+(x/22).toFixed(2)+'deg)';}
+  el.addEventListener('pointerdown',function(e){
+    if(C.anim||C.gone||CX.busy||(e.button&&e.button>0))return;
+    down=true;drag=false;moved=false;x0=e.clientX;y0=e.clientY;t0=performance.now();dx=0;pid=e.pointerId;
+  });
+  el.addEventListener('pointermove',function(e){
+    if(!down||e.pointerId!==pid)return;
+    var mx=e.clientX-x0,my=e.clientY-y0;
+    if(!drag){
+      if(Math.abs(mx)>8||Math.abs(my)>8)moved=true;
+      if(!(Math.abs(mx)>10&&Math.abs(mx)>Math.abs(my)*1.2))return;
+      drag=true;el.classList.add('drag');try{el.setPointerCapture(pid);}catch(_){}
+    }
+    dx=mx;el.style.transform=tf(dx);
+    var p=Math.min(1,Math.abs(dx)/110);
+    C.stOk.style.opacity=dx>0?p:0;C.stNo.style.opacity=dx<0?p:0;
+  });
+  function up(e,cancel){
+    if(!down||e.pointerId!==pid)return;
+    down=false;
+    if(!drag){if(!cancel&&!moved)cxFlip();return;}
+    drag=false;el.classList.remove('drag');
+    var v=dx/Math.max(1,performance.now()-t0);
+    if(!cancel&&(Math.abs(dx)>110||(Math.abs(dx)>40&&Math.abs(v)>.55))){cxSwipe(dx>0,dx);return;}
+    el.style.transform='';
+    anim(el,[{transform:tf(dx)},{transform:'none'}],{duration:440,easing:SPRING});
+    [C.stOk,C.stNo].forEach(function(st){var o=+st.style.opacity||0;st.style.opacity='';if(o)anim(st,[{opacity:o},{opacity:0}],{duration:200});});
+  }
+  el.addEventListener('pointerup',function(e){up(e,false);});
+  el.addEventListener('pointercancel',function(e){up(e,true);});
+}
+function cxSwipe(know,dx){
+  var C=CX&&CX.cur;if(!C||C.gone||C.anim||CX.busy)return;
+  C.gone=true;CX.busy=true;
+  cxRecord(cardById(CX.ids[CX.i]),know);
+  var dir=know?1:-1,W=Math.max(window.innerWidth,700);
+  (know?C.stOk:C.stNo).style.opacity=1;(know?C.stNo:C.stOk).style.opacity=0;
+  C.el.style.transform='';
+  var a=anim(C.el,[{transform:'translateX('+dx+'px) rotate('+(dx/22).toFixed(2)+'deg)'},{transform:'translateX('+(dir*W)+'px) rotate('+(dir*16)+'deg)',opacity:.3}],{duration:dx?260:340,easing:'cubic-bezier(.3,.5,.6,1)',fill:'forwards'});
+  finished(a).then(function(){if(!CX)return;CX.busy=false;cxDraw(true);});
+}
+function cxRecord(c,know){
+  if(!c){CX.i++;return;}
+  var prev=c.srs?JSON.parse(JSON.stringify(c.srs)):null;
+  CX.undo.push({id:c.id,prev:prev,know:know});
+  CX.res.push({id:c.id,know:know});
+  CX.i++;
+  if(!CX.rec)return;
+  var was=cardKind(c);
+  c.srs=cardAnswer(prev,know,CX.t,state.intervals);
+  saveNow();
+  var now=cardKind(c);
+  if(was!=='hard'&&now==='hard')toast('모름이 '+CARD_HARD+'번 쌓여서 보라 카드가 됐어요. 3일마다 나와요');
+  else if(was==='hard'&&now!=='hard')toast(IMP_NEED+'번 연속 알아서 보라에서 빠졌어요');
+}
+function cxUndo(){
+  if(!CX||!CX.undo.length||CX.busy||(CX.cur&&CX.cur.anim))return;
+  var u=CX.undo.pop();CX.res.pop();
+  var c=cardById(u.id);
+  if(CX.rec&&c){if(u.prev)c.srs=u.prev;else delete c.srs;saveNow();}
+  CX.i=Math.max(0,CX.i-1);CX.ids[CX.i]=u.id;
+  cxDraw(false,u.know?1:-1);
+}
+function cxEnd(){
+  var E=CX.el,ok=0,noIds=[];
+  CX.res.forEach(function(r){if(r.know)ok++;else noIds.push(r.id);});
+  var no=noIds.length,hard=CX.rec?noIds.filter(function(id){var c=cardById(id);return c&&cardKind(c)==='hard';}).length:0;
+  CX.cur=null;
+  E.cnt.textContent=CX.res.length+'장 끝';
+  var box=h('div',{class:'cx-end'},
+    h('h2',null,'끝'),
+    h('div',{class:'cx-sum'},h('div',{class:'ok'},h('b',null,String(ok)),'앎'),h('div',{class:'no'},h('b',null,String(no)),'모름')),
+    h('p',{class:'cx-note'},CX.rec?(no?'아는 카드는 일퀘 주기대로, 모르는 카드는 내일 다시 나와요.':'다 알았어요. 다음 시험은 일퀘 주기대로 나와요.'):'연습이라 일정은 그대로예요.'),
+    hard?h('p',{class:'cx-note imp'},'보라 카드 '+hard+'장은 3일마다 나와요'):null);
+  var acts=[];
+  if(no){
+    var again=h('button',{class:'cx-big',type:'button'},'모르는 것만 다시 보기 · 연습');
+    again.addEventListener('click',function(){CX.rec=false;CX.ids=shuffled(noIds);CX.i=0;CX.res=[];CX.undo=[];cxDraw(true);});
+    acts.push(again);
+  }
+  var done=h('button',{class:'cx-big'+(no?'':' pri'),type:'button'},'닫기');
+  done.addEventListener('click',function(){if(activeSheet&&activeSheet.kind==='cx')activeSheet.close();});
+  acts.push(done);
+  setKids(E.stage,box);E.acts.className='cx-acts end';setKids(E.acts,acts);
+  anim(box,[{opacity:0,transform:'translateY(10px) scale(.98)'},{opacity:1,transform:'none'}],{duration:480,easing:SPRING});
+}
+function openCardSheet(c){
+  if(activeSheet||busy)return;
+  var sid=c?c.sid:ui.cardSid||(state.subjects[0]||{}).id;
+  var tabs=h('div',{class:'cd-subs in-sheet'});
+  function drawTabs(){setKids(tabs,state.subjects.map(function(x){var b=h('button',{class:'cd-sub',type:'button','aria-pressed':String(x.id===sid)},subjShortOf(x));b.addEventListener('click',function(){sid=x.id;drawTabs();});return b;}));}
+  drawTabs();
+  var titleIn=h('input',{class:'field big',type:'text',maxlength:'200',autocomplete:'off',placeholder:'제목 (예: 휴면회사의 해산간주)','aria-label':'제목',value:c?c.title:''});
+  var cueIn=h('input',{class:'field cd-cue-in',type:'text',maxlength:'80',autocomplete:'off',placeholder:'앞글자 (예: 5 = 2 + 3)','aria-label':'앞글자',value:c?c.cue:''});
+  var bodyIn=h('textarea',{class:'field cd-body-in',rows:'9','aria-label':'내용',placeholder:'- 줄마다 하나씩\n    - 앞에 공백을 두면 아래 단계'});
+  bodyIn.value=c?c.body:'';
+  /* 파랑 강조: 글자를 고르고 버튼, 또는 ⌘⇧B (맥에선 ⌘⇧H도) */
+  var blue=h('button',{class:'cd-blue',type:'button','aria-label':'고른 글자 파랑으로'},h('i'),'파랑');
+  blue.addEventListener('pointerdown',function(e){e.preventDefault();});
+  blue.addEventListener('mousedown',function(e){e.preventDefault();});
+  blue.addEventListener('click',function(){toggleBlue(bodyIn);});
+  bodyIn.addEventListener('keydown',function(e){
+    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&!e.altKey&&/^(b|h|KeyB|KeyH)$/i.test(e.key.length===1?e.key:e.code)){e.preventDefault();toggleBlue(bodyIn);}
+  });
+  var tools=h('div',{class:'cd-tools'},blue,h('span',{class:'cd-tip'},'글자를 고르고 누르거나 ⌘⇧B · ==이렇게== 감싼 글자가 파랑이 돼요'));
+  var api,kids=[tabs,titleIn,cueIn,tools,bodyIn];
+  if(c)kids.push(confirmBtn('del-card','카드 삭제','한 번 더 누르면 삭제해요',function(){
+    state.cards=state.cards.filter(function(x){return x.id!==c.id;});saveNow();api.close();renderView();toast('카드를 지웠어요');
+  },'sh-del'));
+  function sync(){api.primary.disabled=!(titleIn.value.trim()||cueIn.value.trim());}
+  api=openSheet({title:c?'카드 고치기':'새 암기카드',primary:c?'저장':'추가',body:kids,focus:c?null:titleIn,onPrimary:function(){
+    var v={sid:sid,title:titleIn.value.trim().slice(0,200),cue:cueIn.value.trim().slice(0,80),body:bodyIn.value.replace(/\s+$/,'').slice(0,6000)};
+    if(!v.title&&!v.cue){titleIn.focus();return;}
+    if(!state.cards)state.cards=[];
+    if(c)Object.assign(c,v);else{var n=Object.assign({id:uid(),d:today()},v);state.cards.push(n);if(!ui.cardOpen)ui.cardOpen={};}
+    ui.cardSid=sid;saveNow();api.close();renderView();toast(c?'카드를 고쳤어요':'카드를 넣었어요');
+  }});
+  titleIn.addEventListener('input',sync);cueIn.addEventListener('input',sync);sync();
+}
+/* 검색에서 카드를 누르면: 암기카드 → 그 과목, 그 카드 펼치고 반짝 */
+function gotoCard(id){
+  var c=(state.cards||[]).filter(function(x){return x.id===id;})[0];if(!c)return;
+  closeSheet(true);
+  ui.tab='cards';ui.cardSid=c.sid;ui.cardF=null;if(!ui.cardOpen)ui.cardOpen={};ui.cardOpen[id]=true;ui.detail=null;ui.confirm=null;
+  var ix=cardsOf(c.sid).indexOf(c);ui.cardMore=ix>=CARD_PAGE?Math.ceil((ix+1)/CARD_PAGE)*CARD_PAGE:0;
+  resetSet();updateTabbar();renderView();window.scrollTo(0,0);
+  setTimeout(function(){var el=document.querySelector('.cd[data-id="'+id+'"]');if(!el)return;el.scrollIntoView({block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');},120);
+}
+
 /* ---------- 분석: 오답이 30개 모이면 많이 틀린 파트 · 또 틀린 파트 · 과목별 이유 · 흐름. 복사해서 Claude에게 ---------- */
 var ANAL_MIN=30;
 function analRows(){
@@ -5337,11 +6478,13 @@ function rsStack(m,cls){
 }
 function topReason(m){var best=null,bv=0,tot=0;REASONS.forEach(function(r){var v=m[r.k]||0;tot+=v;if(v>bv){bv=v;best=r;}});return best?{n:best.n,p:Math.round(bv/tot*100)}:null;}
 function anPanel(title,meta,body,cls){return h('section',{class:'panel'+(cls?' '+cls:''),'data-fade':'1'},h('div',{class:'pn-head'},h('h2',null,title),meta?h('span',{class:'pn-meta'},meta):null),h('div',{class:'pn-body'},body));}
+/* 모의고사 탭의 '분석' 칸: 오답 30개부터 파트·이유 계산, 복습해도 안 붙는 박스. 복사 버튼으로 Claude에게 통째로 */
 function analView(t){
   var rows=analRows(),N=rows.length,weak=weakItems();
+  if(!N&&!weak.length)return null;
   var cp=h('button',{class:'an-copy',type:'button'},'오답 전부 복사');
   cp.addEventListener('click',function(){copyText(analPrompt(rows,weak),'복사했어요 · Claude에게 붙여 넣으면 돼요');});
-  var kids=[h('div',{class:'q-top','data-fade':'1'},h('h1',{class:'lt'},'분석'),N?cp:null)];
+  var kids=[h('div',{class:'mk-anal-h'},h('h2',{class:'mk-h'},'분석'),N?cp:null)];
   if(N<ANAL_MIN){
     kids.push(anPanel('오답 '+N+' / '+ANAL_MIN,null,h('div',{class:'an-gate'},
       h('span',{class:'an-gbar'},h('i',{style:'width:'+(N/ANAL_MIN*100).toFixed(1)+'%'})),
@@ -5376,7 +6519,7 @@ function analView(t){
     b.addEventListener('click',function(){gotoItem(it.id);});
     return b;
   })),'wide'));
-  return h('section',{class:'anal'},kids);
+  return h('div',{class:'anal'},kids);
 }
 /* 흐름: 앞쪽 절반 회차와 최근 절반 회차의 이유 비율 */
 function trendBox(A){
@@ -5429,8 +6572,8 @@ function updateSos(){
 }
 /* 퀘스트 탭에서만 화면 아래 틀을 채우는 '새 주제' 바 */
 function buildFab(){
-  var b=h('button',{class:'newbar',type:'button',id:'new-bar',hidden:true,'aria-label':'새 주제 추가'},
-    h('span',{class:'nb-plus'},iconEl('plus')),h('span',null,'새 주제'));
+  var b=h('button',{class:'newbar',type:'button',id:'new-bar',hidden:true,'aria-label':'새 박스 추가'},
+    h('span',{class:'nb-plus'},iconEl('plus')),h('span',null,'새 박스'));
   b.addEventListener('click',openAddSheet);
   document.body.appendChild(b);
 }
@@ -5669,7 +6812,7 @@ function chapterPanel(){
 function statsView(t){
   if(ui.detail){var dv=detailView(t);if(dv)return dv;}
   var ach=achievement(state.items),st=dayStats(state.items,t),streak=streakDays(state.dayLog,t),oc=offCounts(state.dayLog),off=isFullOff(state.dayLog,t);
-  var head=h('div',{class:'st-head','data-fade':'1'},h('h1',{class:'lt'},'상태'),heroChips(t));
+  var head=h('div',{class:'st-head','data-fade':'1'},h('h1',{class:'lt'},'통계'),heroChips(t));
   var kpis=h('div',{class:'st-sec kpis','data-fade':'1'},
     kpi('성취도',ach.n?ach.pct+'%':'—',h('div',{class:'bar'},h('i',{style:'width:'+(ach.n?ach.pct:0)+'%'}))),
     kpi('오늘',off?'휴무':(st.goal?st.done+'/'+st.goal:'—')),
@@ -5878,7 +7021,7 @@ function studyTotal(){var n=0;for(var d in state.study)n+=sumDay(state.study[d])
 function studyLevel(v){return v<60?0:v<7200?1:v<14400?2:v<21600?3:v<28800?4:5;}
 function studyView(t){
   if(!ui.studySel||ui.studySel>t)ui.studySel=t;
-  var add=h('button',{class:'add-btn',type:'button','aria-label':'공부 기록 직접 넣기'},iconEl('plus'));
+  var add=h('button',{class:'add-btn lab',type:'button','aria-label':'공부 기록 직접 넣기'},iconEl('plus'),'기록');
   add.addEventListener('click',function(){openStudyAdd(ui.studySel);});
   var tod=studyOn(t),yest=studyOn(addDays(t,-1)),week=0,month=0,s7=0,d;
   for(d=weekStart(t);d<=t;d=addDays(d,1))week+=studyOn(d);
@@ -6383,7 +7526,7 @@ function mockWrongs(){
 function mockView(t){
   if(ui.mockNotes)return notesView(t);
   if(ui.mockSeries){var ser=seriesById(ui.mockSeries);if(ser)return seriesView(ser,t);ui.mockSeries=null;}
-  var add=h('button',{class:'add-btn',type:'button','aria-label':'새 모의고사 추가'},iconEl('plus'));
+  var add=h('button',{class:'add-btn lab',type:'button','aria-label':'새 모의고사 추가'},iconEl('plus'),'모의고사');
   add.addEventListener('click',function(){openNewSeriesSheet();});
   var cfgB=h('button',{class:'mk-cfg',type:'button'},'점수 기준');
   cfgB.addEventListener('click',openMockCfgSheet);
@@ -6418,6 +7561,7 @@ function mockView(t){
     groups.push(h('div',{class:'grp',id:'grp-etc'},h('div',{class:'grp-name'},'기타'),h('div',{class:'grp-card'},erows)));
   }
   if(groups.length)units.push(h('div',{class:'mk-list','data-unit':'list'},h('h2',{class:'mk-h'},'모의고사 목록'),groups));
+  units.push(unit(analView(t),'anal'));
   kids.push(applyLayout(h('div',{class:'mk-units'},units),'mock'));
   if(!state.mocks.length)kids.push(emptyState('+ 버튼이나 과목 칸을 눌러 모의고사를 추가해요'));
   return h('section',{class:'mock'},kids);
@@ -6964,7 +8108,7 @@ function openAddSheet(){
     h('div',{class:'dw-col'},h('span',{class:'dw-lbl'},'단원'),partBox));
   /* 화면 키보드가 시트를 덮지 않게 손가락으로 열면 제목 칸을 눌러야 키보드가 뜸. 실물 키보드·트랙패드면 바로 입력 */
   var fine=window.matchMedia&&window.matchMedia('(pointer: fine)').matches;
-  var api=openDrawer({title:'새 주제',primary:'추가',cancel:'닫기',top:tabs,body:body,focus:fine?titleIn:null,onPrimary:add});
+  var api=openDrawer({title:'새 박스',primary:'추가',cancel:'닫기',top:tabs,body:body,focus:fine?titleIn:null,onPrimary:add});
   drawTabs(false);
   function sync(){api.primary.disabled=target?!(memoIn.value.trim()||refIn.value.trim()):!titleIn.value.trim();}
   titleIn.addEventListener('input',sync);memoIn.addEventListener('input',sync);refIn.addEventListener('input',sync);sync();
@@ -6975,7 +8119,7 @@ function openAddSheet(){
       var tg=target,rf=refIn.value.trim(),tx=memoIn.value.trim();
       if(!rf&&!tx){memoIn.focus();return;}
       addNote(tg,rf,tx);saveNow();updateBadges();
-      memoIn.value='';refIn.value='';memoPrev.hidden=true;setTarget(null);titleIn.focus();
+      memoIn.value='';refIn.value='';memoPrev.reset();setTarget(null);titleIn.focus();
       flash.textContent='‘'+tg.title+'’에 댓글 달았어요 · 오늘 0일 복습부터 다시';
       anim(flash,[{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:280,easing:EASE});
       if(ui.tab==='quest')refreshBoard(tg.id);
@@ -6990,7 +8134,7 @@ function openAddSheet(){
     state.items.push(it);state.lastSubject=sid;
     if(structOf(sid).length)state.lastCh[sid]={sub:part.sub,ch:part.ch};
     saveNow();
-    titleIn.value='';memoIn.value='';refIn.value='';memoPrev.hidden=true;sync();clearTimeout(dupTm);drawDup();titleIn.focus();
+    titleIn.value='';memoIn.value='';refIn.value='';memoPrev.reset();sync();clearTimeout(dupTm);drawDup();titleIn.focus();
     var pill=partPill(sid,it.sub,it.ch);
     flash.textContent=subjectById(sid).name+(pill?' '+pill:'')+'에 추가했어요 · 오늘 0일 복습부터';
     anim(flash,[{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:280,easing:EASE});
@@ -7125,7 +8269,7 @@ function openRoundSheet(ser,r,wid){
       if(pp){var part=pp.get();w.sub=part.sub;w.ch=part.ch;}
       else w.part=partIn.value.trim().slice(0,40);
       r.wrongs.push(w);saveNow();
-      noteIn.value='';wmIn.value='';wmPrev.hidden=true;
+      noteIn.value='';wmIn.value='';wmPrev.reset();
       drawList(w.id);
       b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');
     });
@@ -7213,17 +8357,54 @@ var THEME_AC=[{k:'red',n:'빨강',c:'#d70015'},{k:'orange',n:'주황',c:'#c93400
 var THEME_BG=[{k:'',n:'자동',c:'linear-gradient(135deg,#fff 50%,#000 50%)'},{k:'white',n:'화이트',c:'#ffffff'},{k:'black',n:'블랙',c:'#000000'},{k:'red',n:'빨강',c:'#a03c3e'},{k:'orange',n:'주황',c:'#aa6428'},{k:'yellow',n:'노랑',c:'#a08c2d'},{k:'green',n:'초록',c:'#3c8c64'},{k:'blue',n:'파랑',c:'#3769b4'},{k:'indigo',n:'남색',c:'#5a5ab4'},{k:'violet',n:'보라',c:'#7850aa'}];
 var THEME_DARKBG={red:1,orange:1,yellow:1,green:1,blue:1,indigo:1,violet:1};
 /* 배경(자동 · 화이트 · 블랙 · 빨주노초파남보)과 포인트 색. 색 배경은 어두운 화면 위에 그 색을 살짝 섞은 것 */
+/* 디자인 테마: 고르면 배경·포인트 색 대신 그 테마의 색·글꼴·질감을 통째로 씀 */
+var THEME_SKIN=[
+  {k:'',n:'기본',c:'linear-gradient(135deg,#f2f2f7 50%,#007aff 50%)'},
+  {k:'nixie',n:'닉시',c:'radial-gradient(circle at 50% 55%,#ffb35c 0 28%,#7a2e00 30%,#140904 62%)',dark:1},
+  {k:'deloitte',n:'딜로이트',c:'linear-gradient(135deg,#000 50%,#86bc25 50%)'},
+  {k:'bloomberg',n:'블룸버그',c:'linear-gradient(135deg,#000 50%,#fb8b1e 50%)',dark:1},
+  {k:'cyber',n:'사이버펑크',c:'linear-gradient(135deg,#fcee0a 34%,#0d0221 34% 66%,#00f0ff 66%)',dark:1},
+  {k:'nyt',n:'뉴욕타임즈',c:'linear-gradient(135deg,#f7f4ec 50%,#121212 50%)'},
+  {k:'dos',n:'DOS',c:'repeating-linear-gradient(0deg,#041204 0 2px,#0a2a0c 2px 3px)',ring:'#33ff66',dark:1},
+  {k:'aperture',n:'에퍼쳐',c:'linear-gradient(135deg,#ff9a00 34%,#eef0f1 34% 66%,#2a9df4 66%)'},
+  {k:'dart',n:'감사보고서',c:'linear-gradient(180deg,#2f6fe0 42%,#fff 42% 70%,#d9d9d9 70%)'}
+];
+function skinOn(k){return !!(state&&state.theme&&state.theme.skin===k);}
+/* DOS 테마의 CRT 모니터 겹 + 켜지는 연출 */
+var crtOn=false;
+function crtSet(on){
+  var el=document.getElementById('crt');
+  if(!on){if(el)el.remove();crtOn=false;return;}
+  if(!el)document.body.appendChild(h('div',{id:'crt','aria-hidden':'true'},h('i',{class:'crt-flick'}),h('i',{class:'crt-roll'}),h('i',{class:'crt-glare'}),h('i',{class:'crt-scr'})));
+  if(!crtOn){crtOn=true;crtBoot();}
+}
+function crtBoot(){
+  if(!motion())return;
+  var line=h('i'),boot=h('div',{class:'crt-boot','aria-hidden':'true'},line);
+  document.body.appendChild(boot);
+  anim(line,[{transform:'scaleX(0)',opacity:1},{transform:'scaleX(1)',opacity:1,offset:.35},{transform:'scaleX(1) scaleY(1)',opacity:1,offset:.55},{transform:'scaleX(1) scaleY(400)',opacity:0}],{duration:700,easing:'cubic-bezier(.6,0,.4,1)',fill:'forwards'});
+  var a=anim(boot,[{opacity:1},{opacity:1,offset:.5},{opacity:0}],{duration:900,easing:'ease-out',fill:'forwards'});
+  anim(document.getElementById('view')||document.body,[{filter:'brightness(2.2) contrast(1.4)'},{filter:'none'}],{duration:1100,easing:'ease-out'});
+  finished(a).then(function(){boot.remove();});
+}
 function applyTheme(){
   var th=(state&&state.theme)||{},root=document.documentElement;
-  var mode=th.bg==='white'?'light':th.bg?'dark':null;
+  var sk=null;THEME_SKIN.forEach(function(x){if(x.k&&x.k===th.skin)sk=x;});
+  var mode=sk?(sk.dark?'dark':'light'):(th.bg==='white'?'light':th.bg?'dark':null);
   if(mode)root.setAttribute('data-theme',mode);else root.removeAttribute('data-theme');
-  THEME_BG.forEach(function(b){if(THEME_DARKBG[b.k])root.classList.toggle('bg-'+b.k,th.bg===b.k);});
-  THEME_AC.forEach(function(a){root.classList.toggle('ac-'+a.k,th.accent===a.k);});
+  THEME_BG.forEach(function(b){if(THEME_DARKBG[b.k])root.classList.toggle('bg-'+b.k,!sk&&th.bg===b.k);});
+  THEME_AC.forEach(function(a){root.classList.toggle('ac-'+a.k,!sk&&th.accent===a.k);});
+  THEME_SKIN.forEach(function(x){if(x.k)root.classList.toggle('skin-'+x.k,!!sk&&sk.k===x.k);});
+  root.classList.toggle('skinned',!!sk);
+  crtSet(!!sk&&sk.k==='dos');
+  if(sk){var bg=getComputedStyle(root).getPropertyValue('--bg').trim();Array.prototype.forEach.call(document.querySelectorAll('meta[name="theme-color"]'),function(m){if(!m._def)m._def=m.getAttribute('content');if(bg)m.setAttribute('content',bg);});}
+  else Array.prototype.forEach.call(document.querySelectorAll('meta[name="theme-color"]'),function(m){if(m._def)m.setAttribute('content',m._def);});
 }
 function setTheme(key,val){
   if(!state.theme)state.theme={};
   if(val)state.theme[key]=val;else delete state.theme[key];
-  if(!state.theme.accent&&!state.theme.bg)delete state.theme;
+  if(key!=='skin'&&val)delete state.theme.skin;
+  if(!state.theme.accent&&!state.theme.bg&&!state.theme.skin)delete state.theme;
   applyTheme();saveNow();renderView();
 }
 function themeSection(){
@@ -7231,10 +8412,15 @@ function themeSection(){
   var sw=function(list,key,cur,def){return h('div',{class:'th-row'},list.map(function(x){
     var b=h('button',{class:'th-sw',type:'button','aria-pressed':String((cur||def)===x.k)},h('i',{style:'background:'+x.c}),x.n);
     b.addEventListener('click',function(){setTheme(key,x.k===def?null:x.k);});return b;}));};
-  return setSec('테마',[h('div',{class:'set-row th'},h('span',{class:'lbl th-lbl'},'배경'),sw(THEME_BG,'bg',th.bg,'')),h('div',{class:'set-row th'},h('span',{class:'lbl th-lbl'},'포인트 색'),sw(THEME_AC,'accent',th.accent,'blue'))],
-    '자동은 아이패드 설정을 따라가요. 색 배경은 어두운 화면에 그 색이 살짝 섞여요.');
+  var sk=!!th.skin;
+  return setSec('테마',[
+    h('div',{class:'set-row th'},h('span',{class:'lbl th-lbl'},'디자인'),sw(THEME_SKIN,'skin',th.skin,'')),
+    h('div',{class:'set-row th'+(sk?' th-rest':'')},h('span',{class:'lbl th-lbl'},'배경'),sw(THEME_BG,'bg',sk?'-':th.bg,'')),
+    h('div',{class:'set-row th'+(sk?' th-rest':'')},h('span',{class:'lbl th-lbl'},'포인트 색'),sw(THEME_AC,'accent',sk?'-':th.accent,'blue'))],
+    sk?'디자인 테마를 쓰는 동안은 배경·포인트 색이 쉬어요. 배경이나 포인트 색을 누르면 디자인 테마가 꺼지고 그 색으로 바뀌어요.':'자동은 아이패드 설정을 따라가요. 색 배경은 어두운 화면에 그 색이 살짝 섞여요.');
 }
 /* ---------- 설정 ---------- */
+/* 설정 바로가기 칩 */
 function setSec(title,rows,note,isErr){
   return h('div',{class:'set-sec'},h('h2',{class:'set-title'},title),h('div',{class:'set-card'},rows),note?h('p',{class:'set-note'+(isErr?' err':'')},note):null);
 }
@@ -7294,48 +8480,7 @@ function settingsView(t){
 
   var exam=h('input',{type:'date',id:'set-exam',class:'set-in',value:state.examDate});
   exam.addEventListener('change',function(){if(isYmd(exam.value)){state.examDate=exam.value;saveNow();toast('시험 날짜를 바꿨어요');}});
-  kids.push(cloudSection());
   kids.push(setSec('시험',[setRow(h('label',{class:'lbl',for:'set-exam'},'시험 날짜'),exam)]));
-  kids.push(pastSection());
-  kids.push(setSec('하루 첫 화면',[
-    setRow(h('span',{class:'lbl'},'첫 접속 인트로'),switchEl(!state.introOff,'하루 첫 접속 인트로',function(v){if(v)delete state.introOff;else state.introOff=true;saveNow();toast(v?'하루 첫 화면을 켰어요':'하루 첫 화면을 껐어요');})),
-    setRow(h('span',{class:'lbl'},'지금 다시 보기'),actBtn('보기',function(){playIntro();},'mini'))]));
-  var goalIn=h('input',{type:'text',id:'set-goal',class:'set-in',value:fmtNum(state.studyGoal||GOAL_DEF),inputmode:'decimal',autocomplete:'off',style:'width:70px'});
-  goalIn.addEventListener('change',function(){
-    var v=Number(goalIn.value.trim().replace(',','.'));
-    if(!(isFinite(v)&&v>=1&&v<=18)){goalIn.value=fmtNum(state.studyGoal||GOAL_DEF);toast('1~18시간 사이로 넣어 주세요');return;}
-    state.studyGoal=Math.round(v*2)/2;goalIn.value=fmtNum(state.studyGoal);saveNow();drawTrail();toast('하루 공부 목표를 '+fmtNum(state.studyGoal)+'시간으로 바꿨어요');
-  });
-  var pc=paceOf(),hm=function(m){return pad2(Math.floor(m/60))+':'+pad2(m%60);},mh=function(v){var m=/^(\d{1,2}):(\d{2})/.exec(v||'');return m&&+m[1]<24&&+m[2]<60?+m[1]*60+(+m[2]):null;};
-  var pFrom=h('input',{type:'time',class:'set-in pc-t','aria-label':'페이스 시작',value:hm(pc.from)});
-  var pTo=h('input',{type:'time',class:'set-in pc-t','aria-label':'페이스 끝',value:hm(pc.to)});
-  var pH=h('input',{type:'text',class:'set-in',value:fmtNum(pc.h),inputmode:'decimal',autocomplete:'off','aria-label':'페이스 시간',style:'width:56px'});
-  function savePace(){
-    var f=mh(pFrom.value),e=mh(pTo.value),v=Number(pH.value.trim().replace(',','.'));
-    var rel=function(x){return ((x-DAY_START_H*60)%1440+1440)%1440;};
-    if(f==null||e==null||rel(e)<=rel(f)){pFrom.value=hm(paceOf().from);pTo.value=hm(paceOf().to);toast('끝 시각이 시작보다 뒤여야 해요');return;}
-    if(!(isFinite(v)&&v>=0&&v<=18)){pH.value=fmtNum(paceOf().h);toast('0~18시간 사이로 넣어 주세요');return;}
-    state.pace={from:f,to:e,h:Math.round(v*2)/2};pH.value=fmtNum(state.pace.h);saveNow();drawTrail();
-  }
-  [pFrom,pTo,pH].forEach(function(x){x.addEventListener('change',savePace);});
-  kids.push(setSec('공부 시간',[
-    setRow(h('label',{class:'lbl',for:'set-goal'},'하루 목표'),h('div',{class:'set-ctl'},goalIn,h('span',{class:'set-unit'},'시간'))),
-    setRow(h('span',{class:'lbl'},'페이스'),h('div',{class:'set-ctl'},pFrom,h('span',{class:'set-unit'},'~'),pTo,pH,h('span',{class:'set-unit'},'시간')))],
-    '파랑은 오늘, 회색은 페이스 (0시간이면 꺼짐)'));
-
-  var iv=h('input',{type:'text',id:'set-iv',class:'set-in',value:state.intervals.join(', '),inputmode:'numeric',autocomplete:'off',style:'width:150px'});
-  var ivSave=actBtn('저장',function(){
-    var parts=iv.value.split(/[,\s]+/).filter(Boolean).map(Number);
-    if(!parts.length||parts.length>20||!parts.every(function(n){return Number.isInteger(n)&&n>=1&&n<=365;})){S.ivErr='1~365 사이 정수를 쉼표로 구분해 넣어 주세요.';renderView();return;}
-    state.intervals=parts;S.ivErr=null;saveNow();renderView();toast('복습 간격을 저장했어요');
-  },'mini accent');
-  var dayList=[0];for(var s=0;s<5;s++)dayList.push(stageDay(state.intervals,s));
-  kids.push(setSec('복습',[setRow(h('label',{class:'lbl',for:'set-iv'},'간격 (일)'),h('div',{class:'set-ctl'},iv,ivSave))],
-    S.ivErr||('0일 → '+dayList.join(' · ')+'일차 … 마지막 간격은 반복돼요'),!!S.ivErr));
-
-  kids.push(themeSection());
-  kids.push(setSec('색',[1,2,3,4,5,0].map(function(l){return setRow(h('span',{class:'sq lv'+l,'aria-hidden':'true'}),h('span',{class:'lbl'},l?l+'점 · '+LV[l]:'검사대상 · 복습 전'));})));
-
   var subjRows=state.subjects.map(function(sub,i){
     var inp=h('input',{type:'text',class:'set-in wide sj-name',value:sub.name,maxlength:'30','aria-label':'과목 이름',autocomplete:'off'});
     inp.addEventListener('change',function(){
@@ -7411,6 +8556,51 @@ function settingsView(t){
       h('p',{class:'set-pend'},'과목 '+P.subjects.length+'개 · 박스 '+P.items.length+'개 · 모의고사 '+P.mocks.length+'개. 복원하면 지금 데이터는 사라져요.'),
       h('div',{class:'set-ctl'},confirmBtn('do-import','이 백업으로 복원','한 번 더 누르면 복원해요',doImport,'mini danger'),actBtn('취소',function(){S.pending=null;renderView();},'mini'))));
   }
+  var iv=h('input',{type:'text',id:'set-iv',class:'set-in',value:state.intervals.join(', '),inputmode:'numeric',autocomplete:'off',style:'width:150px'});
+  var ivSave=actBtn('저장',function(){
+    var parts=iv.value.split(/[,\s]+/).filter(Boolean).map(Number);
+    if(!parts.length||parts.length>20||!parts.every(function(n){return Number.isInteger(n)&&n>=1&&n<=365;})){S.ivErr='1~365 사이 정수를 쉼표로 구분해 넣어 주세요.';renderView();return;}
+    state.intervals=parts;S.ivErr=null;saveNow();renderView();toast('복습 간격을 저장했어요');
+  },'mini accent');
+  var dayList=[0];for(var s=0;s<5;s++)dayList.push(stageDay(state.intervals,s));
+  kids.push(setSec('복습',[setRow(h('label',{class:'lbl',for:'set-iv'},'간격 (일)'),h('div',{class:'set-ctl'},iv,ivSave))],
+    S.ivErr||('0일 → '+dayList.join(' · ')+'일차 … 마지막 간격은 반복돼요'),!!S.ivErr));
+
+  kids.push(setSec('색',[1,2,3,4,5,0].map(function(l){return setRow(h('span',{class:'sq lv'+l,'aria-hidden':'true'}),h('span',{class:'lbl'},l?l+'점 · '+LV[l]:'검사대상 · 복습 전'));})));
+
+  var goalIn=h('input',{type:'text',id:'set-goal',class:'set-in',value:fmtNum(state.studyGoal||GOAL_DEF),inputmode:'decimal',autocomplete:'off',style:'width:70px'});
+  goalIn.addEventListener('change',function(){
+    var v=Number(goalIn.value.trim().replace(',','.'));
+    if(!(isFinite(v)&&v>=1&&v<=18)){goalIn.value=fmtNum(state.studyGoal||GOAL_DEF);toast('1~18시간 사이로 넣어 주세요');return;}
+    state.studyGoal=Math.round(v*2)/2;goalIn.value=fmtNum(state.studyGoal);saveNow();drawTrail();toast('하루 공부 목표를 '+fmtNum(state.studyGoal)+'시간으로 바꿨어요');
+  });
+  var pc=paceOf(),hm=function(m){return pad2(Math.floor(m/60))+':'+pad2(m%60);},mh=function(v){var m=/^(\d{1,2}):(\d{2})/.exec(v||'');return m&&+m[1]<24&&+m[2]<60?+m[1]*60+(+m[2]):null;};
+  var pFrom=h('input',{type:'time',class:'set-in pc-t','aria-label':'페이스 시작',value:hm(pc.from)});
+  var pTo=h('input',{type:'time',class:'set-in pc-t','aria-label':'페이스 끝',value:hm(pc.to)});
+  var pH=h('input',{type:'text',class:'set-in',value:fmtNum(pc.h),inputmode:'decimal',autocomplete:'off','aria-label':'페이스 시간',style:'width:56px'});
+  function savePace(){
+    var f=mh(pFrom.value),e=mh(pTo.value),v=Number(pH.value.trim().replace(',','.'));
+    var rel=function(x){return ((x-DAY_START_H*60)%1440+1440)%1440;};
+    if(f==null||e==null||rel(e)<=rel(f)){pFrom.value=hm(paceOf().from);pTo.value=hm(paceOf().to);toast('끝 시각이 시작보다 뒤여야 해요');return;}
+    if(!(isFinite(v)&&v>=0&&v<=18)){pH.value=fmtNum(paceOf().h);toast('0~18시간 사이로 넣어 주세요');return;}
+    state.pace={from:f,to:e,h:Math.round(v*2)/2};pH.value=fmtNum(state.pace.h);saveNow();drawTrail();
+  }
+  [pFrom,pTo,pH].forEach(function(x){x.addEventListener('change',savePace);});
+  kids.push(setSec('공부 시간',[
+    setRow(h('label',{class:'lbl',for:'set-goal'},'하루 목표'),h('div',{class:'set-ctl'},goalIn,h('span',{class:'set-unit'},'시간'))),
+    setRow(h('span',{class:'lbl'},'페이스'),h('div',{class:'set-ctl'},pFrom,h('span',{class:'set-unit'},'~'),pTo,pH,h('span',{class:'set-unit'},'시간')))],
+    '파랑은 오늘, 회색은 페이스 (0시간이면 꺼짐)'));
+
+  kids.push(themeSection());
+  kids.push(setSec('출석',[
+    setRow(h('span',{class:'lbl'},'함현재 출석 카운트다운'),switchEl(!state.attOff,'함현재 출석 카운트다운',function(v){if(v)delete state.attOff;else state.attOff=true;saveNow();tickAtt();toast(v?'출석 카운트다운을 켰어요':'출석 카운트다운을 껐어요');}))],
+    '월~금 9:00 · 10:30 · 1:30 · 3:00 · 4:30 · 7:00 · 8:30, 토요일은 4:30까지, 일요일은 없음. 오른쪽 위 빨간 박스를 누르면 그날 출석 시간이 떠요.'));
+  kids.push(setSec('하루 첫 화면',[
+    setRow(h('span',{class:'lbl'},'첫 접속 인트로'),switchEl(!state.introOff,'하루 첫 접속 인트로',function(v){if(v)delete state.introOff;else state.introOff=true;saveNow();toast(v?'하루 첫 화면을 켰어요':'하루 첫 화면을 껐어요');})),
+    setRow(h('span',{class:'lbl'},'지금 다시 보기'),actBtn('보기',function(){playIntro();},'mini'))]));
+  kids.push(pastSection());
+  kids.push(cloudSection());
+  kids.push(setSec('저장',storeRows(),'데이터는 기기 데이터베이스에 저장돼요. 삭제 방지가 켜져 있으면 기기 공간이 모자라도 브라우저가 이 앱 데이터를 지우지 않아요. 그래도 백업 파일이나 클라우드는 따로 챙겨 두세요.'));
   kids.push(setSec('백업',bRows,S.importErr||null,!!S.importErr));
 
   kids.push(setSec('데이터',[setRow(confirmBtn('wipe','전체 데이터 지우기','한 번 더 누르면 모두 지워요',wipeAll))]));
@@ -7418,14 +8608,20 @@ function settingsView(t){
     if(!state.layout){toast('이미 처음 배치예요');return;}
     delete state.layout;saveNow();renderView();toast('배치를 처음대로 돌렸어요');
   },'mini');
-  var SK={'클라우드 저장':'cloud','시험':'exam','지난 날 고치기':'past','하루 첫 화면':'intro','공부 시간':'study','복습':'review','테마':'theme','색':'color','과목':'subj','챕터':'ch','백업':'backup','데이터':'data'};
+  var SK={'클라우드 저장':'cloud','시험':'exam','지난 날 고치기':'past','하루 첫 화면':'intro','공부 시간':'study','복습':'review','테마':'theme','색':'color','과목':'subj','챕터':'ch','저장':'store','백업':'backup','데이터':'data','출석':'att'};
   var su=h('div',{class:'set-units'}),rest=[];
   kids.forEach(function(el,i){
     if(el&&el.classList&&el.classList.contains('set-sec')){var tt=el.querySelector('.set-title');el.setAttribute('data-unit',SK[tt?tt.textContent:'']||'s'+i);su.appendChild(el);}
     else rest.push(el);
   });
-  su.insertBefore(unit(setSec('화면 배치',[setRow(h('span',{class:'lbl'},'카드를 꾹 눌러 끌면 옮겨져요'),lay)]),'layout'),su.querySelector('[data-unit="backup"]'));
+  su.insertBefore(unit(setSec('화면 배치',[setRow(h('span',{class:'lbl'},'카드를 꾹 눌러 끌면 옮겨져요'),lay)]),'layout'),su.querySelector('[data-unit="past"]'));
   applyLayout(su,'settings');
+  /* 바로가기: 누르면 그 묶음의 첫 칸으로 */
+  var jump=h('div',{class:'set-jump',role:'navigation','aria-label':'설정 바로가기'},[['시험·과목','exam'],['복습','review'],['공부','study'],['화면','theme'],['지난 날','past'],['데이터','cloud']].map(function(j){
+    var bt=h('button',{class:'set-jb',type:'button'},j[0]);
+    bt.addEventListener('click',function(){var el=su.querySelector('[data-unit="'+j[1]+'"]');if(el)el.scrollIntoView({behavior:motion()?'smooth':'auto',block:'start'});});
+    return bt;}));
+  rest.splice(1,0,jump);
   return h('section',{class:'settings'},rest,su);
 }
 
@@ -7447,7 +8643,7 @@ function renderView(){
     else if(ui.tab==='study')v=studyView(t);
     else if(ui.tab==='mock')v=mockView(t);
     else if(ui.tab==='reads')v=readsView(t);
-    else if(ui.tab==='anal')v=analView(t);
+    else if(ui.tab==='cards')v=cardsView(t);
     else v=settingsView(t);
   }catch(e){
     v=h('div',{class:'err-box'},'화면을 그리다 오류가 났어요: '+(e&&e.message?e.message:e));
@@ -7463,10 +8659,28 @@ function renderView(){
 }
 function checkDay(){autoCloseCheck();var t=today();if(t!==lastDay&&!activeSheet&&!busy)renderView();}
 
+/* 데이터베이스를 먼저 열어 읽고 시작. 6초 안에 답이 없으면 localStorage로 시작(이번엔 데이터베이스에 안 씀) */
 function init(){
   cloudMetaLoad();
-  load();
+  var started=false;
+  function go(rec,ok,db){
+    if(started){if(db){try{db.close();}catch(e){}}return;}
+    started=true;
+    if(ok&&db){IDB.db=db;IDB.off=false;}else{IDB.off=true;if(db){try{db.close();}catch(e){}}}
+    load(rec,ok);
+    if(IDB.ro){cloud.meta=null;storeOk();}
+    init2();
+  }
+  var tm=setTimeout(function(){go(null,false,null);},6000);
+  idbOpen(function(db){
+    if(!db){clearTimeout(tm);go(null,false,null);return;}
+    idbGet(db,'state',function(ok,rec){clearTimeout(tm);go(rec,ok,db);});
+  });
+}
+function init2(){
+  if(TABS.indexOf(ui.tab)<0)ui.tab='home';
   if(!cloud.meta&&applyPresets())saveNow();
+  if((seedCards()|seedPacks())&&!IDB.ro)saveNow();
   autoCloseCheck();
   buildTrail();
   buildTabbar();
@@ -7498,6 +8712,9 @@ function init(){
   });
   setInterval(checkDay,60000);
   setInterval(function(){if(!trailTick)tickTrail();},30000);
+  persistCheck(true);
+  if(IDB.ro)setTimeout(function(){toast('저장소를 못 열어서 이번엔 저장을 멈췄어요. 앱을 완전히 닫았다가 다시 열어 주세요');},700);
+  window.__cpahReady=true;
 }
 init();
 })();
