@@ -2328,6 +2328,39 @@ textarea.cd-opt-in{min-height:84px;resize:vertical;font-size:16.5px;line-height:
 .trail.on .tr-water.tone .tw{background:var(--wt-on)}
 .trail.on .tr-water.tone .tw-wb.f path{fill:var(--wt-on)}
 .trail.on .tr-water.tone .tw-wb.b path{fill:var(--wt-b-on)}
+/* 선지 연달아 넣기 */
+.op-made{display:flex;align-items:baseline;gap:10px;min-width:0;padding:9px 12px;border-radius:var(--r);background:var(--accent-soft);font-size:13.5px}
+.op-made b{flex:none;font-weight:700;color:var(--accent)}
+.op-made span{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--fg-2)}
+.cd-opt.open .cd-title,.cx-q.opt,.cx-ost{white-space:pre-line}
+/* 왼쪽 아래 페이스 버튼 + 불 */
+.tr-pace{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:0;margin:auto 6px 0;padding:8px 0 6px;border-radius:var(--r);background:color-mix(in srgb,var(--surface) 72%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px var(--sep)}
+.tr-pace:active{transform:scale(.96)}
+.tr-pace .tp-k{font-size:10.5px;font-weight:500;color:var(--muted)}
+.tr-pace .tp-v{font-size:15px;font-weight:700;letter-spacing:-.02em;color:var(--fg)}
+.tr-pace.hard .tp-v{color:var(--danger)}
+.tr-light{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;background:var(--faint);transition:background-color .5s,box-shadow .5s}
+.tr-pace[data-st="ok"] .tr-light{background:#30d158;box-shadow:0 0 0 2px rgba(48,209,88,.22),0 0 8px rgba(48,209,88,.8)}
+.tr-pace[data-st="no"] .tr-light{background:#ff3b30;box-shadow:0 0 0 2px rgba(255,59,48,.22),0 0 8px rgba(255,59,48,.85);animation:trLight 1.6s ease-in-out infinite}
+@keyframes trLight{50%{box-shadow:0 0 0 2px rgba(255,59,48,.1),0 0 3px rgba(255,59,48,.4)}}
+.tr-list{flex-shrink:1}
+@media (max-width:599px){.tr-pace{display:none}}
+.pc-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pc-opt{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:12px 14px;border-radius:var(--r);background:var(--fill);text-align:left;transition:background-color .2s,box-shadow .2s}
+.pc-opt b{font-size:15px;font-weight:700;color:var(--fg)}
+.pc-opt span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pc-opt[aria-checked="true"]{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.pc-opt[aria-checked="true"] b{color:var(--accent)}
+.pc-opt.hard b{color:var(--danger)}
+.pc-opt.hard[aria-checked="true"]{background:rgba(255,59,48,.1);box-shadow:inset 0 0 0 2px var(--danger)}
+.pc-opt.cu{grid-column:1/-1}
+.pc-cu{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 12px;border-radius:var(--r);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--sep)}
+.pc-l{margin-right:4px;font-size:13px;font-weight:600;color:var(--muted)}
+.pc-stat{display:flex;align-items:center;gap:8px;margin:2px 0 0;font-size:14px;color:var(--fg-2)}
+.pc-dot{flex:none;width:9px;height:9px;border-radius:50%}
+.pc-dot.ok{background:#30d158;box-shadow:0 0 6px rgba(48,209,88,.7)}
+.pc-dot.no{background:#ff3b30;box-shadow:0 0 6px rgba(255,59,48,.7)}
+.pc-hint{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
 </style>
 
 <div class="wrap"><main id="view"></main></div>
@@ -2838,6 +2871,18 @@ function raceTone(d){
   if(a<=25)return [up?'g':'r',up?'gg':'rr',(a-12)/13];
   return [up?'gg':'rr',up?'gg':'rr',0];
 }
+/* 회색 물 페이스 빠른 고르기. 끝 0 = 밤 12시 */
+var PACE_PRESETS=[{k:'p12',name:'12시간',from:450,to:1350,h:12},{k:'p10',name:'10시간',from:450,to:1350,h:10},{k:'p8',name:'8시간',from:450,to:1350,h:8},{k:'hard',name:'도전',from:450,to:0,h:14}];
+function pacePresetOf(p){for(var i=0;i<PACE_PRESETS.length;i++){var x=PACE_PRESETS[i];if(p&&p.from===x.from&&p.to===x.to&&p.h===x.h)return x.k;}return 'custom';}
+/* 지금부터 끝 시각까지 남은 시간으로 페이스 목표(h시간)를 아직 채울 수 있나.
+   tot = 오늘 한 초, nowMin = 지금 하루 중 분, dayStartH = 하루 경계 시. 끝이 지나면 이미 채웠는지만 봄 */
+function paceReach(tot,nowMin,p,dayStartH){
+  if(!p||!(p.h>0))return null;
+  var off=(dayStartH||0)*60,rel=function(x){return ((x-off)%1440+1440)%1440;};
+  var need=Math.max(0,p.h*3600-tot),left=Math.max(0,(rel(p.to)-rel(nowMin))*60);
+  if(rel(p.to)===0)left=Math.max(0,(1440-rel(nowMin))*60);
+  return {ok:need<=left,need:need,left:left};
+}
 /*LOGIC_END*/
 
 /*STORE_START*/
@@ -3139,6 +3184,10 @@ function sanitize(s){
   if(s.pace&&typeof s.pace==='object'){
     var pf=s.pace.from,pt=s.pace.to,ph=s.pace.h,prel=function(x){return ((x-240)%1440+1440)%1440;};
     if(Number.isInteger(pf)&&Number.isInteger(pt)&&pf>=0&&pf<1440&&pt>=0&&pt<1440&&typeof ph==='number'&&isFinite(ph)&&ph>=0&&ph<=18&&prel(pt)>prel(pf))out.pace={from:pf,to:pt,h:Math.round(ph*2)/2};
+  }
+  if(s.paceCustom&&typeof s.paceCustom==='object'){
+    var cf=s.paceCustom.from,ct=s.paceCustom.to,ch=s.paceCustom.h,crel=function(x){return ((x-240)%1440+1440)%1440;};
+    if(Number.isInteger(cf)&&Number.isInteger(ct)&&cf>=0&&cf<1440&&ct>=0&&ct<1440&&typeof ch==='number'&&isFinite(ch)&&ch>=0&&ch<=18&&crel(ct)>crel(cf))out.paceCustom={from:cf,to:ct,h:Math.round(ch*2)/2};
   }
   if(s.introOff===true)out.introOff=true;
   if(s.attOff===true)out.attOff=true;
@@ -5718,7 +5767,7 @@ var LONG_RUN=6*3600000,trailTick=null,trailSig='';
 var GOAL_DEF=12;
 function goalSecs(){return (state&&state.studyGoal||GOAL_DEF)*3600;}
 /* 페이스: from~to(하루 중 분) 동안 h시간을 고르게 채움. 새벽 4시 하루 경계 기준이라 자정 넘는 끝 시각도 됨 */
-var PACE_DEF={from:450,to:1410,h:12};
+var PACE_DEF={from:450,to:1350,h:12};
 function paceOf(){return state&&state.pace||PACE_DEF;}
 function paceSecs(at){
   var p=paceOf();if(!(p.h>0))return 0;
@@ -5802,7 +5851,9 @@ function buildTrail(){
   var el=h('aside',{class:'trail',id:'trail','aria-label':'공부 시간'},water,
     h('div',{class:'tr-total'},h('span',null,'오늘 공부'),h('b',{id:'tr-total'},'0:00'),h('small',{id:'tr-goal'})),
     go,h('div',{class:'tr-sess',id:'tr-sess','aria-live':'off'}),pick,
-    h('div',{class:'tr-list',id:'tr-list',role:'group','aria-label':'과목별 공부 시간'}));
+    h('div',{class:'tr-list',id:'tr-list',role:'group','aria-label':'과목별 공부 시간'}),
+    h('button',{class:'tr-pace',type:'button',id:'tr-pace'},h('i',{class:'tr-light','aria-hidden':'true'}),h('span',{class:'tp-k'},'페이스'),h('b',{class:'tp-v'})));
+  el.querySelector('#tr-pace').addEventListener('click',openPaceSheet);
   go.addEventListener('click',onTrailGo);
   pick.addEventListener('click',openTrailPicker);
   document.body.appendChild(el);
@@ -5836,6 +5887,62 @@ function drawTrail(){
   if(!on&&trailTick){clearInterval(trailTick);trailTick=null;}
   updateCloseBtn();
 }
+/* 왼쪽 아래 페이스 버튼: 지금 페이스 이름 + 구석 불(초록 = 끝 시각까지 다 채울 수 있음, 빨강 = 이제 못 채움) */
+function paceName(p){var k=pacePresetOf(p);if(k==='custom')return fmtNum(p.h)+'h';if(k==='hard')return '도전';return p.h+'h';}
+function paceNow(tot){var d=new Date();return paceReach(tot,d.getHours()*60+d.getMinutes()+d.getSeconds()/60,paceOf(),DAY_START_H);}
+function drawPaceBtn(b,tot){
+  if(!b)return;
+  var p=paceOf(),r=paceNow(tot),k=pacePresetOf(p);
+  b.querySelector('.tp-v').textContent=p.h>0?paceName(p):'끔';
+  b.classList.toggle('hard',k==='hard');
+  var st=r?(r.ok?'ok':'no'):'off';
+  if(b.getAttribute('data-st')!==st)b.setAttribute('data-st',st);
+  b.setAttribute('aria-label','페이스 '+(p.h>0?fmtNum(p.h)+'시간, '+hhmmOf(p.from)+'~'+hhmmOf(p.to)+', '+(r.ok?'아직 채울 수 있음':'이제 못 채움'):'꺼짐')+' · 누르면 바꾸기');
+}
+function hhmmOf(m){return m===0?'24:00':Math.floor(m/60)+':'+pad2(m%60);}
+function setPace(p,msg){state.pace={from:p.from,to:p.to,h:p.h};saveNow();drawTrail();if(msg)toast(msg);}
+function openPaceSheet(){
+  if(activeSheet||busy)return;
+  var hm=function(m){return pad2(Math.floor(m/60))+':'+pad2(m%60);},mh=function(v){var m=/^(\d{1,2}):(\d{2})/.exec(v||'');return m&&+m[1]<24&&+m[2]<60?+m[1]*60+(+m[2]):null;};
+  var cur=paceOf(),custom=state.paceCustom||(pacePresetOf(cur)==='custom'?cur:{from:450,to:1350,h:11});
+  var list=h('div',{class:'pc-list',role:'radiogroup','aria-label':'페이스'});
+  var fIn=h('input',{type:'time',class:'set-in pc-t','aria-label':'임의 시작',value:hm(custom.from)});
+  var tIn=h('input',{type:'time',class:'set-in pc-t','aria-label':'임의 끝',value:hm(custom.to)});
+  var hIn=h('input',{type:'text',class:'set-in',inputmode:'decimal',autocomplete:'off','aria-label':'임의 시간',value:fmtNum(custom.h),style:'width:58px'});
+  var stat=h('p',{class:'pc-stat'});
+  function draw(){
+    var k=pacePresetOf(paceOf());
+    setKids(list,PACE_PRESETS.map(function(x){
+      var on=k===x.k;
+      var b=h('button',{class:'pc-opt'+(x.k==='hard'?' hard':''),type:'button',role:'radio','aria-checked':String(on)},
+        h('b',null,x.k==='hard'?'도전 모드':x.name+' 페이스'),h('span',null,hhmmOf(x.from)+' ~ '+hhmmOf(x.to)+(x.k==='hard'?' · '+x.h+'시간':'')));
+      b.addEventListener('click',function(){setPace(x,(x.k==='hard'?'도전 모드':x.name+' 페이스')+'로 바꿨어요');draw();});
+      return b;
+    }).concat([(function(){
+      var on=k==='custom';
+      var b=h('button',{class:'pc-opt cu',type:'button',role:'radio','aria-checked':String(on)},h('b',null,'임의 설정'),h('span',null,hhmmOf(custom.from)+' ~ '+hhmmOf(custom.to)+' · '+fmtNum(custom.h)+'시간'));
+      b.addEventListener('click',function(){setPace(custom,'임의 페이스로 바꿨어요');draw();});
+      return b;})()]));
+    var r=paceNow(studyOn(realToday()));
+    if(!r)stat.replaceChildren('페이스가 꺼져 있어요');
+    else setKids(stat,[h('i',{class:'pc-dot '+(r.ok?'ok':'no')}),r.ok?(r.need?'채울 수 있어요 · 끝까지 '+fmtDur(r.left)+' 남았고 '+fmtDur(r.need)+' 더 하면 돼요':'오늘 페이스는 다 채웠어요'):'못 채워요 · 끝까지 '+fmtDur(r.left)+' 남았는데 '+fmtDur(r.need)+' 더 해야 해요']);
+  }
+  function saveCustom(){
+    var f=mh(fIn.value),e=mh(tIn.value),v=Number(hIn.value.trim().replace(',','.'));
+    var rel=function(x){return ((x-DAY_START_H*60)%1440+1440)%1440;};
+    if(f==null||e==null||rel(e)<=rel(f)){fIn.value=hm(custom.from);tIn.value=hm(custom.to);toast('끝 시각이 시작보다 뒤여야 해요');return;}
+    if(!(isFinite(v)&&v>0&&v<=18)){hIn.value=fmtNum(custom.h);toast('0~18시간 사이로 넣어 주세요');return;}
+    custom={from:f,to:e,h:Math.round(v*2)/2};hIn.value=fmtNum(custom.h);
+    state.paceCustom=custom;setPace(custom);draw();
+  }
+  [fIn,tIn,hIn].forEach(function(x){x.addEventListener('change',saveCustom);});
+  draw();
+  openSheet({title:'회색 물 페이스',primary:false,cancel:'닫기',body:[
+    list,
+    h('div',{class:'pc-cu'},h('span',{class:'pc-l'},'임의 설정'),fIn,h('span',{class:'set-unit'},'~'),tIn,hIn,h('span',{class:'set-unit'},'시간')),
+    stat,
+    h('p',{class:'pc-hint'},'회색 물은 시작부터 끝까지 고르게 차올라요. 왼쪽 아래 불이 초록이면 지금부터 끝 시각까지 쉬지 않고 하면 아직 채울 수 있고, 빨강이면 이제 못 채워요.')]});
+}
 /* 네모 테두리가 1분에 한 바퀴. 다시 그릴 때마다 측정 시작 시각에 맞춰 위치를 바로잡음 */
 var ringAnim=null;
 function syncRing(on){
@@ -5865,6 +5972,7 @@ function tickTrail(){
     el.setAttribute('data-race',lead);
   }
   el.querySelector('#tr-goal').textContent='목표 '+Math.floor(lv*100)+'%';
+  drawPaceBtn(el.querySelector('#tr-pace'),tot);
   var sess=el.querySelector('#tr-sess'),pick=el.querySelector('#tr-pick');
   if(on){
     var nm=subjShort(subjName(state.timer.sid)),clk=fmtClock((Date.now()-state.timer.start)/1000);
@@ -6806,10 +6914,10 @@ function openOptSheet(c){
   var tabs=h('div',{class:'cd-subs in-sheet'});
   function drawTabs(){setKids(tabs,state.subjects.map(function(x){var b=h('button',{class:'cd-sub',type:'button','aria-pressed':String(x.id===sid)},subjShortOf(x));b.addEventListener('click',function(){sid=x.id;drawTabs();if(dupBox&&!dupBox.hidden)dupBox.redraw();});return b;}));}
   drawTabs();
-  var stIn=h('textarea',{class:'field big cd-opt-in',rows:'3',maxlength:'1000','aria-label':'선지',placeholder:'선지 또는 조문 (예: 주식회사의 설립 시 발기인은 1인 이상이어야 한다)'});
+  var stIn=h('textarea',{class:'field big cd-opt-in',rows:'3',maxlength:'1000','aria-label':'선지',enterkeyhint:'next',placeholder:'선지 또는 조문 (예: 주식회사의 설립 시 발기인은 1인 이상이어야 한다)'});
   stIn.value=c?c.title:'';
   dupBox=cardDupBox(stIn,function(){return sid;},'opt',c?c.id:null);
-  var bodyIn=h('textarea',{class:'field cd-body-in',rows:'6','aria-label':'해설',placeholder:'해설 (안 적어도 돼요)\n- 줄마다 하나씩'});
+  var bodyIn=h('textarea',{class:'field cd-body-in',rows:'6','aria-label':'해설',enterkeyhint:c?'done':'send',placeholder:'해설 (안 적어도 돼요) · ⇧↩ 줄바꿈'});
   bodyIn.value=c?c.body:'';
   var blue=h('button',{class:'cd-blue',type:'button','aria-label':'고른 글자 파랑으로'},h('i'),'파랑');
   blue.addEventListener('pointerdown',function(e){e.preventDefault();});
@@ -6819,19 +6927,58 @@ function openOptSheet(c){
     if((e.metaKey||e.ctrlKey)&&e.shiftKey&&!e.altKey&&/^(b|h|KeyB|KeyH)$/i.test(e.key.length===1?e.key:e.code)){e.preventDefault();toggleBlue(bodyIn);}
   });
   var tbl=tblTool(bodyIn);
-  var tools=h('div',{class:'cd-tools'},blue,tbl.btn,h('span',{class:'cd-tip'},'해설 · 글자를 고르고 누르거나 ⌘⇧B'));
-  var api,kids=[tabs,stIn,dupBox,tools,tbl.panel,bodyIn];
+  var tools=h('div',{class:'cd-tools'},blue,tbl.btn,h('span',{class:'cd-tip'},'↩ 다음 칸 · 해설에서 ↩ '+(c?'저장':'넣고 다음 선지')+' · ⇧↩ 줄바꿈'));
+  var made=h('div',{class:'op-made',hidden:true,'aria-live':'polite'});
+  var api,kids=[tabs,stIn,dupBox,tools,tbl.panel,bodyIn,made];
   if(c)kids.push(confirmBtn('del-card','선지 삭제','한 번 더 누르면 삭제해요',function(){
     state.cards=state.cards.filter(function(x){return x.id!==c.id;});saveNow();api.close();renderView();toast('선지를 지웠어요');
   },'sh-del'));
-  function sync(){api.primary.disabled=!stIn.value.trim();}
-  api=openSheet({title:c?'선지 고치기':'새 선지',primary:c?'저장':'추가',body:kids,focus:c?null:stIn,onPrimary:function(){
-    var v={sid:sid,k:'opt',title:stIn.value.replace(/\s+/g,' ').trim().slice(0,1000),cue:'',body:bodyIn.value.replace(/\s+$/,'').slice(0,6000)};
+  function sync(){
+    var has=!!stIn.value.trim(),done=!c&&madeN&&!has;
+    api.primary.disabled=!has&&!done;
+    api.primary.textContent=c?'저장':done?'완료':'추가';
+  }
+  /* 선지 안 줄바꿈은 살리고 칸·공백만 정리 */
+  function cleanSt(x){return String(x).replace(/\r\n?/g,'\n').replace(/[ \t　]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim().slice(0,1000);}
+  var madeN=0;
+  /* 넣기. keep이면 창을 닫지 않고 비워서 바로 다음 선지 */
+  function commit(keep){
+    var v={sid:sid,k:'opt',title:cleanSt(stIn.value),cue:'',body:bodyIn.value.replace(/\s+$/,'').slice(0,6000)};
     if(!v.title){stIn.focus();return;}
     if(!state.cards)state.cards=[];
     if(c)Object.assign(c,v);else{state.cards.push(Object.assign({id:uid(),d:today()},v));}
-    ui.cardSid=sid;ui.cardK='opt';saveNow();api.close();renderView();toast(c?'선지를 고쳤어요':'선지를 넣었어요');
+    ui.cardSid=sid;ui.cardK='opt';saveNow();
+    if(keep&&!c){
+      madeN++;
+      stIn.value='';bodyIn.value='';stIn.focus();sync();dupBox.redraw();
+      if(tbl.panel&&!tbl.panel.hidden)tbl.panel.hidden=true;
+      setKids(made,[h('b',null,'✓ '+madeN+'개 넣음'),h('span',null,v.title.replace(/\n/g,' '))]);
+      if(made.hidden){made.hidden=false;}
+      anim(made,[{opacity:.3,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:260,easing:EASE});
+      renderView();
+      return;
+    }
+    api.close();renderView();toast(c?'선지를 고쳤어요':madeN?'선지 '+(madeN+1)+'개를 넣었어요':'선지를 넣었어요');
+  }
+  api=openSheet({title:c?'선지 고치기':'새 선지',primary:c?'저장':'추가',body:kids,focus:c?null:stIn,onPrimary:function(){
+    if(!c&&madeN&&!stIn.value.trim()){api.close();toast('선지 '+madeN+'개를 넣었어요');return;}
+    commit(false);
   }});
+  /* ↩: 선지 → 해설 → 넣기. ⇧↩ · ⌥↩ 은 줄바꿈. 한글 조합 중 ↩ 이 두 번 들어오는 것은 한 번으로 */
+  var lastEnter=0;
+  function enterKey(e,fn){
+    if(e.key!=='Enter'||e.metaKey||e.ctrlKey)return;
+    if(e.shiftKey||e.altKey){
+      if(e.altKey){e.preventDefault();var ta=e.target,a=ta.selectionStart,b=ta.selectionEnd;ta.setRangeText('\n',a,b,'end');ta.dispatchEvent(new Event('input',{bubbles:true}));}
+      return;
+    }
+    if(e.isComposing)return;
+    e.preventDefault();
+    var now=Date.now();if(now-lastEnter<45)return;lastEnter=now;
+    setTimeout(fn,0);
+  }
+  stIn.addEventListener('keydown',function(e){enterKey(e,function(){if(!stIn.value.trim())return;bodyIn.focus();try{bodyIn.setSelectionRange(bodyIn.value.length,bodyIn.value.length);}catch(_){}});});
+  bodyIn.addEventListener('keydown',function(e){enterKey(e,function(){if(!stIn.value.trim()){stIn.focus();return;}commit(true);});});
   stIn.addEventListener('input',sync);sync();
   if(c)dupBox.redraw();
 }
@@ -8968,13 +9115,15 @@ function settingsView(t){
     var rel=function(x){return ((x-DAY_START_H*60)%1440+1440)%1440;};
     if(f==null||e==null||rel(e)<=rel(f)){pFrom.value=hm(paceOf().from);pTo.value=hm(paceOf().to);toast('끝 시각이 시작보다 뒤여야 해요');return;}
     if(!(isFinite(v)&&v>=0&&v<=18)){pH.value=fmtNum(paceOf().h);toast('0~18시간 사이로 넣어 주세요');return;}
-    state.pace={from:f,to:e,h:Math.round(v*2)/2};pH.value=fmtNum(state.pace.h);saveNow();drawTrail();
+    state.pace={from:f,to:e,h:Math.round(v*2)/2};pH.value=fmtNum(state.pace.h);
+    if(pacePresetOf(state.pace)==='custom'&&state.pace.h>0)state.paceCustom={from:f,to:e,h:state.pace.h};
+    saveNow();drawTrail();
   }
   [pFrom,pTo,pH].forEach(function(x){x.addEventListener('change',savePace);});
   kids.push(setSec('공부 시간',[
     setRow(h('label',{class:'lbl',for:'set-goal'},'하루 목표'),h('div',{class:'set-ctl'},goalIn,h('span',{class:'set-unit'},'시간'))),
     setRow(h('span',{class:'lbl'},'페이스'),h('div',{class:'set-ctl'},pFrom,h('span',{class:'set-unit'},'~'),pTo,pH,h('span',{class:'set-unit'},'시간')))],
-    '파랑은 오늘, 회색은 페이스 (0시간이면 꺼짐)'));
+    '회색 물은 페이스 (0시간이면 꺼짐). 오늘 물은 페이스보다 앞서면 초록, 밀리면 빨강. 왼쪽 아래 페이스 버튼에서 12·10·8시간·도전 모드를 바로 고를 수 있어요'));
 
   kids.push(themeSection());
   kids.push(setSec('출석',[
