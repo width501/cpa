@@ -2361,6 +2361,67 @@ textarea.cd-opt-in{min-height:84px;resize:vertical;font-size:16.5px;line-height:
 .pc-dot.ok{background:#30d158;box-shadow:0 0 6px rgba(48,209,88,.7)}
 .pc-dot.no{background:#ff3b30;box-shadow:0 0 6px rgba(255,59,48,.7)}
 .pc-hint{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+/* 선지 한 칸 */
+textarea.cd-opt-in.one{min-height:150px;font-size:16px;font-weight:500;line-height:1.55}
+.cd-opt .cd-title .cd-hl{font-weight:inherit}
+.cx-face.cx-front.cx-opt.rich{justify-content:flex-start;align-items:stretch}
+.cx-face.cx-front.cx-opt.rich .cx-tag,.cx-face.cx-front.cx-opt.rich .cx-hint{align-self:center}
+.cx-q.opt.rich{margin:auto 0;width:100%;font-size:clamp(17px,2.2vw,20px);font-weight:500;line-height:1.6;text-align:left;letter-spacing:0}
+.cx-q.opt.rich .cd-body{font-size:inherit}
+.op-tl{margin-bottom:10px}
+/* 선지 성취도 */
+.cd-pct{flex:none;min-width:40px;height:22px;padding:0 7px;border-radius:11px;font-size:12px;font-weight:700;line-height:22px;text-align:center;font-variant-numeric:tabular-nums}
+.cd-pct.ms{background:var(--fill);color:var(--faint);font-weight:600}
+.cd-pct.lo{background:rgba(255,59,48,.14);color:#e0352b}
+.cd-pct.mid{background:rgba(255,184,0,.2);color:#b07800}
+.cd-pct.hi{background:rgba(48,200,90,.16);color:#1f9a45}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cd-pct.lo{color:#ff6b61}:root:not([data-theme="light"]) .cd-pct.mid{color:#ffc93d}:root:not([data-theme="light"]) .cd-pct.hi{color:#4cd471}}
+:root[data-theme="dark"] .cd-pct.lo{color:#ff6b61}:root[data-theme="dark"] .cd-pct.mid{color:#ffc93d}:root[data-theme="dark"] .cd-pct.hi{color:#4cd471}
+.cd-f.ck-meas{--mk:var(--faint)}
+.cd-f.ck-low{--mk:#ff3b30}
+.cd-avg{display:flex;align-items:center;gap:5px;margin-left:auto;font-size:13px;color:var(--muted)}
+.cd-avg b{font-weight:800;font-variant-numeric:tabular-nums}
+.cd-avg.lo b{color:#e0352b}.cd-avg.mid b{color:#b07800}.cd-avg.hi b{color:#1f9a45}
+/* 암기카드 폴더 */
+.cf-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.cf-chip{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:var(--r);background:transparent;box-shadow:inset 0 0 0 1px var(--sep);font-size:13.5px;font-weight:600;color:var(--fg-2);transition:background-color .2s,color .2s,box-shadow .2s}
+.cf-chip .ic{width:15px;height:15px;opacity:.7}
+.cf-chip b{font-size:12px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.cf-chip[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.cf-chip[aria-pressed="true"] b{color:inherit;opacity:.7}
+.cf-chip .cd-dot{width:6px;height:6px;margin-left:-2px;border-radius:50%;background:var(--danger)}
+.cf-chip.none span{color:var(--muted)}
+.cf-ed{margin-left:2px;padding:1px 6px;border-radius:6px;background:var(--accent);color:var(--on-accent);font-size:11px;font-style:normal;font-weight:700}
+.cf-add{color:var(--muted);box-shadow:inset 0 0 0 1px var(--sep);border:0;background:transparent}
+.cf-add .ic{width:14px;height:14px}
+.cf-groups{display:flex;flex-direction:column;gap:14px}
+.cf-g{display:flex;flex-direction:column;gap:8px}
+.cf-h{display:flex;align-items:center;gap:8px;width:100%;padding:2px 2px;font-size:15px;font-weight:700;color:var(--fg);text-align:left}
+.cf-h .ic{width:17px;height:17px;color:var(--accent)}
+.cf-h .cf-hn{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cf-h b{font-size:12.5px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.cf-h .cf-hd{font-size:12px;font-weight:700;color:var(--accent)}
+.cf-h>.ic:last-child{margin-left:auto;width:9px;height:14px;color:var(--faint);transform:rotate(90deg);transition:transform .25s}
+.cf-g.folded .cf-h>.ic:last-child{transform:none}
+.cf-h.none{color:var(--muted)}
+.cf-empty{margin:0;padding:14px 16px;border-radius:var(--r);background:var(--fill);font-size:13px;color:var(--muted)}
+.cf-pick{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.cf-pl{display:flex;align-items:center;gap:4px;margin-right:2px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.cf-pl .ic{width:14px;height:14px}
+.cf-pb{height:30px;padding:0 11px;border-radius:var(--r);background:var(--fill);font-size:13px;font-weight:600;color:var(--muted)}
+.cf-pb[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.cf-mvgo .ic{width:15px;height:15px;margin-right:2px}
+.cf-mv{display:flex;flex-direction:column;gap:6px}
+.cf-mvb{display:flex;align-items:center;gap:9px;min-height:46px;padding:0 14px;border-radius:var(--r);background:var(--fill);font-size:15px;font-weight:600;color:var(--fg);text-align:left}
+.cf-mvb .ic{width:17px;height:17px;color:var(--accent)}
+.cf-mvb span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cf-mvb b{font-size:12.5px;color:var(--faint)}
+.cf-mvb:active{background:var(--fill-2)}
+.cf-mvb.out{color:var(--muted)}
+.cf-newrow{display:flex;gap:8px}
+.cf-newrow .field{flex:1}
+.cf-new{flex:none;height:44px;padding:0 15px;border-radius:var(--r);background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:700}
+.cf-new:disabled{opacity:.4}
 </style>
 
 <div class="wrap"><main id="view"></main></div>
@@ -2384,6 +2445,9 @@ function weekStart(ymd){return addDays(ymd,-((weekdayOf(ymd)+6)%7));}
 function isYmd(s){return typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s);}
 function intervalFor(iv,stage){return iv[Math.min(stage,iv.length-1)];}
 function stageDay(iv,stage){var s=0;for(var i=0;i<=stage;i++)s+=intervalFor(iv,i);return s;}
+/* 점수별 누적 횟수 [1점,2점,3점,4점,5점]. 댓글로 처음부터 다시 해도 그대로 남음. 같은 날 점수를 바꾸면 before에서 다시 계산되니 두 번 세지 않음 */
+function bumpCnt(base,score){var c=(base.cnt||cntFromHist(base.history)).slice();c[score-1]++;return c;}
+function cntFromHist(hs){var c=[0,0,0,0,0];(hs||[]).forEach(function(e){if(e&&e.score>=1&&e.score<=5)c[e.score-1]++;});return c;}
 function copyItem(it){var o={};for(var k in it){if(k!=='before')o[k]=it[k];}o.history=(it.history||[]).slice();return o;}
 
 /* 일반 일정: 새로 넣은 박스는 넣은 날이 0일 복습(fresh), 그다음 1·3·3·7·14일.
@@ -2392,6 +2456,7 @@ function applyNormal(base,score,t,iv){
   var o=copyItem(base);
   var kind=(base.pulledOn===t&&base.nextDue>t)?'pull':(base.fresh?'first':'normal');
   o.history.push({date:t,stage:base.stage,score:score,kind:kind});
+  o.cnt=bumpCnt(base,score);
   o.score=score;
   delete o.fresh;
   if(score===1){
@@ -2413,6 +2478,7 @@ function applyNormal(base,score,t,iv){
 function applyImportant(base,score,t,iv){
   var o=copyItem(base);
   o.history.push({date:t,stage:base.stage,score:score,kind:'imp'});
+  o.cnt=bumpCnt(base,score);
   o.score=score;
   o.impStreak=(score===5)?(base.impStreak||0)+1:0;
   if(o.impStreak>=IMP_NEED){
@@ -2789,6 +2855,8 @@ function cardDue(c,t){return c.srs?c.srs.due:t;}
 function cardAnswer(b,know,t,iv){
   var o={stage:b?b.stage:0,due:t,wrong:b?b.wrong:0,hard:!!(b&&b.hard),hs:b?b.hs:0,last:know?'k':'u',n:(b?b.n||0:0)+1,hist:(b&&b.hist)?b.hist.slice(-29):[]};
   o.hist.push([t,know?1:0]);
+  /* 누적 앎·모름 횟수(저장만, 보라에서 빠져도 안 지워짐) */
+  o.ok=(b&&b.ok||0)+(know?1:0);o.no=(b&&b.no||0)+(know?0:1);
   if(know){
     if(o.hard){
       o.hs++;
@@ -2882,6 +2950,54 @@ function paceReach(tot,nowMin,p,dayStartH){
   var need=Math.max(0,p.h*3600-tot),left=Math.max(0,(rel(p.to)-rel(nowMin))*60);
   if(rel(p.to)===0)left=Math.max(0,(1440-rel(nowMin))*60);
   return {ok:need<=left,need:need,left:left};
+}
+/* 선지 카드는 한 칸(body)에 다 적음. 목록·겹침·검색에 쓰는 제목은 첫 줄을 글자만 남겨 뽑음.
+   첫 줄이 표면 그 줄 칸 글자를 ' · '로 이음 */
+function optTitle(body){
+  var ls=String(body||'').split('\n'),i,l;
+  for(i=0;i<ls.length;i++){
+    l=ls[i];if(!l.trim()||isTblSep(l))continue;
+    if(isTblLine(l))l=tblCells(l).map(function(c){return c.t;}).filter(Boolean).join(' · ');
+    l=l.replace(/==(.+?)==/g,'$1').replace(/^[ \t　]*[-•·*]\s+/,'').replace(/\s+/g,' ').trim();
+    if(l)return l.slice(0,1000);
+  }
+  return '';
+}
+/* 예전 선지(제목 + 해설 따로) → 한 칸으로: 제목 줄 다음에 해설 */
+function optMerge(title,body){
+  var a=String(title||'').trim(),b=String(body||'').replace(/\s+$/,'');
+  return b.trim()?(a?a+'\n'+b:b):a;
+}
+/* 선지 성취도 일정.
+   하루에 처음 낸 답만 셈(같은 날 다시 본 건 기억이 남아 있어서 부풀려지니까).
+   성취도 m(0~1) = 최근일수록 무겁게 본 평균: 처음엔 그냥 평균, 쌓이면 최근 답 40% · 그 전 24% · …
+   e = 센 날 수. 10번 전까지는 '측정 중': 앎이면 2일 뒤, 모름이면 내일.
+   10번부터: 모름이면 내일, 앎이면 성취도 구간(1·2·3·5·7·14·21일) × 연속 앎이 길수록 최대 2배, 최대 45일.
+   단 지난번 띄운 날수의 2.5배를 못 넘어서 2→5→12→30→45처럼 점점 늘어남 */
+var OPT_NEED=10;
+function optDays(hist){var out=[],seen={};(hist||[]).forEach(function(x){if(x&&!seen[x[0]]){seen[x[0]]=1;out.push(x[1]?1:0);}});return out;}
+function optStep(m,e,x){var a=Math.max(.4,1/(e+1));return e?m+a*(x-m):x;}
+function optIv(m,st){var b=m<.5?1:m<.6?2:m<.7?3:m<.8?5:m<.9?7:m<.95?14:21;return Math.min(45,Math.round(b*(1+.25*Math.min(Math.max(st-1,0),4))));}
+function optR4(x){return Math.round(x*1e4)/1e4;}
+function optAnswer(b,know,t){
+  var x=know?1:0;
+  var o={stage:0,due:t,wrong:0,hard:false,hs:0,last:know?'k':'u',n:(b?b.n||0:0)+1,hist:(b&&b.hist)?b.hist.slice(-29):[],
+    m:b&&typeof b.m==='number'?b.m:0,e:b?b.e||0:0,md:b&&b.md||null,st:b?b.st||0:0};
+  o.hist.push([t,x]);
+  o.ok=(b&&b.ok||0)+x;o.no=(b&&b.no||0)+(1-x);o.wrong=o.no;
+  if(b&&o.md===t){o.due=b.due;o.stage=o.e;return o;}
+  /* 한 번에 확 늘지 않게: 이번 간격은 지난번 실제로 띄운 날수의 2.5배까지(최소 3일) */
+  var gap=b&&b.md?Math.max(1,diffDays(t,b.md)):1;
+  o.m=optR4(optStep(o.m,o.e,x));o.e++;o.md=t;o.st=know?o.st+1:0;o.stage=o.e;
+  o.due=addDays(t,!know?1:o.e<OPT_NEED?2:Math.min(optIv(o.m,o.st),Math.max(3,Math.round(gap*2.5))));
+  return o;
+}
+/* 예전(단계식) 기록에서 성취도 채우기 */
+function optBackfill(r){
+  var d=optDays(r.hist),m=0,st=0,i;
+  d.forEach(function(x,k){m=optStep(m,k,x);});
+  for(i=d.length-1;i>=0&&d[i];i--)st++;
+  return {m:optR4(m),e:d.length,md:r.hist&&r.hist.length?r.hist[r.hist.length-1][0]:null,st:st};
 }
 /*LOGIC_END*/
 
@@ -2989,6 +3105,9 @@ function cleanItem(x,ids,remap,depth,subName){
     }).filter(function(n){return n.text.trim()||n.ref;}).slice(-60);
     if(ns.length)o.notes=ns;
   }
+  /* 점수별 누적 횟수(저장만). 없으면 기록에서 채움 */
+  if(Array.isArray(x.cnt)&&x.cnt.length===5&&x.cnt.every(function(n){return Number.isInteger(n)&&n>=0;}))o.cnt=x.cnt.map(function(n){return Math.min(n,99999);});
+  else{var hc=cntFromHist(o.history);if(hc.some(function(n){return n;}))o.cnt=hc;}
   /* 넣은 날 하는 0일 복습을 아직 안 한 박스 */
   if(x.fresh===true&&o.score==null&&o.state==='active')o.fresh=true;
   if(x.src&&typeof x.src==='object'&&typeof x.src.m==='string'&&typeof x.src.r==='string'&&typeof x.src.w==='string')o.src={m:x.src.m.slice(0,40),r:x.src.r.slice(0,40),w:x.src.w.slice(0,40)};
@@ -3000,7 +3119,7 @@ function cleanItem(x,ids,remap,depth,subName){
 }
 function sanitize(s){
   s=s||{};
-  var out={v:11,subjects:[],items:[],intervals:DEFAULT_IV.slice(),examDate:DEFAULT_EXAM,lastBackup:null,mocks:[],dayLog:{},lastSubject:null,mockSubject:null,chapters:{},lastCh:{},todos:[],timer:{sid:null,start:null,last:null,ok:null},study:{},reps:[],repLog:{},sessions:[],projects:[]};
+  var out={v:12,subjects:[],items:[],intervals:DEFAULT_IV.slice(),examDate:DEFAULT_EXAM,lastBackup:null,mocks:[],dayLog:{},lastSubject:null,mockSubject:null,chapters:{},lastCh:{},todos:[],timer:{sid:null,start:null,last:null,ok:null},study:{},reps:[],repLog:{},sessions:[],projects:[]};
   var sid=Object.create(null);
   if(Array.isArray(s.subjects))s.subjects.forEach(function(x){if(x&&typeof x.id==='string'&&typeof x.name==='string'&&x.name.trim()&&!sid[x.id]){sid[x.id]=true;var so={id:x.id,name:x.name};if(typeof x.short==='string'&&x.short.trim())so.short=x.short.trim().slice(0,4);if(x.noMock===true)so.noMock=true;out.subjects.push(so);}});
   if(!out.subjects.length)out.subjects=defaultSubjects();
@@ -3194,18 +3313,45 @@ function sanitize(s){
   /* 한 번만 넣는 카드 묶음 중 이미 넣은 것 */
   if(Array.isArray(s.packs)){var pk=s.packs.filter(function(x){return typeof x==='string'&&x;}).slice(0,100);if(pk.length)out.packs=pk;}
   /* 암기카드: {id, sid(과목), title, cue(앞글자), body(줄마다, 들여쓰면 아래 단계), d} */
+  /* 암기카드 폴더: 과목 · 종류(앞글자/선지)마다 따로. fold = 접어 둠 */
+  var fdx={};
+  if(Array.isArray(s.cardFolders)){
+    var fl=[];
+    s.cardFolders.forEach(function(f){
+      if(!f||typeof f!=='object'||typeof f.sid!=='string'||typeof f.id!=='string'||!f.id||fdx[f.id])return;
+      var nm=String(f.name||'').replace(/\s+/g,' ').trim().slice(0,30);if(!nm)return;
+      var o={id:f.id.slice(0,40),sid:f.sid.slice(0,40),k:f.k==='opt'?'opt':'cue',name:nm};if(f.fold===true)o.fold=true;
+      fdx[o.id]=o;fl.push(o);
+    });
+    if(fl.length)out.cardFolders=fl.slice(0,300);
+  }
   if(Array.isArray(s.cards)){
     out.cards=s.cards.filter(function(c){return c&&typeof c==='object'&&typeof c.sid==='string'&&(String(c.title||'').trim()||String(c.cue||'').trim()||String(c.body||'').trim());})
       .slice(0,20000).map(function(c){
         var opt=c.k==='opt';
-        var o={id:String(c.id||uid()).slice(0,40),sid:c.sid.slice(0,40),title:String(c.title||'').trim().slice(0,opt?1000:200),cue:opt?'':String(c.cue||'').trim().slice(0,80),body:String(c.body||'').replace(/\r\n?/g,'\n').slice(0,6000),d:isYmd(c.d)?c.d:null};
-        if(opt)o.k='opt';
+        var o={id:String(c.id||uid()).slice(0,40),sid:c.sid.slice(0,40),title:String(c.title||'').trim().slice(0,opt?1000:200),cue:opt?'':String(c.cue||'').trim().slice(0,80),body:String(c.body||'').replace(/\r\n?/g,'\n').slice(0,opt?7200:6000),d:isYmd(c.d)?c.d:null};
+        if(opt){
+          o.k='opt';
+          /* v12부터 선지는 한 칸(body). 예전 것은 제목 줄 + 해설로 합쳐서 하나도 안 잃음 */
+          if(!(s.v>=12)||!o.body.trim())o.body=optMerge(String(c.title||'').replace(/\r\n?/g,'\n'),o.body).slice(0,7200);
+          o.title=optTitle(o.body)||o.title;
+        }
+        if(typeof c.f==='string'&&fdx[c.f]&&fdx[c.f].sid===o.sid&&fdx[c.f].k===(o.k==='opt'?'opt':'cue'))o.f=c.f;
         /* 시험 일정: {stage, due, wrong(모름 누적), hard(보라), hs(보라에서 연속 앎), last('k'|'u'), n(시험 횟수), hist[[날짜,1|0]] 최근 30개} */
         var r=c.srs;
         if(r&&typeof r==='object'&&isYmd(r.due)){
           var ni=function(x,mx){return Number.isInteger(x)&&x>=0?Math.min(x,mx):0;};
           o.srs={stage:ni(r.stage,30),due:r.due,wrong:ni(r.wrong,999),hard:r.hard===true,hs:ni(r.hs,9),last:r.last==='u'?'u':'k',n:ni(r.n,999999),
             hist:(Array.isArray(r.hist)?r.hist:[]).filter(function(x){return Array.isArray(x)&&isYmd(x[0])&&(x[1]===0||x[1]===1);}).slice(-30).map(function(x){return [x[0],x[1]];})};
+          /* 누적 앎(ok)·모름(no). 없으면 기록으로 채움: 모름 = 최근 기록의 모름, 앎 = 전체 횟수 − 모름 */
+          if(Number.isInteger(r.ok)&&r.ok>=0&&Number.isInteger(r.no)&&r.no>=0){o.srs.ok=Math.min(r.ok,999999);o.srs.no=Math.min(r.no,999999);}
+          else{var hn=o.srs.hist.filter(function(x){return x[1]===0;}).length;o.srs.no=Math.max(hn,0);o.srs.ok=Math.max(o.srs.n-hn,o.srs.hist.length-hn,0);}
+          /* 선지: 성취도 m · 센 날 e · 마지막으로 센 날 md · 연속 앎 st. 보라는 안 씀. 없으면 기록에서 채움 */
+          if(o.k==='opt'){
+            if(typeof r.m==='number'&&r.m>=0&&r.m<=1&&Number.isInteger(r.e)&&r.e>=0){o.srs.m=optR4(r.m);o.srs.e=Math.min(r.e,99999);o.srs.md=isYmd(r.md)?r.md:null;o.srs.st=ni(r.st,9999);}
+            else{var bf=optBackfill(o.srs);o.srs.m=bf.m;o.srs.e=bf.e;o.srs.md=bf.md;o.srs.st=bf.st;}
+            o.srs.hard=false;o.srs.hs=0;o.srs.wrong=o.srs.no;
+          }
         }
         return o;});
   }
@@ -3273,6 +3419,7 @@ var EASE='cubic-bezier(.32,.72,0,1)';
 /* 스프링(살짝 넘쳤다가 제자리, 감쇠비 0.7). linear() 를 못 쓰는 브라우저는 비슷한 곡선으로 */
 var SPRING=(window.CSS&&CSS.supports&&CSS.supports('transition-timing-function','linear(0, 1)'))?'linear(0, 0.0255, 0.0908, 0.1814, 0.2858, 0.395, 0.5023, 0.6032, 0.6945, 0.7747, 0.8429, 0.8993, 0.9446, 0.9796, 1.0057, 1.0241, 1.0361, 1.0429, 1.0458, 1.0456, 1.0432, 1.0395, 1.0349, 1.0299, 1.0249, 1.0201, 1.0157, 1.0118, 1.0085, 1.0056, 1.0034, 1.0016, 1.0002, 0.9992, 0.9985, 0.9981, 1)':'cubic-bezier(.34,1.26,.64,1)';
 var ICONS={
+  folder:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2V17.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg>',
   reads:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"/><path d="m12.6 12.1 1.4 1.4 2.9-3"/></svg>',
   home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.4 12 4l8 6.4V19a1 1 0 0 1-1 1h-4.2v-5.6H9.2V20H5a1 1 0 0 1-1-1z"/></svg>',
   quest:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><path d="m8.4 12.3 2.5 2.5 4.8-5.3"/></svg>',
@@ -6294,6 +6441,75 @@ function seedPacks(){
   if(ch)state.packs=done;
   return ch;
 }
+/* 암기카드 폴더 */
+function foldersOf(sid,k){return (state.cardFolders||[]).filter(function(f){return f.sid===sid&&f.k===k;});}
+function folderById(id){return (state.cardFolders||[]).filter(function(f){return f.id===id;})[0]||null;}
+function inFolder(c,fid){return !fid?true:fid==='_none'?!c.f:c.f===fid;}
+/* 카드 창 안의 폴더 고르기 줄. 과목이 바뀌면 그 과목 폴더로 다시 그림 */
+function folderPicker(getSid,k,fid){
+  var row=h('div',{class:'cf-pick'}),cur=fid;
+  function draw(){
+    var fs=foldersOf(getSid(),k);
+    if(cur&&!fs.some(function(f){return f.id===cur;}))cur=null;
+    row.hidden=!fs.length;
+    setKids(row,[h('span',{class:'cf-pl'},iconEl('folder'),'폴더')].concat([{id:null,name:'없음'}].concat(fs).map(function(f){
+      var b=h('button',{class:'cf-pb',type:'button','aria-pressed':String(cur===f.id)},f.name);
+      b.addEventListener('click',function(){cur=f.id;draw();});
+      return b;})));
+  }
+  draw();
+  return {el:row,redraw:draw,get:function(){return cur;}};
+}
+/* 폴더 만들기 · 이름 바꾸기 · 삭제(카드는 남고 '폴더 없음'으로) */
+function openFolderSheet(f,sid,k,then){
+  if(activeSheet||busy)return;
+  var editing=!!f;
+  var inp=h('input',{class:'field big',type:'text',maxlength:'30',autocomplete:'off','aria-label':'폴더 이름',placeholder:'폴더 이름 (예: 회사의 설립)',value:f?f.name:''});
+  var n=f?(state.cards||[]).filter(function(c){return c.f===f.id;}).length:0;
+  var api,kids=[inp];
+  if(f)kids.push(confirmBtn('del-folder','폴더 삭제','한 번 더 누르면 삭제해요 · 안의 카드 '+n+'장은 남아요',function(){
+    state.cardFolders=(state.cardFolders||[]).filter(function(x){return x.id!==f.id;});
+    (state.cards||[]).forEach(function(c){if(c.f===f.id)delete c.f;});
+    if(ui.cardFolder===f.id)ui.cardFolder=null;
+    saveNow();api.close();renderView();toast('폴더를 지웠어요 · 카드는 그대로예요');
+  },'sh-del'));
+  function sync(){api.primary.disabled=!inp.value.trim();}
+  api=openSheet({title:f?'폴더 고치기':'새 폴더',primary:f?'저장':'만들기',body:kids,focus:inp,onPrimary:function(){
+    var nm=inp.value.replace(/\s+/g,' ').trim().slice(0,30);if(!nm)return;
+    if(f){f.name=nm;}
+    else{
+      if(!state.cardFolders)state.cardFolders=[];
+      f={id:uid(),sid:sid,k:k,name:nm};state.cardFolders.push(f);
+    }
+    saveNow();api.close();
+    if(then)then(f);else renderView();
+    toast(editing?'폴더 이름을 바꿨어요':'폴더를 만들었어요');
+  }});
+  inp.addEventListener('input',sync);
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();if(inp.value.trim())api.primary.click();}});
+  sync();
+}
+/* 고른 카드들을 폴더로 옮기기 */
+function openMoveSheet(ids,sid,k){
+  if(activeSheet||busy)return;
+  var n=Object.keys(ids).length;if(!n)return;
+  function move(fid,name){
+    (state.cards||[]).forEach(function(c){if(ids[c.id]){if(fid)c.f=fid;else delete c.f;}});
+    ui.cardSel=null;saveNow();api.close();renderView();toast(n+'장을 '+(fid?'‘'+name+'’'+(josa(name,'으로','로')==='으로'&&(String(name).charCodeAt(name.length-1)-0xAC00)%28===8?'로':josa(name,'으로','로')):'폴더 밖으로')+' 옮겼어요');
+  }
+  var list=h('div',{class:'cf-mv'},foldersOf(sid,k).map(function(f){
+    var cnt=(state.cards||[]).filter(function(c){return c.f===f.id;}).length;
+    var b=h('button',{class:'cf-mvb',type:'button'},iconEl('folder'),h('span',null,f.name),h('b',null,String(cnt)));
+    b.addEventListener('click',function(){move(f.id,f.name);});return b;
+  }).concat([(function(){var b=h('button',{class:'cf-mvb out',type:'button'},h('span',null,'폴더 밖으로 (폴더 없음)'));b.addEventListener('click',function(){move(null);});return b;})()]));
+  var nin=h('input',{class:'field',type:'text',maxlength:'30',autocomplete:'off','aria-label':'새 폴더 이름',placeholder:'새 폴더 이름'});
+  var nb=h('button',{class:'cf-new',type:'button',disabled:true},'만들고 옮기기');
+  nin.addEventListener('input',function(){nb.disabled=!nin.value.trim();});
+  function mk(){var nm=nin.value.replace(/\s+/g,' ').trim().slice(0,30);if(!nm)return;if(!state.cardFolders)state.cardFolders=[];var f={id:uid(),sid:sid,k:k,name:nm};state.cardFolders.push(f);move(f.id,nm);}
+  nb.addEventListener('click',mk);
+  nin.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();mk();}});
+  var api=openSheet({title:n+'장을 어디로 옮길까요',primary:false,cancel:'닫기',body:[list,h('div',{class:'cf-newrow'},nin,nb)]});
+}
 /* 카드 종류: 앞글자(cue, 기본) · 선지(opt, 조문을 아는지만) */
 function cardK(c){return c&&c.k==='opt'?'opt':'cue';}
 function cardsOf(sid,k){return (state.cards||[]).filter(function(c){return c.sid===sid&&(!k||cardK(c)===k);});}
@@ -6320,7 +6536,7 @@ function cardDupRow(x,t,onPick){
 function cardDupBox(input,getSid,k,skip){
   var box=h('div',{class:'dup cd-dup',hidden:true}),tm=null,t=cardT();
   function draw(){
-    var list=similarCards(input.value,getSid(),k,skip,4);
+    var list=similarCards(k==='opt'?optTitle(input.value):input.value,getSid(),k,skip,4);
     if(!list.length){box.hidden=true;box.replaceChildren();return;}
     var same=list[0].raw>=3;
     setKids(box,[h('div',{class:'dup-h'},(same?(k==='opt'?'똑같은 선지가 이미 있어요':'똑같은 카드가 이미 있어요'):(k==='opt'?'비슷한 선지가 있어요':'비슷한 카드가 있어요'))+' · 누르면 그 카드로')].concat(list.map(function(x){return cardDupRow(x,t,function(c){gotoCard(c.id);});})));
@@ -6504,21 +6720,40 @@ var CK_NAME={new:'새 카드',ok:'앎',no:'모름',hard:'보라'};
 function cardT(){return realToday();}
 function cardIsDue(c,t){return cardDue(c,t)<=t;}
 function cardDueTxt(c,t){var n=diffDays(cardDue(c,t),t);return n<=0?['오늘',1]:[n===1?'내일':n+'일 뒤',0];}
+/* 선지 성취도: 10번 채우기 전엔 null */
+function optPct(c){var r=c&&c.srs;return r&&r.e>=OPT_NEED?Math.round(r.m*100):null;}
+function optLv(p){return p<60?'lo':p<80?'mid':'hi';}
 function cardStatus(c){
   var k=cardKind(c),r=c.srs;
   if(k==='new')return '아직 시험 안 봄';
+  if(cardK(c)==='opt'){var p=optPct(c);return p==null?'측정 중 '+(r.e||0)+'/'+OPT_NEED+' · '+CK_NAME[k]:'성취도 '+p+'%'+(r.st>1?' · 연속 앎 '+r.st+'일':'')+' · 앎 '+(r.ok||0)+' · 모름 '+(r.no||0);}
   if(k==='hard')return '보라 · 3일마다 · 연속 앎 '+(r.hs||0)+'/'+IMP_NEED;
   return CK_NAME[k]+(r.wrong?' · 모름 '+r.wrong+'회':'');
 }
 function cardById(id){var a=state.cards||[];for(var i=0;i<a.length;i++)if(a[i].id===id)return a[i];return null;}
 function shuffled(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=a[i];a[i]=a[j];a[j]=x;}return a;}
 /* 한 줄: 색 띠(회색 새 카드 · 초록 앎 · 빨강 모름 · 보라) | 제목 | 앞글자 | 다음 시험. 누르면 내용 */
+/* 선지 목록 줄 머리: 첫 줄(파랑 그대로). 첫 줄이 표면 뽑은 제목 */
+function optFirst(body){var ls=String(body||'').split('\n');for(var i=0;i<ls.length;i++){if(ls[i].trim())return {i:i,l:ls[i]};}return null;}
+function optHeadEl(c){
+  var f=optFirst(c.body);
+  if(!f||isTblLine(f.l))return c.title||'(내용 없음)';
+  return richText(f.l.replace(/^[ \t　]*[-•·*]\s+/,'').trim());
+}
+/* 펼친 곳엔 첫 줄 빼고 나머지 (첫 줄이 표면 전부) */
+function optRest(body){var f=optFirst(body);if(!f||isTblLine(f.l))return body;return String(body).split('\n').slice(f.i+1).join('\n');}
+function optPill(c){
+  var p=optPct(c);
+  return p==null?h('span',{class:'cd-pct ms','aria-label':'측정 중 '+(c.srs.e||0)+'/'+OPT_NEED},(c.srs.e||0)+'/'+OPT_NEED)
+    :h('span',{class:'cd-pct '+optLv(p),'aria-label':'성취도 '+p+'%'},p+'%');
+}
 function cardEl(c,t,sel){
   if(sel)return cardSelEl(c,t,sel);
   var open=!!(ui.cardOpen&&ui.cardOpen[c.id]),k=cardKind(c),du=cardDueTxt(c,t),opt=cardK(c)==='opt';
   var head=h('button',{class:'cd-head',type:'button','aria-expanded':String(open)},
-    h('span',{class:'cd-title'},c.title||'(제목 없음)'),
+    h('span',{class:'cd-title'},opt?optHeadEl(c):c.title||'(제목 없음)'),
     !opt&&c.cue?h('span',{class:'cd-cue'},c.cue):null,
+    opt&&c.srs?optPill(c):null,
     h('span',{class:'cd-due'+(du[1]?' on':'')},du[0]),
     iconEl('chev'));
   var more=h('div',{class:'cd-more'}),built=false;
@@ -6528,9 +6763,9 @@ function cardEl(c,t,sel){
     var edit=h('button',{class:'cd-edit',type:'button'},'편집');
     edit.addEventListener('click',function(){openCardSheet(c);});
     var hist=c.srs&&c.srs.hist?c.srs.hist.slice(-12):[];
+    var rest=opt?optRest(c.body):c.body;
     setKids(more,[
-      opt&&String(c.body||'').trim()?h('div',{class:'cd-exl'},'해설'):null,
-      String(c.body||'').trim()?cardBody(c.body):h('p',{class:'cd-none'},opt?'해설 없음':'내용이 없어요'),
+      String(rest||'').trim()?cardBody(rest):opt?null:h('p',{class:'cd-none'},'내용이 없어요'),
       h('div',{class:'cd-foot'},
         h('span',{class:'cd-st'},h('i'),cardStatus(c)),
         h('span',{class:'cd-next'},'다음 시험 '+(du[1]?'오늘':fmtKMD(cardDue(c,t)))),
@@ -6589,18 +6824,47 @@ function deleteCards(ids){
   });
 }
 var CARD_PAGE=200;
+/* 전체 보기에서 폴더별로 묶어서. 머리를 누르면 접기/펴기(기억함). 거르기 중이면 빈 폴더는 숨김 */
+function cardGroups(FD,list,lim,t,sel,selecting,OPT,filtered){
+  var left=lim,wrap=h('div',{class:'cf-groups'});
+  var groups=FD.map(function(f){return {f:f,id:f.id,name:f.name,xs:list.filter(function(c){return c.f===f.id;})};});
+  groups.push({f:null,id:'_none',name:'폴더 없음',xs:list.filter(function(c){return !c.f;})});
+  groups.forEach(function(g){
+    if(!g.xs.length&&(filtered||!g.f))return;
+    var fold=g.f?!!g.f.fold:!!ui.cardNoneFold,due=g.xs.filter(function(c){return cardIsDue(c,t);}).length;
+    var hd=h('button',{class:'cf-h'+(g.f?'':' none'),type:'button','aria-expanded':String(!fold)},
+      g.f?iconEl('folder'):null,h('span',{class:'cf-hn'},g.name),h('b',null,String(g.xs.length)),due?h('span',{class:'cf-hd'},'오늘 '+due):null,iconEl('chev'));
+    var show=fold?[]:g.xs.slice(0,Math.max(0,left));left-=show.length;
+    var body=fold?null:g.xs.length?cardList(h('div',{class:'cd-list'+(OPT?' opt':'')},show.map(function(c){return cardEl(c,t,sel);})),selecting):h('p',{class:'cf-empty'},'비어 있어요 · ‘선택’에서 카드를 골라 ‘폴더로’ 옮겨요');
+    hd.addEventListener('click',function(){
+      if(g.f){g.f.fold=!g.f.fold;if(!g.f.fold)delete g.f.fold;saveNow();}else ui.cardNoneFold=!ui.cardNoneFold;
+      renderView();
+    });
+    wrap.appendChild(h('section',{class:'cf-g'+(fold?' folded':''),'data-fid':g.id},hd,body));
+  });
+  return wrap;
+}
 /* 카드 목록: 꾹 누르면(0.45초) 들리고 끌어서 순서 바꿈. 선택 모드에선 안 함 */
 function cardList(el,selecting){if(selecting)return el;el.setAttribute('data-cardlist','1');return armReorder(el);}
 var CK_FILTERS=[['due','오늘 시험'],['new','새 카드'],['ok','앎'],['no','모름'],['hard','보라']];
+var OPT_FILTERS=[['due','오늘 시험'],['new','새 선지'],['meas','측정 중'],['low','약함 60%↓'],['ok','앎'],['no','모름']];
 function cardsView(){
   if(seedCards()|seedPacks())saveNow();
   var t=cardT(),subs=state.subjects;
   if(!ui.cardSid||!subjectById(ui.cardSid)){var law=subs.filter(function(x){return x.name==='상법';})[0];ui.cardSid=(law||subs[0]||{}).id||null;}
   var K=ui.cardK==='opt'?'opt':'cue',OPT=K==='opt';
-  var all=cardsOf(ui.cardSid,K),cnt={due:0,new:0,ok:0,no:0,hard:0};
-  all.forEach(function(c){cnt[cardKind(c)]++;if(cardIsDue(c,t))cnt.due++;});
+  var FD=foldersOf(ui.cardSid,K);
+  if(ui.cardFolder&&ui.cardFolder!=='_none'&&!FD.some(function(f){return f.id===ui.cardFolder;}))ui.cardFolder=null;
+  if(ui.cardFolder==='_none'&&!FD.length)ui.cardFolder=null;
+  var FO=ui.cardFolder||null;
+  var allK=cardsOf(ui.cardSid,K);
+  var all=FO?allK.filter(function(c){return inFolder(c,FO);}):allK,cnt={due:0,new:0,ok:0,no:0,hard:0,meas:0,low:0},pSum=0,pN=0;
+  var isMeas=function(c){return OPT&&c.srs&&(c.srs.e||0)<OPT_NEED;},isLow=function(c){var p=OPT?optPct(c):null;return p!=null&&p<60;};
+  all.forEach(function(c){cnt[cardKind(c)]++;if(cardIsDue(c,t))cnt.due++;if(isMeas(c))cnt.meas++;if(isLow(c))cnt.low++;var p=OPT?optPct(c):null;if(p!=null){pSum+=c.srs.m;pN++;}});
   var F=(ui.cardF&&cnt[ui.cardF])?ui.cardF:null;
-  var list=F?all.filter(function(c){return F==='due'?cardIsDue(c,t):cardKind(c)===F;}):all;
+  var list=F?all.filter(function(c){return F==='due'?cardIsDue(c,t):F==='meas'?isMeas(c):F==='low'?isLow(c):cardKind(c)===F;}):all;
+  /* 선지는 성취도 낮은 것부터 보고 싶을 수 있으니, '약함'을 고르면 낮은 순 */
+  if(F==='low')list=list.slice().sort(function(a,b){return a.srs.m-b.srs.m;});
   /* 선택 모드: 체크해서 여러 장 지우기 */
   var S=ui.cardSel,sel=null,top;
   if(S){
@@ -6627,11 +6891,13 @@ function cardsView(){
       if(!armed){armed=true;del.classList.add('armed');del.textContent='한 번 더 누르면 '+n()+'장 삭제';armT=setTimeout(sel.update,4000);return;}
       deleteCards(S.ids);
     });
-    top=h('div',{class:'q-top cd-seltop'},h('h1',{class:'lt'},cntEl),h('div',{class:'cd-acts'},allB,cancel,del));
+    var mvB=h('button',{class:'cd-selb cf-mvgo',type:'button'},iconEl('folder'),'폴더로');
+    mvB.addEventListener('click',function(){if(n())openMoveSheet(S.ids,ui.cardSid,K);else toast('옮길 카드를 먼저 골라요');});
+    top=h('div',{class:'q-top cd-seltop'},h('h1',{class:'lt'},cntEl),h('div',{class:'cd-acts'},allB,mvB,cancel,del));
     sel.update();
   }
   var test=h('button',{class:'cd-test',type:'button',disabled:!all.length},iconEl('play'),cnt.due?['시험 ',h('b',null,String(cnt.due))]:'연습');
-  test.addEventListener('click',function(){startCardTest(ui.cardSid,!cnt.due,null,K);});
+  test.addEventListener('click',function(){startCardTest(ui.cardSid,!cnt.due,null,K,FO);});
   var add=h('button',{class:'add-btn lab',type:'button'},iconEl('plus'),OPT?'선지':'카드');
   add.addEventListener('click',function(){openCardSheet(null,K);});
   var pick=h('button',{class:'cd-selb',type:'button',disabled:!all.length},'선택');
@@ -6643,27 +6909,47 @@ function cardsView(){
   var kinds=h('div',{class:'cd-kinds',role:'tablist','aria-label':'카드 종류'},[['cue','앞글자'],['opt','선지']].map(function(o){
     var on=K===o[0];
     var b=h('button',{class:'cd-kind',type:'button',role:'tab','aria-selected':String(on),'data-k':o[0]},o[1],h('b',null,String(kn[o[0]])),kd[o[0]]&&!on?h('i',{class:'cd-dot','aria-label':'오늘 시험 있음'}):null);
-    b.addEventListener('click',function(){if(K===o[0])return;ui.cardK=o[0];ui.cardF=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();});
+    b.addEventListener('click',function(){if(K===o[0])return;ui.cardK=o[0];ui.cardF=null;ui.cardFolder=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();});
     return b;}));
   var tabs=h('div',{class:'cd-subs',role:'tablist','aria-label':'과목'},subs.map(function(x){
     var xs=cardsOf(x.id,K),n=xs.length,on=x.id===ui.cardSid,due=xs.some(function(c){return cardIsDue(c,t);});
     var b=h('button',{class:'cd-sub',type:'button',role:'tab','aria-selected':String(on)},subjShortOf(x),n?h('b',null,String(n)):null,due?h('i',{class:'cd-dot','aria-label':'오늘 시험 있음'}):null);
-    b.addEventListener('click',function(){if(ui.cardSid===x.id)return;ui.cardSid=x.id;ui.cardF=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();});
+    b.addEventListener('click',function(){if(ui.cardSid===x.id)return;ui.cardSid=x.id;ui.cardF=null;ui.cardFolder=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();});
     return b;}));
-  var fs=h('div',{class:'cd-fs'},CK_FILTERS.map(function(f){
+  /* 폴더 줄: 전체 · 폴더들 · 폴더 없음 · + 폴더. 고른 폴더를 한 번 더 누르면 이름 바꾸기·삭제 */
+  var noneN=allK.filter(function(c){return !c.f;}).length;
+  var fchip=function(id,label,n,due,cls){
+    var on=(FO||null)===id;
+    var b=h('button',{class:'cf-chip'+(cls?' '+cls:''),type:'button','aria-pressed':String(on)},id&&id!=='_none'?iconEl('folder'):null,h('span',null,label),h('b',null,String(n)),due?h('i',{class:'cd-dot','aria-label':'오늘 시험 있음'}):null,on&&id&&id!=='_none'?h('em',{class:'cf-ed','aria-hidden':'true'},'편집'):null);
+    b.addEventListener('click',function(){
+      if(on&&id&&id!=='_none'){openFolderSheet(folderById(id),ui.cardSid,K);return;}
+      if(on)return;
+      ui.cardFolder=id;ui.cardF=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();
+    });
+    return b;
+  };
+  var addF=h('button',{class:'cf-chip cf-add',type:'button'},iconEl('plus'),'폴더');
+  addF.addEventListener('click',function(){openFolderSheet(null,ui.cardSid,K,function(f){ui.cardFolder=f.id;ui.cardF=null;renderView();});});
+  var frow=(allK.length||FD.length)?h('div',{class:'cf-row',role:'tablist','aria-label':'폴더'},
+    [FD.length?fchip(null,'전체',allK.length,false):null]
+    .concat(FD.map(function(f){var xs=allK.filter(function(c){return c.f===f.id;});return fchip(f.id,f.name,xs.length,xs.some(function(c){return cardIsDue(c,t);}));}))
+    .concat([FD.length&&noneN?fchip('_none','폴더 없음',noneN,false,'none'):null,addF])):null;
+  var fs=h('div',{class:'cd-fs'},(OPT?OPT_FILTERS:CK_FILTERS).map(function(f){
     if(!cnt[f[0]])return null;
     var on=F===f[0];
     var b=h('button',{class:'cd-f ck-'+f[0],type:'button','aria-pressed':String(on)},h('i'),f[1],h('b',null,String(cnt[f[0]])));
     b.addEventListener('click',function(){ui.cardF=on?null:f[0];ui.cardMore=0;renderView();});
-    return b;}));
+    return b;}).concat(OPT&&pN?[h('span',{class:'cd-avg '+optLv(Math.round(pSum/pN*100)),title:'측정 끝난 '+pN+'개의 평균'},'평균 성취도 ',h('b',null,Math.round(pSum/pN*100)+'%'))]:[]));
   var lim=Math.max(CARD_PAGE,ui.cardMore||0),moreB=null;
   if(list.length>lim){moreB=h('button',{class:'cd-moreb',type:'button'},(list.length-lim)+'장 더 보기');moreB.addEventListener('click',function(){ui.cardMore=lim+CARD_PAGE;renderView();});}
   return h('section',{class:'cards'+(S?' selecting':'')},
     top,
     S?null:h('div',{'data-fade':'1'},kinds),
     h('div',{'data-fade':'1'},tabs),
+    frow?h('div',{'data-fade':'1'},frow):null,
     all.length?h('div',{'data-fade':'1'},fs):null,
-    all.length?cardList(h('div',{class:'cd-list'+(OPT?' opt':'')},list.slice(0,lim).map(function(c){return cardEl(c,t,sel);})),!!S):h('div',{class:'cd-empty','data-fade':'1'},
+    all.length?(!FO&&FD.length?cardGroups(FD,list,lim,t,sel,!!S,OPT,!!F):cardList(h('div',{class:'cd-list'+(OPT?' opt':'')},list.slice(0,lim).map(function(c){return cardEl(c,t,sel);})),!!S)):
+    FO?h('div',{class:'cd-empty','data-fade':'1'},h('p',null,'이 폴더는 비어 있어요'),h('p',{class:'cd-hint'},'이 폴더를 고른 채로 + '+(OPT?'선지':'카드')+'를 누르면 여기로 들어가요. 이미 있는 카드는 ‘선택’에서 골라 ‘폴더로’ 옮기면 돼요.')):h('div',{class:'cd-empty','data-fade':'1'},
       h('p',null,OPT?'아직 선지가 없어요':'아직 카드가 없어요'),
       h('p',{class:'cd-hint'},OPT?'기출 선지나 조문을 그대로 적어요. 시험에선 문장만 보고 아는지 판단해서 알면 오른쪽, 모르면 왼쪽으로 밀어요. 해설은 적어도 되고 비워도 돼요.':'제목, 앞글자, 내용만 적으면 돼요. 내용은 줄마다 하나씩, 앞에 공백을 두면 아래 단계로 들어가요.')),
     moreB);
@@ -6672,10 +6958,10 @@ function cardsView(){
 /* ---------- 암기카드 시험: 앞면 제목 → 누르면 뒤집혀 앞글자+내용. 오른쪽으로 밀면 앎, 왼쪽은 모름 ----------
    시험 = 오늘 볼 카드(복습 먼저, 새 카드 나중, 각각 섞음)를 일정에 기록. 연습 = 기록 안 함 */
 var CX=null;
-function startCardTest(sid,practice,ids,k){
+function startCardTest(sid,practice,ids,k,fid){
   if(activeSheet||busy)return;
   k=k==='opt'?'opt':'cue';
-  var t=cardT(),all=cardsOf(sid,k),list;
+  var t=cardT(),all=cardsOf(sid,k).filter(function(c){return inFolder(c,fid);}),list,fo=fid&&fid!=='_none'?folderById(fid):null;
   if(ids)list=shuffled(ids.map(cardById).filter(Boolean));
   else if(practice)list=shuffled(all);
   else{
@@ -6684,7 +6970,7 @@ function startCardTest(sid,practice,ids,k){
   }
   if(!list.length){toast('볼 카드가 없어요');return;}
   var sj=subjectById(sid);
-  CX={sid:sid,k:k,t:t,rec:!practice,ids:list.map(function(c){return c.id;}),i:0,res:[],undo:[],flip:false,busy:false,cur:null,name:(sj?sj.name:'암기카드')+(k==='opt'?' 선지':'')};
+  CX={sid:sid,k:k,t:t,rec:!practice,ids:list.map(function(c){return c.id;}),i:0,res:[],undo:[],flip:false,busy:false,cur:null,name:(sj?sj.name:'암기카드')+(k==='opt'?' 선지':'')+(fo?' · '+fo.name:fid==='_none'?' · 폴더 없음':'')};
   cxOpen();
 }
 function cxOpen(){
@@ -6744,18 +7030,24 @@ function cxCard(c){
   var el=h('div',{class:'cx-card'},inner);
   var C={el:el,inner:inner,face:face,stNo:stNo,stOk:stOk,anim:false,gone:false};
   var opt=cardK(c)==='opt',q=c.title||c.cue||'(제목 없음)';
+  /* 선지: 적은 그대로(표·파랑 포함) 한 면. 짧은 한 줄이면 가운데 큼직하게 */
+  var ob=opt?String(c.body||'').trim():'',oneLine=opt&&ob.indexOf('\n')<0&&!isTblLine(ob)&&ob.length<=90;
+  function optFace(){return oneLine?h('div',{class:'cx-q opt'},richText(ob.replace(/^[-•·*]\s+/,''))):h('div',{class:'cx-q opt rich'},cardBody(ob||q));}
   C.front=function(){
-    face.className='cx-face cx-front'+(opt?' cx-opt':'');
+    face.className='cx-face cx-front'+(opt?' cx-opt'+(oneLine?'':' rich'):'');
     setKids(face,[
+      opt?h('div',{class:'cx-tag'},h('i'),k==='new'?'새 선지':optPct(c)==null?'측정 중 '+(r.e||0)+'/'+OPT_NEED:'성취도 '+optPct(c)+'%'):
       h('div',{class:'cx-tag'},h('i'),k==='new'?'새 카드':k==='hard'?'보라 · 연속 앎 '+(r.hs||0)+'/'+IMP_NEED:CK_NAME[k]+(r.wrong?' · 모름 '+r.wrong+'회':'')),
-      h('div',{class:'cx-q'+(opt?' opt'+(q.length>90?' long':''):'')},q),
-      h('div',{class:'cx-hint'},opt?'이 조문 알면 오른쪽 · 모르면 왼쪽 · 눌러서 해설':'눌러서 뒤집기 · 오른쪽 앎 · 왼쪽 모름')]);
+      opt?optFace():h('div',{class:'cx-q'},q),
+      h('div',{class:'cx-hint'},opt?'이 조문 알면 오른쪽 · 모르면 왼쪽':'눌러서 뒤집기 · 오른쪽 앎 · 왼쪽 모름')]);
+    if(opt)face.scrollTop=0;
   };
   C.back=function(){
     face.className='cx-face cx-back';
     var body=String(c.body||'').trim();
     if(opt){
-      setKids(face,[h('div',{class:'cx-ost'},q),body?h('div',{class:'cd-exl'},'해설'):null,body?cardBody(c.body):h('p',{class:'cd-none'},'해설 없음')]);
+      var tl=c.srs&&c.srs.ok!=null?'지금까지 앎 '+(c.srs.ok||0)+' · 모름 '+(c.srs.no||0)+(optPct(c)!=null?' · 성취도 '+optPct(c)+'%':' · 측정 '+(c.srs.e||0)+'/'+OPT_NEED):'처음 보는 선지';
+      setKids(face,[tl?h('div',{class:'cx-tag op-tl'},h('i'),tl):null,cardBody(ob||q)]);
       face.scrollTop=0;return;
     }
     setKids(face,[
@@ -6834,6 +7126,11 @@ function cxRecord(c,know){
   CX.i++;
   if(!CX.rec)return;
   var was=cardKind(c);
+  if(cardK(c)==='opt'){
+    c.srs=optAnswer(prev,know,CX.t);saveNow();
+    if((!prev||(prev.e||0)<OPT_NEED)&&c.srs.e===OPT_NEED)toast('측정 끝 · 성취도 '+Math.round(c.srs.m*100)+'%');
+    return;
+  }
   c.srs=cardAnswer(prev,know,CX.t,state.intervals);
   saveNow();
   var now=cardKind(c);
@@ -6894,7 +7191,9 @@ function openCardSheet(c,kind){
   });
   var tbl=tblTool(bodyIn);
   var tools=h('div',{class:'cd-tools'},blue,tbl.btn,h('span',{class:'cd-tip'},'글자를 고르고 누르거나 ⌘⇧B · 표는 칸마다 배경색'));
-  var api,kids=[tabs,titleIn,dupBox,cueIn,tools,tbl.panel,bodyIn];
+  var fpk=folderPicker(function(){return sid;},'cue',c?c.f||null:(ui.cardFolder&&ui.cardFolder!=='_none'&&(folderById(ui.cardFolder)||{}).sid===sid?ui.cardFolder:null));
+  tabs.addEventListener('click',function(){fpk.redraw();});
+  var api,kids=[tabs,fpk.el,titleIn,dupBox,cueIn,tools,tbl.panel,bodyIn];
   if(c)kids.push(confirmBtn('del-card','카드 삭제','한 번 더 누르면 삭제해요',function(){
     state.cards=state.cards.filter(function(x){return x.id!==c.id;});saveNow();api.close();renderView();toast('카드를 지웠어요');
   },'sh-del'));
@@ -6903,90 +7202,94 @@ function openCardSheet(c,kind){
     var v={sid:sid,title:titleIn.value.trim().slice(0,200),cue:cueIn.value.trim().slice(0,80),body:bodyIn.value.replace(/\s+$/,'').slice(0,6000)};
     if(!v.title&&!v.cue){titleIn.focus();return;}
     if(!state.cards)state.cards=[];
-    if(c)Object.assign(c,v);else{var n=Object.assign({id:uid(),d:today()},v);state.cards.push(n);if(!ui.cardOpen)ui.cardOpen={};}
+    var fv=fpk.get(),tg;
+    if(c){Object.assign(c,v);tg=c;}else{tg=Object.assign({id:uid(),d:today()},v);state.cards.push(tg);if(!ui.cardOpen)ui.cardOpen={};}
+    if(fv)tg.f=fv;else delete tg.f;
     ui.cardSid=sid;saveNow();api.close();renderView();toast(c?'카드를 고쳤어요':'카드를 넣었어요');
   }});
   titleIn.addEventListener('input',sync);cueIn.addEventListener('input',sync);sync();
 }
-/* 선지 카드: 문장(조문·기출 선지) + 해설(없어도 됨). 적는 동안 겹치는 선지를 바로 보여 줌 */
+/* 선지 카드: 한 칸에 선지·조문과 덧붙일 말을 같이 적음(파랑·표·- 단계 다 됨). 첫 줄이 목록 제목.
+   ↩ 넣고 바로 다음 선지 (고칠 땐 저장) · ⇧↩ ⌥↩ 줄바꿈. 적는 동안 겹치는 선지를 바로 보여 줌 */
 function openOptSheet(c){
   var sid=c?c.sid:ui.cardSid||(state.subjects[0]||{}).id,dupBox;
   var tabs=h('div',{class:'cd-subs in-sheet'});
   function drawTabs(){setKids(tabs,state.subjects.map(function(x){var b=h('button',{class:'cd-sub',type:'button','aria-pressed':String(x.id===sid)},subjShortOf(x));b.addEventListener('click',function(){sid=x.id;drawTabs();if(dupBox&&!dupBox.hidden)dupBox.redraw();});return b;}));}
   drawTabs();
-  var stIn=h('textarea',{class:'field big cd-opt-in',rows:'3',maxlength:'1000','aria-label':'선지',enterkeyhint:'next',placeholder:'선지 또는 조문 (예: 주식회사의 설립 시 발기인은 1인 이상이어야 한다)'});
-  stIn.value=c?c.title:'';
-  dupBox=cardDupBox(stIn,function(){return sid;},'opt',c?c.id:null);
-  var bodyIn=h('textarea',{class:'field cd-body-in',rows:'6','aria-label':'해설',enterkeyhint:c?'done':'send',placeholder:'해설 (안 적어도 돼요) · ⇧↩ 줄바꿈'});
-  bodyIn.value=c?c.body:'';
+  var inp=h('textarea',{class:'field cd-opt-in one',rows:'5',maxlength:'6000','aria-label':'선지',enterkeyhint:c?'done':'send',placeholder:'선지 또는 조문 (첫 줄이 목록 제목이 돼요)\n- ⇧↩ 로 줄을 바꿔 덧붙일 말을 적어도 돼요'});
+  inp.value=c?String(c.body||c.title||''):'';
+  dupBox=cardDupBox(inp,function(){return sid;},'opt',c?c.id:null);
   var blue=h('button',{class:'cd-blue',type:'button','aria-label':'고른 글자 파랑으로'},h('i'),'파랑');
   blue.addEventListener('pointerdown',function(e){e.preventDefault();});
   blue.addEventListener('mousedown',function(e){e.preventDefault();});
-  blue.addEventListener('click',function(){toggleBlue(bodyIn);});
-  bodyIn.addEventListener('keydown',function(e){
-    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&!e.altKey&&/^(b|h|KeyB|KeyH)$/i.test(e.key.length===1?e.key:e.code)){e.preventDefault();toggleBlue(bodyIn);}
+  blue.addEventListener('click',function(){toggleBlue(inp);});
+  inp.addEventListener('keydown',function(e){
+    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&!e.altKey&&/^(b|h|KeyB|KeyH)$/i.test(e.key.length===1?e.key:e.code)){e.preventDefault();toggleBlue(inp);}
   });
-  var tbl=tblTool(bodyIn);
-  var tools=h('div',{class:'cd-tools'},blue,tbl.btn,h('span',{class:'cd-tip'},'↩ 다음 칸 · 해설에서 ↩ '+(c?'저장':'넣고 다음 선지')+' · ⇧↩ 줄바꿈'));
+  var tbl=tblTool(inp);
+  var tools=h('div',{class:'cd-tools'},blue,tbl.btn,h('span',{class:'cd-tip'},'↩ '+(c?'저장':'넣고 다음 선지')+' · ⇧↩ 줄바꿈 · ⌘⇧B 파랑'));
   var made=h('div',{class:'op-made',hidden:true,'aria-live':'polite'});
-  var api,kids=[tabs,stIn,dupBox,tools,tbl.panel,bodyIn,made];
+  var fpk=folderPicker(function(){return sid;},'opt',c?c.f||null:(ui.cardFolder&&ui.cardFolder!=='_none'&&(folderById(ui.cardFolder)||{}).sid===sid?ui.cardFolder:null));
+  tabs.addEventListener('click',function(){fpk.redraw();});
+  var api,kids=[tabs,fpk.el,tools,tbl.panel,inp,dupBox,made];
   if(c)kids.push(confirmBtn('del-card','선지 삭제','한 번 더 누르면 삭제해요',function(){
     state.cards=state.cards.filter(function(x){return x.id!==c.id;});saveNow();api.close();renderView();toast('선지를 지웠어요');
   },'sh-del'));
+  var madeN=0;
   function sync(){
-    var has=!!stIn.value.trim(),done=!c&&madeN&&!has;
+    var has=!!optTitle(inp.value),done=!c&&madeN&&!has;
     api.primary.disabled=!has&&!done;
     api.primary.textContent=c?'저장':done?'완료':'추가';
   }
-  /* 선지 안 줄바꿈은 살리고 칸·공백만 정리 */
-  function cleanSt(x){return String(x).replace(/\r\n?/g,'\n').replace(/[ \t　]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim().slice(0,1000);}
-  var madeN=0;
   /* 넣기. keep이면 창을 닫지 않고 비워서 바로 다음 선지 */
   function commit(keep){
-    var v={sid:sid,k:'opt',title:cleanSt(stIn.value),cue:'',body:bodyIn.value.replace(/\s+$/,'').slice(0,6000)};
-    if(!v.title){stIn.focus();return;}
+    var body=String(inp.value).replace(/\r\n?/g,'\n').replace(/[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/^\s*\n|\s+$/g,'').slice(0,6000),title=optTitle(body);
+    if(!title){inp.focus();return;}
+    var v={sid:sid,k:'opt',title:title,cue:'',body:body};
     if(!state.cards)state.cards=[];
-    if(c)Object.assign(c,v);else{state.cards.push(Object.assign({id:uid(),d:today()},v));}
+    var fv=fpk.get(),tg;
+    if(c){Object.assign(c,v);tg=c;}else{tg=Object.assign({id:uid(),d:today()},v);state.cards.push(tg);}
+    if(fv)tg.f=fv;else delete tg.f;
     ui.cardSid=sid;ui.cardK='opt';saveNow();
     if(keep&&!c){
       madeN++;
-      stIn.value='';bodyIn.value='';stIn.focus();sync();dupBox.redraw();
+      inp.value='';inp.focus();sync();dupBox.redraw();
       if(tbl.panel&&!tbl.panel.hidden)tbl.panel.hidden=true;
-      setKids(made,[h('b',null,'✓ '+madeN+'개 넣음'),h('span',null,v.title.replace(/\n/g,' '))]);
-      if(made.hidden){made.hidden=false;}
+      setKids(made,[h('b',null,'✓ '+madeN+'개 넣음'),h('span',null,title)]);
+      made.hidden=false;
       anim(made,[{opacity:.3,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:260,easing:EASE});
       renderView();
       return;
     }
     api.close();renderView();toast(c?'선지를 고쳤어요':madeN?'선지 '+(madeN+1)+'개를 넣었어요':'선지를 넣었어요');
   }
-  api=openSheet({title:c?'선지 고치기':'새 선지',primary:c?'저장':'추가',body:kids,focus:c?null:stIn,onPrimary:function(){
-    if(!c&&madeN&&!stIn.value.trim()){api.close();toast('선지 '+madeN+'개를 넣었어요');return;}
+  api=openSheet({title:c?'선지 고치기':'새 선지',primary:c?'저장':'추가',body:kids,focus:c?null:inp,onPrimary:function(){
+    if(!c&&madeN&&!optTitle(inp.value)){api.close();toast('선지 '+madeN+'개를 넣었어요');return;}
     commit(false);
   }});
-  /* ↩: 선지 → 해설 → 넣기. ⇧↩ · ⌥↩ 은 줄바꿈. 한글 조합 중 ↩ 이 두 번 들어오는 것은 한 번으로 */
+  /* ↩ 넣기 · ⇧↩ ⌥↩ 줄바꿈. 한글 조합 중 ↩ 이 두 번 들어오는 것은 한 번으로 */
   var lastEnter=0;
-  function enterKey(e,fn){
+  inp.addEventListener('keydown',function(e){
     if(e.key!=='Enter'||e.metaKey||e.ctrlKey)return;
     if(e.shiftKey||e.altKey){
-      if(e.altKey){e.preventDefault();var ta=e.target,a=ta.selectionStart,b=ta.selectionEnd;ta.setRangeText('\n',a,b,'end');ta.dispatchEvent(new Event('input',{bubbles:true}));}
+      if(e.altKey){e.preventDefault();var a=inp.selectionStart,b=inp.selectionEnd;inp.setRangeText('\n',a,b,'end');inp.dispatchEvent(new Event('input',{bubbles:true}));}
       return;
     }
     if(e.isComposing)return;
     e.preventDefault();
     var now=Date.now();if(now-lastEnter<45)return;lastEnter=now;
-    setTimeout(fn,0);
-  }
-  stIn.addEventListener('keydown',function(e){enterKey(e,function(){if(!stIn.value.trim())return;bodyIn.focus();try{bodyIn.setSelectionRange(bodyIn.value.length,bodyIn.value.length);}catch(_){}});});
-  bodyIn.addEventListener('keydown',function(e){enterKey(e,function(){if(!stIn.value.trim()){stIn.focus();return;}commit(true);});});
-  stIn.addEventListener('input',sync);sync();
+    setTimeout(function(){if(!optTitle(inp.value))return;commit(true);},0);
+  });
+  inp.addEventListener('input',sync);sync();
   if(c)dupBox.redraw();
 }
 /* 검색에서 카드를 누르면: 암기카드 → 그 과목, 그 카드 펼치고 반짝 */
 function gotoCard(id){
   var c=(state.cards||[]).filter(function(x){return x.id===id;})[0];if(!c)return;
   closeSheet(true);
-  ui.tab='cards';ui.cardSid=c.sid;ui.cardK=cardK(c);ui.cardF=null;if(!ui.cardOpen)ui.cardOpen={};ui.cardOpen[id]=true;ui.detail=null;ui.confirm=null;ui.cardSel=null;
+  ui.tab='cards';ui.cardSid=c.sid;ui.cardK=cardK(c);ui.cardF=null;ui.cardFolder=null;
+  if(c.f){var gf=folderById(c.f);if(gf&&gf.fold)delete gf.fold;}else ui.cardNoneFold=false;
+  if(!ui.cardOpen)ui.cardOpen={};ui.cardOpen[id]=true;ui.detail=null;ui.confirm=null;ui.cardSel=null;
   var ix=cardsOf(c.sid,cardK(c)).indexOf(c);ui.cardMore=ix>=CARD_PAGE?Math.ceil((ix+1)/CARD_PAGE)*CARD_PAGE:0;
   resetSet();updateTabbar();renderView();window.scrollTo(0,0);
   setTimeout(function(){var el=document.querySelector('.cd[data-id="'+id+'"]');if(!el)return;el.scrollIntoView({block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');},120);
