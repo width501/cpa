@@ -2422,6 +2422,43 @@ textarea.cd-opt-in.one{min-height:150px;font-size:16px;font-weight:500;line-heig
 .cf-newrow .field{flex:1}
 .cf-new{flex:none;height:44px;padding:0 15px;border-radius:var(--r);background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:700}
 .cf-new:disabled{opacity:.4}
+/* 공부 타이머 숨김 */
+body.no-trail{--lrail:0px!important;--tbar:0px!important}
+body.no-trail .trail{display:none!important}
+body.no-trail .tab[data-tab="study"]{display:none}
+/* 모의고사 풀이 타이머 */
+.mtm{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;padding:16px 18px 0;overflow:hidden;border-radius:var(--r);background:var(--surface);box-shadow:var(--card-sh,0 1px 2px rgba(0,0,0,.06)),inset 0 0 0 1px var(--sep)}
+.mtm-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.mtm-h{font-size:13px;font-weight:700;color:var(--muted)}
+.mtm-ps{display:flex;flex-wrap:wrap;gap:6px}
+.mtm-p{display:flex;align-items:baseline;gap:5px;height:32px;padding:0 11px;border-radius:var(--r);background:var(--fill);font-size:13.5px;font-weight:600;color:var(--fg-2)}
+.mtm-p b{font-size:12px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.mtm-p[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.mtm-p[aria-pressed="true"] b{color:inherit;opacity:.75}
+.mtm-p:disabled:not([aria-pressed="true"]){opacity:.4}
+.mtm-mid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+.mtm-t{font-size:clamp(52px,8vw,76px);font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--fg);transition:color .3s}
+.mtm-sub{margin-top:6px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mtm[data-st="warn"] .mtm-t{color:#e08600}
+.mtm[data-st="over"] .mtm-t{color:var(--danger)}
+.mtm[data-st="over"].run .mtm-t{animation:mtBlink 1s steps(2,jump-none) infinite}
+@keyframes mtBlink{50%{opacity:.45}}
+.mtm-acts{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:4px}
+.mtm-b{height:40px;padding:0 13px;border-radius:var(--r);background:var(--fill);font-size:14px;font-weight:600;color:var(--fg-2)}
+.mtm-b:active{background:var(--fill-2)}
+.mtm-go{min-width:104px;height:48px;padding:0 20px;border-radius:var(--r);background:var(--accent);color:var(--on-accent);font-size:17px;font-weight:800}
+.mtm.run .mtm-go{background:var(--fill-2);color:var(--fg)}
+.mtm-go:active{transform:scale(.96)}
+.mtm-bar{height:6px;margin:0 -18px;background:var(--fill)}
+.mtm-bar i{display:block;height:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);transition:transform .3s linear,background-color .3s}
+.mtm[data-st="warn"] .mtm-bar i{background:#ff9f0a}
+.mtm[data-st="over"] .mtm-bar i{background:var(--danger)}
+.rail-mt{display:flex;flex-direction:column;align-items:center;gap:1px;min-height:40px;margin:0 6px 8px;padding:4px 2px;border-radius:var(--r);background:var(--accent-soft);box-shadow:inset 0 0 0 1.5px var(--accent);color:var(--accent)}
+.rail-mt[hidden]{display:none}
+.rail-mt .rm-l{font-size:10.5px;font-weight:700}
+.rail-mt .rm-t{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.rail-mt[data-st="warn"]{background:rgba(255,159,10,.12);box-shadow:inset 0 0 0 1.5px #ff9f0a;color:#d27a00}
+.rail-mt[data-st="over"]{background:rgba(255,59,48,.1);box-shadow:inset 0 0 0 1.5px var(--danger);color:var(--danger)}
 </style>
 
 <div class="wrap"><main id="view"></main></div>
@@ -3310,6 +3347,8 @@ function sanitize(s){
   }
   if(s.introOff===true)out.introOff=true;
   if(s.attOff===true)out.attOff=true;
+  /* 왼쪽 공부 타이머(물줄기·페이스·공부 기록 탭): 'on'일 때만 보임. 기록은 숨겨도 남음 */
+  if(s.timerUI==='on')out.timerUI='on';
   /* 한 번만 넣는 카드 묶음 중 이미 넣은 것 */
   if(Array.isArray(s.packs)){var pk=s.packs.filter(function(x){return typeof x==='string'&&x;}).slice(0,100);if(pk.length)out.packs=pk;}
   /* 암기카드: {id, sid(과목), title, cue(앞글자), body(줄마다, 들여쓰면 아래 단계), d} */
@@ -3414,6 +3453,15 @@ function sanitize(s){
 var LV=['복습 전','개념소실','개념미흡','계산미흡','숙련도 부족','완벽'];
 var KEY='cpa-review-warehouse-v1';
 var TABS=['home','quest','cards','mock','reads','study','stats','settings'];
+function timerUIOn(){return !!(state&&state.timerUI==='on');}
+function tabsOn(){return timerUIOn()?TABS:TABS.filter(function(t){return t!=='study';});}
+/* 숨기면: 왼쪽 레일·공부 기록 탭을 빼고, 돌고 있던 타이머는 멈춰서 기록 */
+function applyTimerUI(){
+  var on=timerUIOn();
+  document.body.classList.toggle('no-trail',!on);
+  if(!on&&timerOn()){var r=timerStop();toast('공부 타이머를 숨겨서 '+subjName(r.sid)+' '+fmtDur(r.got)+' 기록하고 멈췄어요');}
+  if(!on&&ui.tab==='study')ui.tab='home';
+}
 var TAB_LABEL={home:'홈',quest:'퀘스트',stats:'통계',study:'공부 기록',mock:'모의고사',reads:'회독표',cards:'암기카드',settings:'설정'};
 var EASE='cubic-bezier(.32,.72,0,1)';
 /* 스프링(살짝 넘쳤다가 제자리, 감쇠비 0.7). linear() 를 못 쓰는 브라우저는 비슷한 곡선으로 */
@@ -3965,6 +4013,9 @@ function buildTabbar(){
   var att=h('button',{class:'rail-att',id:'rail-att',type:'button',hidden:true},h('i',{class:'ra-fill','aria-hidden':'true'}),h('span',{class:'ra-l'}),h('b',{class:'ra-t'}));
   att.addEventListener('click',attInfo);
   nav.appendChild(att);
+  var rmt=h('button',{class:'rail-mt',id:'rail-mt',type:'button',hidden:true,'aria-label':'모의고사 타이머'},h('span',{class:'rm-l'}),h('b',{class:'rm-t'}));
+  rmt.addEventListener('click',function(){switchTab('mock');});
+  nav.appendChild(rmt);
   var find=h('button',{class:'rail-find',type:'button',id:'find-btn','aria-label':'검색'},iconEl('search'),h('span',null,'검색'));
   find.addEventListener('click',openSearch);
   nav.appendChild(find);
@@ -3981,6 +4032,7 @@ function buildTabbar(){
   nav.appendChild(off);
   tickClock();setInterval(tickClock,15000);
   tickAtt();setInterval(tickAtt,1000);
+  setInterval(mtTick,250);
   updateTabbar();
 }
 /* 함현재 출석 박스: 남은 시간이 1초마다 줄고, 빨간 게이지가 왼쪽부터 차오름. 5분 남으면 진하게, 시각 되면 '출석!' */
@@ -4021,7 +4073,7 @@ function tickClock(){
 }
 function updateTabbar(){
   var nav=document.getElementById('tabbar');
-  nav.style.setProperty('--i',String(TABS.indexOf(ui.tab)));
+  nav.style.setProperty('--i',String(Math.max(0,tabsOn().indexOf(ui.tab))));
   nav.querySelectorAll('.tab').forEach(function(b){
     if(b.getAttribute('data-tab')===ui.tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
   });
@@ -4132,7 +4184,7 @@ function switchTab(tab,keepSet){
     window.scrollTo({top:0,behavior:motion()?'smooth':'auto'});return;
   }
   var view=document.getElementById('view');
-  var dir=TABS.indexOf(tab)>TABS.indexOf(ui.tab)?1:-1;
+  var dir=tabsOn().indexOf(tab)>tabsOn().indexOf(ui.tab)?1:-1;
   ui.readAdmin=false;
   ui.cardSel=null;
   ui.tab=tab;ui.detail=null;ui.detailPart=null;ui.mockSeries=null;ui.mockNotes=null;ui.confirm=null;
@@ -8358,6 +8410,70 @@ function mockWrongs(){
   return mkPanel('자주 틀린 파트',link,h('div',{class:'mk-wr'},rows,
     h('div',{class:'ws-legend'},REASONS.filter(function(rs){return used[rs.k];}).map(function(rs){return h('span',null,h('i',{class:'rs-'+rs.k}),rs.n);}))));
 }
+/* ---------- 모의고사 풀이 타이머: 과목별 시간에서 거꾸로. 끝나면 삐삐삐 + 넘긴 시간은 빨갛게 올라감 ----------
+   이 기기에만 저장(KEY.mt). 끝 시각으로 세서 화면이 꺼졌다 켜져도 맞음 */
+var MT_PRESETS=[['재무회계',65],['원가회계',15],['세법',60],['재무관리',45],['경제학',45],['상법',40]];
+var MT=null,mtAudio=null;
+function mtLoad(){if(MT)return MT;try{MT=JSON.parse(localStorage.getItem(KEY+'.mt')||'null');}catch(_){MT=null;}if(!MT||typeof MT!=='object'||!(MT.total>0))MT={i:0,total:MT_PRESETS[0][1]*60,left:MT_PRESETS[0][1]*60,end:null};return MT;}
+function mtSave(){try{localStorage.setItem(KEY+'.mt',JSON.stringify(MT));}catch(_){}}
+function mtLeft(){var m=mtLoad();return m.end?(m.end-Date.now())/1000:m.left;}
+function mtRunning(){return !!mtLoad().end;}
+function mtFmt(sec){var a=Math.abs(sec),s=Math.floor(a+(sec<0?0:.999));var hh=Math.floor(s/3600),mm=Math.floor(s%3600/60),ss=s%60;return (sec<0?'+':'')+(hh?hh+':'+pad2(mm):String(mm))+':'+pad2(ss);}
+function mtBeep(n){
+  try{
+    if(!mtAudio)mtAudio=new (window.AudioContext||window.webkitAudioContext)();
+    if(mtAudio.state==='suspended')mtAudio.resume();
+    for(var i=0;i<(n||3);i++){var o=mtAudio.createOscillator(),g=mtAudio.createGain(),t0=mtAudio.currentTime+i*.28;o.type='sine';o.frequency.value=880;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(.35,t0+.02);g.gain.exponentialRampToValueAtTime(.0001,t0+.2);o.connect(g);g.connect(mtAudio.destination);o.start(t0);o.stop(t0+.22);}
+  }catch(_){}
+}
+/* 아이패드는 손으로 누를 때 소리를 한 번 열어 둬야 나중에 삐 소리가 남 */
+function mtUnlock(){try{if(!mtAudio)mtAudio=new (window.AudioContext||window.webkitAudioContext)();if(mtAudio.state==='suspended')mtAudio.resume();var b=mtAudio.createBuffer(1,1,22050),src=mtAudio.createBufferSource();src.buffer=b;src.connect(mtAudio.destination);src.start(0);}catch(_){}}
+function mtStart(){var m=mtLoad();if(m.end)return;mtUnlock();m.end=Date.now()+m.left*1000;m.rang=m.left<=0?1:0;m.warn=m.left<=300?1:0;mtSave();mtTick();}
+function mtPause(){var m=mtLoad();if(!m.end)return;m.left=(m.end-Date.now())/1000;m.end=null;mtSave();mtTick();}
+function mtReset(){var m=mtLoad();m.end=null;m.left=m.total;m.rang=0;m.warn=0;mtSave();mtTick();}
+function mtPick(i){var m=mtLoad();if(m.end)return;var p=MT_PRESETS[i];m.i=i;m.total=p[1]*60;m.left=m.total;m.rang=0;m.warn=0;mtSave();mtTick();}
+function mtAdd(min){var m=mtLoad();if(m.end){m.end+=min*60000;}else m.left=Math.max(0,m.left+min*60);m.total=Math.max(60,m.total+min*60);if(mtLeft()>0)m.rang=0;if(mtLeft()>300)m.warn=0;mtSave();mtTick();}
+/* 화면 갱신 + 5분 남음·끝 알림 (한 번씩) */
+function mtTick(){
+  var m=mtLoad(),left=mtLeft(),run=!!m.end;
+  if(run&&left<=300&&left>0&&!m.warn){m.warn=1;mtSave();mtBeep(1);toast(MT_PRESETS[m.i][0]+' 5분 남았어요');}
+  if(run&&left<=0&&!m.rang){m.rang=1;mtSave();mtBeep(3);toast(MT_PRESETS[m.i][0]+' '+MT_PRESETS[m.i][1]+'분 끝 · 넘긴 시간은 빨갛게 세요');}
+  var st=left<=0?'over':left<=300?'warn':'ok',pct=Math.max(0,Math.min(1,1-left/m.total));
+  var box=document.getElementById('mtm');
+  if(box){
+    box.setAttribute('data-st',st);box.classList.toggle('run',run);
+    box.querySelector('.mtm-t').textContent=mtFmt(left);
+    box.querySelector('.mtm-bar i').style.transform='scaleX('+pct.toFixed(4)+')';
+    var go=box.querySelector('.mtm-go');go.textContent=run?'일시정지':left<m.total?'계속':'시작';
+    box.querySelector('.mtm-sub').textContent=MT_PRESETS[m.i][0]+' '+Math.round(m.total/60)+'분'+(left<=0?' · '+mtFmt(left).slice(1)+' 넘김':run?' · '+fmtHMclock(m.end/1000-0)+' 끝':left<m.total?' · 멈춤':'');
+    box.querySelectorAll('.mtm-p').forEach(function(b,i){b.setAttribute('aria-pressed',String(i===m.i));b.disabled=run;});
+  }
+  var rm=document.getElementById('rail-mt');
+  if(rm){
+    var show=run||(left<m.total&&left!==m.total);
+    rm.hidden=!show||ui.tab==='mock';
+    if(!rm.hidden){rm.setAttribute('data-st',st);rm.querySelector('.rm-l').textContent=MT_PRESETS[m.i][0].slice(0,2)+(run?'':' 멈춤');rm.querySelector('.rm-t').textContent=mtFmt(left);}
+  }
+}
+function fmtHMclock(sec){var d=new Date(sec*1000);return d.getHours()+':'+pad2(d.getMinutes());}
+function mockTimerEl(){
+  var m=mtLoad();
+  var go=h('button',{class:'mtm-go',type:'button'},'시작');
+  go.addEventListener('click',function(){if(mtRunning())mtPause();else mtStart();});
+  var rs=h('button',{class:'mtm-b',type:'button'},'처음으로');
+  rs.addEventListener('click',mtReset);
+  var mn=h('button',{class:'mtm-b',type:'button','aria-label':'1분 빼기'},'−1분'),pl=h('button',{class:'mtm-b',type:'button','aria-label':'1분 더하기'},'+1분');
+  mn.addEventListener('click',function(){mtAdd(-1);});pl.addEventListener('click',function(){mtAdd(1);});
+  var presets=h('div',{class:'mtm-ps',role:'radiogroup','aria-label':'과목 시간'},MT_PRESETS.map(function(p,i){
+    var b=h('button',{class:'mtm-p',type:'button',role:'radio','aria-pressed':String(i===m.i)},h('span',null,p[0]),h('b',null,p[1]+'분'));
+    b.addEventListener('click',function(){mtPick(i);});return b;}));
+  var box=h('div',{class:'mtm',id:'mtm','data-unit':'timer'},
+    h('div',{class:'mtm-top'},h('span',{class:'mtm-h'},'풀이 타이머'),presets),
+    h('div',{class:'mtm-mid'},h('div',{class:'mtm-tw'},h('div',{class:'mtm-t'},'0:00'),h('div',{class:'mtm-sub'})),h('div',{class:'mtm-acts'},mn,pl,rs,go)),
+    h('div',{class:'mtm-bar'},h('i')));
+  setTimeout(mtTick,0);
+  return box;
+}
 function mockView(t){
   if(ui.mockNotes)return notesView(t);
   if(ui.mockSeries){var ser=seriesById(ui.mockSeries);if(ser)return seriesView(ser,t);ui.mockSeries=null;}
@@ -8365,7 +8481,7 @@ function mockView(t){
   add.addEventListener('click',function(){openNewSeriesSheet();});
   var cfgB=h('button',{class:'mk-cfg',type:'button'},'점수 기준');
   cfgB.addEventListener('click',openMockCfgSheet);
-  var kids=[h('div',{class:'q-top'},h('h1',{class:'lt'},'모의고사'),h('div',{class:'mk-acts'},cfgB,add))];
+  var kids=[h('div',{class:'q-top'},h('h1',{class:'lt'},'모의고사'),h('div',{class:'mk-acts'},cfgB,add)),mockTimerEl()];
   var data=mockSubjects().map(mockSubjData),has=data.filter(function(x){return x.last;}),units=[];
   if(has.length){
     var avg=0,low=0,cnt=0;
@@ -9423,10 +9539,13 @@ function settingsView(t){
     saveNow();drawTrail();
   }
   [pFrom,pTo,pH].forEach(function(x){x.addEventListener('change',savePace);});
+  var tuOn=timerUIOn();
   kids.push(setSec('공부 시간',[
+    setRow(h('span',{class:'lbl'},'왼쪽 공부 타이머'),switchEl(tuOn,'왼쪽 공부 타이머',function(v){if(v)state.timerUI='on';else delete state.timerUI;saveNow();applyTimerUI();updateTabbar();drawTrail();renderView();toast(v?'공부 타이머를 다시 켰어요':'공부 타이머를 숨겼어요 · 기록은 남아 있어요');}))]
+    .concat(tuOn?[
     setRow(h('label',{class:'lbl',for:'set-goal'},'하루 목표'),h('div',{class:'set-ctl'},goalIn,h('span',{class:'set-unit'},'시간'))),
-    setRow(h('span',{class:'lbl'},'페이스'),h('div',{class:'set-ctl'},pFrom,h('span',{class:'set-unit'},'~'),pTo,pH,h('span',{class:'set-unit'},'시간')))],
-    '회색 물은 페이스 (0시간이면 꺼짐). 오늘 물은 페이스보다 앞서면 초록, 밀리면 빨강. 왼쪽 아래 페이스 버튼에서 12·10·8시간·도전 모드를 바로 고를 수 있어요'));
+    setRow(h('span',{class:'lbl'},'페이스'),h('div',{class:'set-ctl'},pFrom,h('span',{class:'set-unit'},'~'),pTo,pH,h('span',{class:'set-unit'},'시간')))]:[]),
+    tuOn?'회색 물은 페이스 (0시간이면 꺼짐). 오늘 물은 페이스보다 앞서면 초록, 밀리면 빨강. 왼쪽 아래 페이스 버튼에서 12·10·8시간·도전 모드를 바로 고를 수 있어요':'켜면 왼쪽 레일 타이머·물줄기·페이스와 공부 기록 탭이 다시 나와요. 지금까지 잰 기록은 그대로 남아 있어요'));
 
   kids.push(themeSection());
   kids.push(setSec('출석',[
@@ -9516,6 +9635,7 @@ function init(){
 }
 function init2(){
   if(TABS.indexOf(ui.tab)<0)ui.tab='home';
+  applyTimerUI();
   if(!cloud.meta&&applyPresets())saveNow();
   if((seedCards()|seedPacks())&&!IDB.ro)saveNow();
   autoCloseCheck();
