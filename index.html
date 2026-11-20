@@ -2459,6 +2459,83 @@ body.no-trail .tab[data-tab="study"]{display:none}
 .rail-mt .rm-t{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .rail-mt[data-st="warn"]{background:rgba(255,159,10,.12);box-shadow:inset 0 0 0 1.5px #ff9f0a;color:#d27a00}
 .rail-mt[data-st="over"]{background:rgba(255,59,48,.1);box-shadow:inset 0 0 0 1.5px var(--danger);color:var(--danger)}
+/* OX 퀴즈 */
+.ox-exam{background:var(--fill);color:var(--fg)}
+.ox-badge{display:inline-flex;align-items:center;justify-content:center;flex:none;width:24px;height:24px;border-radius:50%;font-size:14px;font-weight:900;line-height:1;color:#fff}
+.ox-badge.o{background:#1f9a45}.ox-badge.x{background:#e0352b}.ox-badge.q{background:var(--faint)}
+.ox-ans{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:700;color:var(--fg-2)}
+.ox-picks{display:flex;align-items:center;gap:8px}
+.ox-pl{font-size:13px;font-weight:700;color:var(--muted);margin-right:2px}
+.ox-pick{width:58px;height:44px;border-radius:var(--r);background:var(--fill);font-size:22px;font-weight:900;color:var(--muted);transition:background-color .2s,color .2s,box-shadow .2s}
+.ox-pick.o[aria-checked="true"]{background:rgba(48,200,90,.16);color:#1f9a45;box-shadow:inset 0 0 0 2px #1f9a45}
+.ox-pick.x[aria-checked="true"]{background:rgba(255,59,48,.13);color:#e0352b;box-shadow:inset 0 0 0 2px #e0352b}
+.ox-picks.need .ox-pick{box-shadow:inset 0 0 0 2px var(--danger)}
+textarea.ox-q{min-height:96px;font-size:16px;font-weight:500;line-height:1.55}
+.ox-card{position:relative}
+.ox-arw{position:absolute;z-index:3;display:flex;align-items:center;gap:4px;font-size:15px;font-weight:700;color:var(--faint);pointer-events:none;transition:opacity .2s}
+.ox-arw b{font-size:22px;font-weight:900}
+.ox-arw.l{left:-4px;top:50%;transform:translate(-100%,-50%);color:#e0352b}
+.ox-arw.r{right:-4px;top:50%;transform:translate(100%,-50%);color:#1f9a45}
+.ox-arw.u{top:-8px;left:50%;transform:translate(-50%,-100%);font-size:13px}
+.ox-card.ans .ox-arw,.ox-card.scr .ox-arw.u{opacity:0}
+.cx.ox .cx-stage{padding:30px 56px 0}
+.ox-st{font-size:30px;padding:2px 16px}
+.cx-stamp.ox-u{top:16px;left:50%;color:var(--muted);transform:translateX(-50%)}
+.ox-res{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 14px;border-radius:var(--r);font-size:15px}
+.ox-res b{font-size:18px;font-weight:800}
+.ox-res span:last-child{color:var(--muted);font-weight:600}
+.ox-res.ok{background:rgba(48,200,90,.14)}.ox-res.ok b{color:#1f9a45}
+.ox-res.no{background:rgba(255,59,48,.11)}.ox-res.no b{color:#e0352b}
+.ox-res.u{background:var(--fill)}.ox-res.u b{color:var(--fg-2)}
+.ox-res .ox-badge{width:30px;height:30px;font-size:17px}
+.ox-qs{padding-bottom:10px;border-bottom:1px solid var(--sep);font-size:15.5px;font-weight:500}
+.ox-card.ans.ok .cx-in{box-shadow:0 0 0 2px #30c85a,0 14px 44px rgba(0,0,0,.12)}
+.ox-card.ans.no .cx-in{box-shadow:0 0 0 2px #ff3b30,0 14px 44px rgba(0,0,0,.12)}
+.cx-acts.one{grid-template-columns:1fr}
+.ox-cnts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ox-cnt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:14px 0;border-radius:var(--r);background:var(--fill);font-size:12.5px;font-weight:600;color:var(--muted)}
+.ox-cnt b{font-size:26px;font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
+.ox-cnt.all{background:var(--accent-soft)}.ox-cnt.all b{color:var(--accent)}
+.ox-cnt:active{transform:scale(.97)}
+.ox-end{width:100%;max-width:680px;max-height:100%;overflow-y:auto;align-self:stretch;margin:0 auto}
+.ox-score{display:flex;align-items:baseline;gap:12px}
+.ox-score b{font-size:44px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.ox-score span{font-size:20px;font-weight:800}
+.ox-score.hi span{color:#1f9a45}.ox-score.mid span{color:#d08a00}.ox-score.lo span{color:#e0352b}
+.ox-wh{align-self:flex-start;font-size:14px;font-weight:800;color:var(--danger)}
+.ox-wrong{display:flex;flex-direction:column;gap:8px;width:100%;text-align:left}
+.ox-w{border-radius:var(--r);background:var(--surface);box-shadow:inset 0 0 0 1px var(--sep)}
+.ox-w summary{display:flex;align-items:center;gap:10px;padding:12px 14px;list-style:none;cursor:pointer;font-size:15px}
+.ox-w summary::-webkit-details-marker{display:none}
+.ox-wt{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:600}
+.ox-w[open] .ox-wt{white-space:normal}
+.ox-w em{flex:none;font-style:normal;font-size:12.5px;font-weight:700;color:var(--danger)}
+.ox-wb{padding:0 14px 14px 48px;font-size:14.5px}
+@media (max-width:700px){.cx.ox .cx-stage{padding:30px 6px 0}.ox-arw.l,.ox-arw.r{display:none}}
+/* 여러 장 순서 옮기기 */
+.cd-seltop.placing{background:var(--accent-soft)}
+.cd-plh{display:flex;flex-direction:column;gap:2px}
+.cd-plh b{font-size:19px;font-weight:800;color:var(--accent)}
+.cd-plh span{font-size:13px;color:var(--fg-2)}
+.cd.sel-mode.placing:not(.picked) .cd-chk{visibility:hidden}
+.cd.sel-mode.placing:not(.picked) .cd-head{cursor:copy}
+.cd.sel-mode.placing:not(.picked)::before{content:"";position:absolute;left:12px;right:12px;top:-1px;height:3px;border-radius:2px;background:var(--accent);opacity:0;transition:opacity .15s}
+.cd.sel-mode.placing:not(.picked):hover::before,.cd.sel-mode.placing:not(.picked):active::before{opacity:1}
+.cd.sel-mode.placing.picked{opacity:.45}
+/* OX 정답 칸 키보드 */
+.ox-picks{padding:6px 8px;margin:0 -8px;border-radius:var(--r);outline:none;transition:background-color .2s,box-shadow .2s}
+.ox-picks:focus-visible,.ox-picks:focus{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.ox-ktip{opacity:0;transition:opacity .2s}
+.ox-picks:focus .ox-ktip{opacity:1}
+/* 출석 2분 전 번쩍 */
+#att-flash{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#att-flash[hidden]{display:none}
+#att-flash::before{content:"";position:absolute;inset:0;background:#ff1f1f;opacity:0;animation:attFlash .9s steps(1,end) infinite}
+@keyframes attFlash{0%{opacity:.55}50%{opacity:0}}
+#att-flash .af-box{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 34px;border-radius:18px;background:#fff;color:#d10000;box-shadow:0 10px 40px rgba(0,0,0,.35);pointer-events:auto}
+#att-flash .af-t{font-size:30px;font-weight:900;letter-spacing:-.02em}
+#att-flash .af-r{font-size:44px;font-weight:900;font-variant-numeric:tabular-nums;color:#111}
+#att-flash small{font-size:12.5px;font-weight:600;color:#888}
 </style>
 
 <div class="wrap"><main id="view"></main></div>
@@ -3036,6 +3113,16 @@ function optBackfill(r){
   for(i=d.length-1;i>=0&&d[i];i--)st++;
   return {m:optR4(m),e:d.length,md:r.hist&&r.hist.length?r.hist[r.hist.length-1][0]:null,st:st};
 }
+/* 고른 카드 여러 장을 한꺼번에 옮김: 고른 순서 그대로 묶어서 anchor 앞(after면 뒤)에. 안 바뀌면 null */
+function moveBlock(arr,ids,anchorId,after){
+  var pick=arr.filter(function(c){return ids[c.id];}),rest=arr.filter(function(c){return !ids[c.id];}),j=-1,i;
+  if(!pick.length)return null;
+  for(i=0;i<rest.length;i++)if(rest[i].id===anchorId){j=i;break;}
+  if(j<0)return null;
+  var at=after?j+1:j,out=rest.slice(0,at).concat(pick,rest.slice(at));
+  for(i=0;i<out.length;i++)if(out[i]!==arr[i])return out;
+  return null;
+}
 /*LOGIC_END*/
 
 /*STORE_START*/
@@ -3359,7 +3446,7 @@ function sanitize(s){
     s.cardFolders.forEach(function(f){
       if(!f||typeof f!=='object'||typeof f.sid!=='string'||typeof f.id!=='string'||!f.id||fdx[f.id])return;
       var nm=String(f.name||'').replace(/\s+/g,' ').trim().slice(0,30);if(!nm)return;
-      var o={id:f.id.slice(0,40),sid:f.sid.slice(0,40),k:f.k==='opt'?'opt':'cue',name:nm};if(f.fold===true)o.fold=true;
+      var o={id:f.id.slice(0,40),sid:f.sid.slice(0,40),k:f.k==='opt'||f.k==='ox'?f.k:'cue',name:nm};if(f.fold===true)o.fold=true;
       fdx[o.id]=o;fl.push(o);
     });
     if(fl.length)out.cardFolders=fl.slice(0,300);
@@ -3375,7 +3462,13 @@ function sanitize(s){
           if(!(s.v>=12)||!o.body.trim())o.body=optMerge(String(c.title||'').replace(/\r\n?/g,'\n'),o.body).slice(0,7200);
           o.title=optTitle(o.body)||o.title;
         }
-        if(typeof c.f==='string'&&fdx[c.f]&&fdx[c.f].sid===o.sid&&fdx[c.f].k===(o.k==='opt'?'opt':'cue'))o.f=c.f;
+        /* OX 문제: body = 문제, ex = 해설, a = 정답 'O'|'X'. 일정은 선지와 같은 성취도 방식 */
+        if(c.k==='ox'){
+          o.k='ox';o.cue='';o.body=String(c.body||c.title||'').replace(/\r\n?/g,'\n').slice(0,6000);o.title=optTitle(o.body)||o.title;
+          if(c.a==='O'||c.a==='X')o.a=c.a;
+          var ex=String(c.ex||'').replace(/\r\n?/g,'\n').replace(/\s+$/,'').slice(0,6000);if(ex)o.ex=ex;
+        }
+        if(typeof c.f==='string'&&fdx[c.f]&&fdx[c.f].sid===o.sid&&fdx[c.f].k===(o.k||'cue'))o.f=c.f;
         /* 시험 일정: {stage, due, wrong(모름 누적), hard(보라), hs(보라에서 연속 앎), last('k'|'u'), n(시험 횟수), hist[[날짜,1|0]] 최근 30개} */
         var r=c.srs;
         if(r&&typeof r==='object'&&isYmd(r.due)){
@@ -3386,7 +3479,7 @@ function sanitize(s){
           if(Number.isInteger(r.ok)&&r.ok>=0&&Number.isInteger(r.no)&&r.no>=0){o.srs.ok=Math.min(r.ok,999999);o.srs.no=Math.min(r.no,999999);}
           else{var hn=o.srs.hist.filter(function(x){return x[1]===0;}).length;o.srs.no=Math.max(hn,0);o.srs.ok=Math.max(o.srs.n-hn,o.srs.hist.length-hn,0);}
           /* 선지: 성취도 m · 센 날 e · 마지막으로 센 날 md · 연속 앎 st. 보라는 안 씀. 없으면 기록에서 채움 */
-          if(o.k==='opt'){
+          if(o.k==='opt'||o.k==='ox'){
             if(typeof r.m==='number'&&r.m>=0&&r.m<=1&&Number.isInteger(r.e)&&r.e>=0){o.srs.m=optR4(r.m);o.srs.e=Math.min(r.e,99999);o.srs.md=isYmd(r.md)?r.md:null;o.srs.st=ni(r.st,9999);}
             else{var bf=optBackfill(o.srs);o.srs.m=bf.m;o.srs.e=bf.e;o.srs.md=bf.md;o.srs.st=bf.st;}
             o.srs.hard=false;o.srs.hs=0;o.srs.wrong=o.srs.no;
@@ -3467,6 +3560,7 @@ var EASE='cubic-bezier(.32,.72,0,1)';
 /* 스프링(살짝 넘쳤다가 제자리, 감쇠비 0.7). linear() 를 못 쓰는 브라우저는 비슷한 곡선으로 */
 var SPRING=(window.CSS&&CSS.supports&&CSS.supports('transition-timing-function','linear(0, 1)'))?'linear(0, 0.0255, 0.0908, 0.1814, 0.2858, 0.395, 0.5023, 0.6032, 0.6945, 0.7747, 0.8429, 0.8993, 0.9446, 0.9796, 1.0057, 1.0241, 1.0361, 1.0429, 1.0458, 1.0456, 1.0432, 1.0395, 1.0349, 1.0299, 1.0249, 1.0201, 1.0157, 1.0118, 1.0085, 1.0056, 1.0034, 1.0016, 1.0002, 0.9992, 0.9985, 0.9981, 1)':'cubic-bezier(.34,1.26,.64,1)';
 var ICONS={
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.4 2.4 4.6-4.9"/></svg>',
   folder:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2V17.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg>',
   reads:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"/><path d="m12.6 12.1 1.4 1.4 2.9-3"/></svg>',
   home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.4 12 4l8 6.4V19a1 1 0 0 1-1 1h-4.2v-5.6H9.2V20H5a1 1 0 0 1-1-1z"/></svg>',
@@ -4055,6 +4149,21 @@ function tickAtt(){
   el.classList.toggle('hot',!x.live&&rem<=5*60000);
   el.classList.toggle('live',x.live);
   el.setAttribute('aria-label',x.live?attLabel(x)+' 출석 시간이에요':attLabel(x)+' 출석까지 '+attRemain(rem));
+  attFlash(!x.live&&rem>0&&rem<=2*60000?x:null,rem);
+}
+/* 출석 2분 전: 화면 전체가 빨갛게 번쩍. 가운데 칸을 누르면 그 교시는 끔 */
+var attFlashOff=null;
+function attFlash(x,rem){
+  var f=document.getElementById('att-flash');
+  if(!x||attFlashOff===x.at){if(f&&!f.hidden){f.hidden=true;document.documentElement.classList.remove('att-flashing');}return;}
+  if(!f){
+    f=h('div',{id:'att-flash',hidden:true,'aria-live':'assertive'},h('button',{class:'af-box',type:'button'},h('b',{class:'af-t'}),h('span',{class:'af-r'}),h('small',null,'눌러서 끄기')));
+    f.querySelector('.af-box').addEventListener('click',function(){var y=attNext(Date.now());attFlashOff=y?y.at:null;f.hidden=true;document.documentElement.classList.remove('att-flashing');});
+    document.body.appendChild(f);
+  }
+  f.querySelector('.af-t').textContent=attLabel(x)+' 출석';
+  f.querySelector('.af-r').textContent=attRemain(rem)+' 남음';
+  if(f.hidden){f.hidden=false;document.documentElement.classList.add('att-flashing');}
 }
 function attInfo(){
   var x=attNext(Date.now());if(!x)return;
@@ -6434,7 +6543,7 @@ function openSearch(){
       kids.push(h('div',{class:'sr-h'},'암기카드',h('b',null,String(r.cards.length))),h('div',{class:'sr-list'},r.cards.slice(0,20).map(function(x){
         var c=x.c,sj=subjectById(c.sid),bt=hitAll(normQ(c.title)+'|'+normQ(c.cue),r.toks)?'':snippet(c.body.replace(/(^|\n)[ \t]*[-•·*][ \t]*/g,'$1'),r.toks);
         var b=h('button',{class:'sr-row',type:'button','data-card':c.id},h('span',{class:'sr-cd','aria-hidden':'true'},iconEl('cards')),
-          h('span',{class:'sr-main'},h('b',{class:'sr-t'},markText(c.title||c.cue,r.toks)),h('small',{class:'sr-m'},markText((sj?sj.name:'')+(cardK(c)==='opt'?' · 선지':c.cue&&c.title?' · '+c.cue:''),r.toks),bt?' · ':null,bt?markText(bt,r.toks):null)),null);
+          h('span',{class:'sr-main'},h('b',{class:'sr-t'},markText(c.title||c.cue,r.toks)),h('small',{class:'sr-m'},markText((sj?sj.name:'')+(cardK(c)==='opt'?' · 선지':cardK(c)==='ox'?' · OX':c.cue&&c.title?' · '+c.cue:''),r.toks),bt?' · ':null,bt?markText(bt,r.toks):null)),null);
         b.addEventListener('click',function(){gotoCard(c.id);});return b;})));
     }
     if(r.items.length){
@@ -6563,7 +6672,9 @@ function openMoveSheet(ids,sid,k){
   var api=openSheet({title:n+'장을 어디로 옮길까요',primary:false,cancel:'닫기',body:[list,h('div',{class:'cf-newrow'},nin,nb)]});
 }
 /* 카드 종류: 앞글자(cue, 기본) · 선지(opt, 조문을 아는지만) */
-function cardK(c){return c&&c.k==='opt'?'opt':'cue';}
+function cardK(c){return c&&c.k==='opt'?'opt':c&&c.k==='ox'?'ox':'cue';}
+/* 성취도 방식(선지·OX) */
+function cardM(c){var k=cardK(c);return k==='opt'||k==='ox';}
 function cardsOf(sid,k){return (state.cards||[]).filter(function(c){return c.sid===sid&&(!k||cardK(c)===k);});}
 /* 비슷한 카드 찾기(퀘스트 추가 때 쓰는 것과 같은 방식). 같은 과목이면 조금 더 위로 */
 function similarCards(text,sid,k,skip,lim){
@@ -6588,10 +6699,10 @@ function cardDupRow(x,t,onPick){
 function cardDupBox(input,getSid,k,skip){
   var box=h('div',{class:'dup cd-dup',hidden:true}),tm=null,t=cardT();
   function draw(){
-    var list=similarCards(k==='opt'?optTitle(input.value):input.value,getSid(),k,skip,4);
+    var list=similarCards(k!=='cue'?optTitle(input.value):input.value,getSid(),k,skip,4);
     if(!list.length){box.hidden=true;box.replaceChildren();return;}
     var same=list[0].raw>=3;
-    setKids(box,[h('div',{class:'dup-h'},(same?(k==='opt'?'똑같은 선지가 이미 있어요':'똑같은 카드가 이미 있어요'):(k==='opt'?'비슷한 선지가 있어요':'비슷한 카드가 있어요'))+' · 누르면 그 카드로')].concat(list.map(function(x){return cardDupRow(x,t,function(c){gotoCard(c.id);});})));
+    setKids(box,[h('div',{class:'dup-h'},(same?(k==='opt'?'똑같은 선지가 이미 있어요':k==='ox'?'똑같은 문제가 이미 있어요':'똑같은 카드가 이미 있어요'):(k==='opt'?'비슷한 선지가 있어요':k==='ox'?'비슷한 문제가 있어요':'비슷한 카드가 있어요'))+' · 누르면 그 카드로')].concat(list.map(function(x){return cardDupRow(x,t,function(c){gotoCard(c.id);});})));
     if(box.hidden){box.hidden=false;anim(box,[{opacity:0,transform:'translateY(-4px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE});}
   }
   input.addEventListener('input',function(){clearTimeout(tm);tm=setTimeout(draw,140);});
@@ -6778,7 +6889,7 @@ function optLv(p){return p<60?'lo':p<80?'mid':'hi';}
 function cardStatus(c){
   var k=cardKind(c),r=c.srs;
   if(k==='new')return '아직 시험 안 봄';
-  if(cardK(c)==='opt'){var p=optPct(c);return p==null?'측정 중 '+(r.e||0)+'/'+OPT_NEED+' · '+CK_NAME[k]:'성취도 '+p+'%'+(r.st>1?' · 연속 앎 '+r.st+'일':'')+' · 앎 '+(r.ok||0)+' · 모름 '+(r.no||0);}
+  if(cardM(c)){var p=optPct(c);return p==null?'측정 중 '+(r.e||0)+'/'+OPT_NEED+' · '+CK_NAME[k]:'성취도 '+p+'%'+(r.st>1?' · 연속 앎 '+r.st+'일':'')+' · 앎 '+(r.ok||0)+' · 모름 '+(r.no||0);}
   if(k==='hard')return '보라 · 3일마다 · 연속 앎 '+(r.hs||0)+'/'+IMP_NEED;
   return CK_NAME[k]+(r.wrong?' · 모름 '+r.wrong+'회':'');
 }
@@ -6801,7 +6912,7 @@ function optPill(c){
 }
 function cardEl(c,t,sel){
   if(sel)return cardSelEl(c,t,sel);
-  var open=!!(ui.cardOpen&&ui.cardOpen[c.id]),k=cardKind(c),du=cardDueTxt(c,t),opt=cardK(c)==='opt';
+  var open=!!(ui.cardOpen&&ui.cardOpen[c.id]),k=cardKind(c),du=cardDueTxt(c,t),opt=cardM(c),isOx=cardK(c)==='ox';
   var head=h('button',{class:'cd-head',type:'button','aria-expanded':String(open)},
     h('span',{class:'cd-title'},opt?optHeadEl(c):c.title||'(제목 없음)'),
     !opt&&c.cue?h('span',{class:'cd-cue'},c.cue):null,
@@ -6818,6 +6929,8 @@ function cardEl(c,t,sel){
     var rest=opt?optRest(c.body):c.body;
     setKids(more,[
       String(rest||'').trim()?cardBody(rest):opt?null:h('p',{class:'cd-none'},'내용이 없어요'),
+      isOx?h('div',{class:'ox-ans'},h('span',{class:'ox-badge '+(c.a==='X'?'x':c.a==='O'?'o':'q')},c.a||'?'),c.a?'정답 '+c.a:'정답을 안 정했어요'):null,
+      isOx?(c.ex?[h('div',{class:'cd-exl'},'해설'),cardBody(c.ex)]:h('p',{class:'cd-none'},'해설 없음')):null,
       h('div',{class:'cd-foot'},
         h('span',{class:'cd-st'},h('i'),cardStatus(c)),
         h('span',{class:'cd-next'},'다음 시험 '+(du[1]?'오늘':fmtKMD(cardDue(c,t)))),
@@ -6841,10 +6954,12 @@ function cardSelEl(c,t,sel){
   var head=h('button',{class:'cd-head',type:'button',role:'checkbox','aria-checked':String(on)},
     h('span',{class:'cd-chk','aria-hidden':'true'}),
     h('span',{class:'cd-title'},c.title||'(제목 없음)'),
-    cardK(c)!=='opt'&&c.cue?h('span',{class:'cd-cue'},c.cue):null,
+    !cardM(c)&&c.cue?h('span',{class:'cd-cue'},c.cue):null,
     h('span',{class:'cd-due'+(du[1]?' on':'')},du[0]));
-  var el=h('article',{class:'cd sel-mode ck-'+cardKind(c)+(on?' picked':''),'data-id':c.id},head);
+  var placing=!!ui.cardSel.place;
+  var el=h('article',{class:'cd sel-mode ck-'+cardKind(c)+(on?' picked':'')+(placing?' placing':''),'data-id':c.id},head);
   head.addEventListener('click',function(){
+    if(placing){sel.place(c);return;}
     var v=!ui.cardSel.ids[c.id];
     if(v)ui.cardSel.ids[c.id]=1;else delete ui.cardSel.ids[c.id];
     el.classList.toggle('picked',v);head.setAttribute('aria-checked',String(v));
@@ -6900,11 +7015,12 @@ function cardGroups(FD,list,lim,t,sel,selecting,OPT,filtered){
 function cardList(el,selecting){if(selecting)return el;el.setAttribute('data-cardlist','1');return armReorder(el);}
 var CK_FILTERS=[['due','오늘 시험'],['new','새 카드'],['ok','앎'],['no','모름'],['hard','보라']];
 var OPT_FILTERS=[['due','오늘 시험'],['new','새 선지'],['meas','측정 중'],['low','약함 60%↓'],['ok','앎'],['no','모름']];
+var OX_FILTERS=[['due','오늘 암기'],['new','새 문제'],['meas','측정 중'],['low','약함 60%↓'],['ok','맞힘'],['no','틀림']];
 function cardsView(){
   if(seedCards()|seedPacks())saveNow();
   var t=cardT(),subs=state.subjects;
   if(!ui.cardSid||!subjectById(ui.cardSid)){var law=subs.filter(function(x){return x.name==='상법';})[0];ui.cardSid=(law||subs[0]||{}).id||null;}
-  var K=ui.cardK==='opt'?'opt':'cue',OPT=K==='opt';
+  var K=ui.cardK==='opt'||ui.cardK==='ox'?ui.cardK:'cue',OX=K==='ox',OPT=K!=='cue';
   var FD=foldersOf(ui.cardSid,K);
   if(ui.cardFolder&&ui.cardFolder!=='_none'&&!FD.some(function(f){return f.id===ui.cardFolder;}))ui.cardFolder=null;
   if(ui.cardFolder==='_none'&&!FD.length)ui.cardFolder=null;
@@ -6930,6 +7046,7 @@ function cardsView(){
       allB.textContent=every?'전체 해제':'전체 선택';
       armed=false;clearTimeout(armT);del.classList.remove('armed');
       del.textContent=k?k+'장 삭제':'삭제';del.disabled=!k;
+      if(typeof ordB!=='undefined')ordB.disabled=!k;
     }};
     allB.addEventListener('click',function(){
       var every=list.every(function(c){return S.ids[c.id];});
@@ -6945,20 +7062,43 @@ function cardsView(){
     });
     var mvB=h('button',{class:'cd-selb cf-mvgo',type:'button'},iconEl('folder'),'폴더로');
     mvB.addEventListener('click',function(){if(n())openMoveSheet(S.ids,ui.cardSid,K);else toast('옮길 카드를 먼저 골라요');});
-    top=h('div',{class:'q-top cd-seltop'},h('h1',{class:'lt'},cntEl),h('div',{class:'cd-acts'},allB,mvB,cancel,del));
+    /* 순서: 고른 카드들을 한 묶음으로 원하는 자리(누른 카드 앞)·맨 위·맨 아래로 */
+    var ordB=h('button',{class:'cd-selb cd-ordb',type:'button'},'↕ 순서');
+    ordB.addEventListener('click',function(){if(!n()){toast('옮길 카드를 먼저 골라요');return;}S.place=true;renderView();});
+    var placeTo=function(anchor,after){
+      var ids=S.ids,k=n(),moved=moveBlock(state.cards||[],ids,anchor.id,after);
+      var fchg=0;
+      /* 다른 폴더 카드 앞에 놓으면 그 폴더로 같이 옮김 */
+      if(FD.length&&!FO)(state.cards||[]).forEach(function(c){if(ids[c.id]&&(c.f||null)!==(anchor.f||null)){if(anchor.f)c.f=anchor.f;else delete c.f;fchg++;}});
+      if(moved)state.cards=moved;
+      ui.cardSel=null;
+      if(moved||fchg){saveNow();toast(k+'장을 옮겼어요'+(fchg?' · 폴더도 바뀜':''));}else toast('이미 그 자리예요');
+      renderView();
+      requestAnimationFrame(function(){Object.keys(ids).forEach(function(id){var el=document.querySelector('.cd[data-id="'+id+'"]');if(el)anim(el,[{background:'var(--accent-soft)'},{background:'transparent'}],{duration:1400,easing:'ease-out'});});});
+    };
+    sel.place=function(c){if(S.ids[c.id])return;placeTo(c,false);};
+    if(S.place){
+      var free=list.filter(function(c){return !S.ids[c.id];});
+      var topB=h('button',{class:'cd-selb',type:'button',disabled:!free.length},'⤒ 맨 위로'),botB=h('button',{class:'cd-selb',type:'button',disabled:!free.length},'⤓ 맨 아래로'),bk=h('button',{class:'cd-selb',type:'button'},'뒤로');
+      topB.addEventListener('click',function(){placeTo(free[0],false);});
+      botB.addEventListener('click',function(){placeTo(free[free.length-1],true);});
+      bk.addEventListener('click',function(){S.place=false;renderView();});
+      top=h('div',{class:'q-top cd-seltop placing'},h('div',{class:'cd-plh'},h('b',null,n()+'장 옮기기'),h('span',null,'들어갈 자리의 카드를 누르면 그 앞에 넣어요')),h('div',{class:'cd-acts'},topB,botB,bk));
+    }else top=h('div',{class:'q-top cd-seltop'},h('h1',{class:'lt'},cntEl),h('div',{class:'cd-acts'},allB,ordB,mvB,cancel,del));
     sel.update();
   }
-  var test=h('button',{class:'cd-test',type:'button',disabled:!all.length},iconEl('play'),cnt.due?['시험 ',h('b',null,String(cnt.due))]:'연습');
-  test.addEventListener('click',function(){startCardTest(ui.cardSid,!cnt.due,null,K,FO);});
-  var add=h('button',{class:'add-btn lab',type:'button'},iconEl('plus'),OPT?'선지':'카드');
+  var test=h('button',{class:'cd-test',type:'button',disabled:!all.length},iconEl('play'),OX?(cnt.due?['암기 ',h('b',null,String(cnt.due))]:'암기 연습'):cnt.due?['시험 ',h('b',null,String(cnt.due))]:'연습');
+  test.addEventListener('click',function(){if(OX)oxStart(ui.cardSid,FO,'study',!cnt.due);else startCardTest(ui.cardSid,!cnt.due,null,K,FO);});
+  if(OX){var exam=h('button',{class:'cd-test ox-exam',type:'button',disabled:!all.length},iconEl('check'),'시험');exam.addEventListener('click',function(){oxExamSheet(ui.cardSid,FO);});test=[test,exam];}
+  var add=h('button',{class:'add-btn lab',type:'button'},iconEl('plus'),OX?'OX':OPT?'선지':'카드');
   add.addEventListener('click',function(){openCardSheet(null,K);});
   var pick=h('button',{class:'cd-selb',type:'button',disabled:!all.length},'선택');
   pick.addEventListener('click',function(){ui.cardSel={ids:{}};renderView();});
   if(!top)top=h('div',{class:'q-top','data-fade':'1'},h('h1',{class:'lt'},'암기카드'),h('div',{class:'cd-acts'},test,pick,add));
   /* 앞글자 | 선지 */
-  var kn={cue:0,opt:0},kd={cue:0,opt:0};
+  var kn={cue:0,opt:0,ox:0},kd={cue:0,opt:0,ox:0};
   (state.cards||[]).forEach(function(c){var x=cardK(c);kn[x]++;if(cardIsDue(c,t))kd[x]++;});
-  var kinds=h('div',{class:'cd-kinds',role:'tablist','aria-label':'카드 종류'},[['cue','앞글자'],['opt','선지']].map(function(o){
+  var kinds=h('div',{class:'cd-kinds',role:'tablist','aria-label':'카드 종류'},[['cue','앞글자'],['opt','선지'],['ox','OX']].map(function(o){
     var on=K===o[0];
     var b=h('button',{class:'cd-kind',type:'button',role:'tab','aria-selected':String(on),'data-k':o[0]},o[1],h('b',null,String(kn[o[0]])),kd[o[0]]&&!on?h('i',{class:'cd-dot','aria-label':'오늘 시험 있음'}):null);
     b.addEventListener('click',function(){if(K===o[0])return;ui.cardK=o[0];ui.cardF=null;ui.cardFolder=null;ui.cardMore=0;if(ui.cardSel)ui.cardSel={ids:{}};renderView();});
@@ -6986,7 +7126,7 @@ function cardsView(){
     [FD.length?fchip(null,'전체',allK.length,false):null]
     .concat(FD.map(function(f){var xs=allK.filter(function(c){return c.f===f.id;});return fchip(f.id,f.name,xs.length,xs.some(function(c){return cardIsDue(c,t);}));}))
     .concat([FD.length&&noneN?fchip('_none','폴더 없음',noneN,false,'none'):null,addF])):null;
-  var fs=h('div',{class:'cd-fs'},(OPT?OPT_FILTERS:CK_FILTERS).map(function(f){
+  var fs=h('div',{class:'cd-fs'},(OX?OX_FILTERS:OPT?OPT_FILTERS:CK_FILTERS).map(function(f){
     if(!cnt[f[0]])return null;
     var on=F===f[0];
     var b=h('button',{class:'cd-f ck-'+f[0],type:'button','aria-pressed':String(on)},h('i'),f[1],h('b',null,String(cnt[f[0]])));
@@ -7002,8 +7142,8 @@ function cardsView(){
     all.length?h('div',{'data-fade':'1'},fs):null,
     all.length?(!FO&&FD.length?cardGroups(FD,list,lim,t,sel,!!S,OPT,!!F):cardList(h('div',{class:'cd-list'+(OPT?' opt':'')},list.slice(0,lim).map(function(c){return cardEl(c,t,sel);})),!!S)):
     FO?h('div',{class:'cd-empty','data-fade':'1'},h('p',null,'이 폴더는 비어 있어요'),h('p',{class:'cd-hint'},'이 폴더를 고른 채로 + '+(OPT?'선지':'카드')+'를 누르면 여기로 들어가요. 이미 있는 카드는 ‘선택’에서 골라 ‘폴더로’ 옮기면 돼요.')):h('div',{class:'cd-empty','data-fade':'1'},
-      h('p',null,OPT?'아직 선지가 없어요':'아직 카드가 없어요'),
-      h('p',{class:'cd-hint'},OPT?'기출 선지나 조문을 그대로 적어요. 시험에선 문장만 보고 아는지 판단해서 알면 오른쪽, 모르면 왼쪽으로 밀어요. 해설은 적어도 되고 비워도 돼요.':'제목, 앞글자, 내용만 적으면 돼요. 내용은 줄마다 하나씩, 앞에 공백을 두면 아래 단계로 들어가요.')),
+      h('p',null,OX?'아직 OX 문제가 없어요':OPT?'아직 선지가 없어요':'아직 카드가 없어요'),
+      h('p',{class:'cd-hint'},OX?'문제를 적고 정답 O·X를 고른 다음 해설을 붙여요. 암기는 하나 풀 때마다 바로 정답과 해설을 보여 주고, 시험은 개수를 정해 랜덤으로 풀고 끝에 점수와 오답을 보여 줘요.':OPT?'기출 선지나 조문을 그대로 적어요. 시험에선 문장만 보고 아는지 판단해서 알면 오른쪽, 모르면 왼쪽으로 밀어요. 해설은 적어도 되고 비워도 돼요.':'제목, 앞글자, 내용만 적으면 돼요. 내용은 줄마다 하나씩, 앞에 공백을 두면 아래 단계로 들어가요.')),
     moreB);
 }
 
@@ -7223,6 +7363,7 @@ function cxEnd(){
 function openCardSheet(c,kind){
   if(activeSheet||busy)return;
   if((c?cardK(c):kind)==='opt')return openOptSheet(c);
+  if((c?cardK(c):kind)==='ox')return openOxSheet(c);
   var sid=c?c.sid:ui.cardSid||(state.subjects[0]||{}).id;
   var tabs=h('div',{class:'cd-subs in-sheet'});
   var dupBox;
@@ -7334,6 +7475,319 @@ function openOptSheet(c){
   });
   inp.addEventListener('input',sync);sync();
   if(c)dupBox.redraw();
+}
+/* ---------- OX 문제 만들기·고치기: 문제(파랑·표) · 정답 O/X · 해설 ----------
+   ↩ 문제 → 해설 → 넣고 다음 문제 · ⇧↩ ⌥↩ 줄바꿈 · ⌥O ⌥X 정답 */
+function openOxSheet(c){
+  var sid=c?c.sid:ui.cardSid||(state.subjects[0]||{}).id,dupBox,ans=c&&c.a||null;
+  var tabs=h('div',{class:'cd-subs in-sheet'});
+  function drawTabs(){setKids(tabs,state.subjects.map(function(x){var b=h('button',{class:'cd-sub',type:'button','aria-pressed':String(x.id===sid)},subjShortOf(x));b.addEventListener('click',function(){sid=x.id;drawTabs();fpk.redraw();if(dupBox&&!dupBox.hidden)dupBox.redraw();});return b;}));}
+  var fpk=folderPicker(function(){return sid;},'ox',c?c.f||null:(ui.cardFolder&&ui.cardFolder!=='_none'&&(folderById(ui.cardFolder)||{}).sid===sid?ui.cardFolder:null));
+  drawTabs();
+  var qIn=h('textarea',{class:'field cd-opt-in ox-q',rows:'3',maxlength:'6000','aria-label':'OX 문제',enterkeyhint:'next',placeholder:'문제 (첫 줄이 목록 제목이 돼요)'});
+  qIn.value=c?String(c.body||''):'';
+  var exIn=h('textarea',{class:'field cd-body-in',rows:'4',maxlength:'6000','aria-label':'해설',enterkeyhint:c?'done':'send',placeholder:'해설 (안 적어도 돼요)'});
+  exIn.value=c?String(c.ex||''):'';
+  dupBox=cardDupBox(qIn,function(){return sid;},'ox',c?c.id:null);
+  function tools(ta,tip){
+    var blue=h('button',{class:'cd-blue',type:'button','aria-label':'고른 글자 파랑으로'},h('i'),'파랑');
+    blue.addEventListener('pointerdown',function(e){e.preventDefault();});blue.addEventListener('mousedown',function(e){e.preventDefault();});
+    blue.addEventListener('click',function(){toggleBlue(ta);});
+    var tb=tblTool(ta);
+    return {row:h('div',{class:'cd-tools'},blue,tb.btn,h('span',{class:'cd-tip'},tip)),panel:tb.panel};
+  }
+  var tq=tools(qIn,'문제 · ↩ 또는 ⇥ 정답 칸으로 · ⇧↩ 줄바꿈'),te=tools(exIn,'해설 · ↩ '+(c?'저장':'넣고 다음 문제')+' · ⇧⇥ 정답 칸');
+  tq.row.querySelector('.cd-tip').textContent='문제 · ⇥ 정답 칸(⇥ 마다 O↔X, ↩ 해설) · ⇧↩ 줄바꿈';
+  var oB=h('button',{class:'ox-pick o',type:'button',tabindex:'-1','aria-label':'정답 O'},'O'),xB=h('button',{class:'ox-pick x',type:'button',tabindex:'-1','aria-label':'정답 X'},'X');
+  /* 정답 칸: 문제에서 ⇥ 로 들어오면 O가 골라지고, ⇥ 한 번 더 누를 때마다 O ↔ X. ↩ 로 해설 칸. O·X 키를 바로 눌러도 됨 */
+  var pickRow=h('div',{class:'ox-picks',role:'radiogroup',tabindex:'0','aria-label':'정답 O 또는 X'},h('span',{class:'ox-pl'},'정답'),oB,xB,h('span',{class:'cd-tip ox-ktip'},'⇥ 누를 때마다 O ↔ X · ↩ 해설로'));
+  function drawPick(){oB.setAttribute('aria-checked',String(ans==='O'));xB.setAttribute('aria-checked',String(ans==='X'));oB.setAttribute('role','radio');xB.setAttribute('role','radio');pickRow.classList.remove('need');sync();}
+  function toPick(){pickRow.focus();if(!ans){ans='O';drawPick();}}
+  function toEx(){exIn.focus();try{exIn.setSelectionRange(exIn.value.length,exIn.value.length);}catch(_){}}
+  [[oB,'O'],[xB,'X']].forEach(function(p){p[0].addEventListener('click',function(){ans=p[1];drawPick();});});
+  pickRow.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey)return;
+    if(e.code==='KeyO'||e.code==='KeyX'){e.preventDefault();ans=e.code==='KeyO'?'O':'X';drawPick();var bt=ans==='O'?oB:xB;anim(bt,[{transform:'scale(1.12)'},{transform:'none'}],{duration:220,easing:SPRING});setTimeout(toEx,140);return;}
+    /* ⇥ 누를 때마다 O ↔ X, ↩ 로 해설 칸 */
+    if(e.key==='ArrowLeft'||e.key==='ArrowRight'||e.key===' '||(e.key==='Tab'&&!e.shiftKey)){e.preventDefault();ans=ans==='O'?'X':'O';drawPick();var tb=ans==='O'?oB:xB;anim(tb,[{transform:'scale(1.12)'},{transform:'none'}],{duration:200,easing:SPRING});return;}
+    if(e.key==='Enter'){e.preventDefault();if(ans)toEx();else{ans='O';drawPick();}return;}
+    if(e.key==='Tab'&&e.shiftKey){e.preventDefault();qIn.focus();return;}
+  });
+  var made=h('div',{class:'op-made',hidden:true,'aria-live':'polite'});
+  var api,kids=[tabs,fpk.el,tq.row,tq.panel,qIn,dupBox,pickRow,te.row,te.panel,exIn,made];
+  if(c)kids.push(confirmBtn('del-card','문제 삭제','한 번 더 누르면 삭제해요',function(){
+    state.cards=state.cards.filter(function(x){return x.id!==c.id;});saveNow();api.close();renderView();toast('문제를 지웠어요');
+  },'sh-del'));
+  var madeN=0;
+  function sync(){if(!api)return;var has=!!optTitle(qIn.value),done=!c&&madeN&&!has;api.primary.disabled=!has&&!done;api.primary.textContent=c?'저장':done?'완료':'추가';}
+  function clean(x){return String(x).replace(/\r\n?/g,'\n').replace(/[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n').replace(/^\s*\n|\s+$/g,'').slice(0,6000);}
+  function commit(keep){
+    var body=clean(qIn.value),title=optTitle(body);
+    if(!title){qIn.focus();return;}
+    if(!ans){pickRow.classList.add('need');anim(pickRow,[{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'none'}],{duration:260});toast('정답 O·X를 골라요');return;}
+    var v={sid:sid,k:'ox',title:title,cue:'',body:body,a:ans},ex=clean(exIn.value),fv=fpk.get(),tg;
+    if(!state.cards)state.cards=[];
+    if(c){Object.assign(c,v);tg=c;}else{tg=Object.assign({id:uid(),d:today()},v);state.cards.push(tg);}
+    if(ex)tg.ex=ex;else delete tg.ex;
+    if(fv)tg.f=fv;else delete tg.f;
+    ui.cardSid=sid;ui.cardK='ox';saveNow();
+    if(keep&&!c){
+      madeN++;qIn.value='';exIn.value='';ans=null;drawPick();qIn.focus();dupBox.redraw();
+      setKids(made,[h('b',null,'✓ '+madeN+'개 넣음'),h('span',null,'['+v.a+'] '+title)]);made.hidden=false;
+      anim(made,[{opacity:.3,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:260,easing:EASE});
+      renderView();return;
+    }
+    api.close();renderView();toast(c?'문제를 고쳤어요':madeN?'문제 '+(madeN+1)+'개를 넣었어요':'문제를 넣었어요');
+  }
+  api=openSheet({title:c?'OX 고치기':'새 OX 문제',primary:c?'저장':'추가',body:kids,focus:c?null:qIn,onPrimary:function(){
+    if(!c&&madeN&&!optTitle(qIn.value)){api.close();toast('문제 '+madeN+'개를 넣었어요');return;}
+    commit(false);
+  }});
+  var lastEnter=0;
+  function keys(e,fn){
+    if((e.altKey)&&(e.code==='KeyO'||e.code==='KeyX')){e.preventDefault();ans=e.code==='KeyO'?'O':'X';drawPick();return;}
+    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&/^(b|h|KeyB|KeyH)$/i.test(e.key.length===1?e.key:e.code)){e.preventDefault();toggleBlue(e.target);return;}
+    if(e.key!=='Enter'||e.metaKey||e.ctrlKey)return;
+    if(e.shiftKey||e.altKey){if(e.altKey){e.preventDefault();var ta=e.target,a=ta.selectionStart,b=ta.selectionEnd;ta.setRangeText('\n',a,b,'end');ta.dispatchEvent(new Event('input',{bubbles:true}));}return;}
+    if(e.isComposing)return;
+    e.preventDefault();var now=Date.now();if(now-lastEnter<45)return;lastEnter=now;setTimeout(fn,0);
+  }
+  /* 문제 → (↩ 또는 ⇥) 정답 칸 → (O·X 키) 해설 → ↩ 넣고 다음 문제 */
+  qIn.addEventListener('keydown',function(e){
+    if(e.key==='Tab'&&!e.shiftKey&&!e.isComposing){e.preventDefault();toPick();return;}
+    keys(e,function(){if(!optTitle(qIn.value))return;toPick();});
+  });
+  exIn.addEventListener('keydown',function(e){
+    if(e.key==='Tab'&&e.shiftKey&&!e.isComposing){e.preventDefault();pickRow.focus();return;}
+    keys(e,function(){if(!optTitle(qIn.value)){qIn.focus();return;}if(!ans){pickRow.focus();pickRow.classList.add('need');toast('정답 O·X를 골라요');return;}commit(!c);});
+  });
+  qIn.addEventListener('input',sync);drawPick();
+  if(c)dupBox.redraw();
+}
+/* ---------- OX 풀기 ----------
+   암기(study): 오른쪽 O · 왼쪽 X · 위로 밀기/↓ = 모름 → 바로 정답·해설. 한 번 더 밀거나 누르면 다음
+   시험(exam): 개수만큼 랜덤, 끝까지 정답 안 보여 줌 → 끝에 점수·오답·해설
+   둘 다 기록하면 선지와 같은 성취도 일정(optAnswer). 연습은 기록 안 함 */
+var OXQ=null;
+function oxPool(sid,fid){return cardsOf(sid,'ox').filter(function(c){return inFolder(c,fid)&&(c.a==='O'||c.a==='X');});}
+function oxStart(sid,fid,mode,practice,ids){
+  if(activeSheet||busy)return;
+  var t=cardT(),pool=oxPool(sid,fid),list;
+  if(ids)list=ids.map(cardById).filter(Boolean);
+  else if(mode==='study'){list=practice?pool:pool.filter(function(c){return cardIsDue(c,t);});}
+  else list=pool;
+  if(!list.length){toast(pool.length?'오늘 암기할 문제가 없어요':'정답이 정해진 OX 문제가 없어요');return;}
+  if(mode==='exam'&&typeof practice==='number')list=shuffled(list).slice(0,practice);else list=shuffled(list);
+  var sj=subjectById(sid),fo=fid&&fid!=='_none'?folderById(fid):null;
+  OXQ={sid:sid,t:t,mode:mode,rec:mode==='exam'||!practice,ids:list.map(function(c){return c.id;}),i:0,res:[],busy:false,phase:'q',cur:null,
+    name:(sj?sj.name:'OX')+' OX'+(fo?' · '+fo.name:fid==='_none'?' · 폴더 없음':'')};
+  oxOpen();
+}
+function oxExamSheet(sid,fid){
+  if(activeSheet||busy)return;
+  var n=oxPool(sid,fid).length;
+  if(!n){toast('정답이 정해진 OX 문제가 없어요');return;}
+  var opts=[5,10,20,30,50].filter(function(x){return x<n;}).concat([n]);
+  var custom=h('input',{class:'field',type:'number',inputmode:'numeric',min:'1',max:String(n),placeholder:'직접 (1~'+n+')','aria-label':'문제 수 직접'});
+  var api;
+  function go(k){k=Math.max(1,Math.min(n,Math.round(k)||0));if(!k)return;api.close();setTimeout(function(){oxStart(sid,fid,'exam',k);},380);}
+  var grid=h('div',{class:'ox-cnts'},opts.map(function(x){var b=h('button',{class:'ox-cnt'+(x===n?' all':''),type:'button'},h('b',null,String(x)),x===n?'전체':'문제');b.addEventListener('click',function(){go(x);});return b;}));
+  var cb=h('button',{class:'cf-new',type:'button'},'시작');cb.addEventListener('click',function(){go(+custom.value);});
+  custom.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();go(+custom.value);}});
+  api=openSheet({title:'OX 시험 · 몇 문제?',primary:false,cancel:'닫기',body:[grid,h('div',{class:'cf-newrow'},custom,cb),
+    h('p',{class:'pc-hint'},'지금 고른 과목'+(fid?'·폴더':'')+'의 OX '+n+'개에서 랜덤으로 뽑아요. 끝까지 풀기 전에는 정답을 안 보여 주고, 끝에 점수와 틀린 문제·해설을 보여 줘요. 푼 결과는 복습 일정에도 들어가요.')]});
+}
+function oxOpen(){
+  var close=h('button',{class:'cx-btn',type:'button'},iconEl('x'),'닫기');
+  var undo=h('button',{class:'cx-btn',type:'button'},iconEl('undo'),'되돌리기');
+  var ttl=h('h2',{class:'cx-ttl'}),prog=h('div',{class:'cx-prog'},h('i')),cnt=h('div',{class:'cx-n'});
+  var stage=h('div',{class:'cx-stage'}),acts=h('div',{class:'cx-acts'});
+  var panel=h('div',{class:'cx ox',role:'dialog','aria-modal':'true','aria-label':'OX 퀴즈'},h('div',{class:'cx-top'},close,ttl,undo),prog,cnt,stage,acts);
+  var wrap=h('div',{class:'cx-wrap'},panel);
+  document.body.appendChild(wrap);
+  function key(e){
+    if(activeSheet!==api||e.isComposing||e.altKey||e.metaKey||e.ctrlKey)return;
+    if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(OXQ&&OXQ.phase==='a'){
+      if(/^(ArrowRight|ArrowLeft|ArrowDown|ArrowUp|Enter| )$/.test(e.key)){if(e.target&&e.target.tagName==='BUTTON'&&panel.contains(e.target)&&(e.key==='Enter'||e.key===' '))return;e.preventDefault();oxNext();}
+      return;
+    }
+    if(e.key==='ArrowRight'){e.preventDefault();oxAnswer('O',0,0);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();oxAnswer('X',0,0);}
+    else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();oxAnswer(null,0,0);}
+  }
+  document.addEventListener('keydown',key);
+  document.documentElement.classList.add('cx-on');
+  try{if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();}catch(_){}
+  var api={kind:'ox',wrap:wrap,scrim:wrap,sheet:panel,detach:function(){document.removeEventListener('keydown',key);document.documentElement.classList.remove('cx-on');},
+    close:function(){if(activeSheet!==api)return;closeSheet(false);OXQ=null;renderView();}};
+  activeSheet=api;
+  OXQ.el={ttl:ttl,prog:prog,cnt:cnt,stage:stage,acts:acts,undo:undo};
+  close.addEventListener('click',api.close);
+  undo.addEventListener('click',oxUndo);
+  anim(wrap,[{opacity:0},{opacity:1}],{duration:200,easing:'ease-out'});
+  anim(panel,[{opacity:0,transform:'translateY(22px) scale(.98)'},{opacity:1,transform:'none'}],{duration:520,easing:SPRING});
+  oxDraw();
+}
+function oxDraw(){
+  if(!OXQ)return;
+  var E=OXQ.el,n=OXQ.ids.length,Q=OXQ;
+  setKids(E.ttl,[Q.name,h('span',{class:'cx-mode'+(Q.rec?'':' prac')},Q.mode==='exam'?'시험':Q.rec?'암기':'연습 · 기록 안 됨')]);
+  E.prog.firstChild.style.width=(n?Math.min(Q.i,n)/n*100:0)+'%';
+  E.undo.disabled=!Q.res.length||Q.mode!=='exam'||Q.i>=n;
+  if(Q.i>=n){oxEnd();return;}
+  var c=cardById(Q.ids[Q.i]);
+  if(!c){Q.ids.splice(Q.i,1);oxDraw();return;}
+  E.cnt.textContent=(Q.i+1)+' / '+n;
+  Q.phase='q';
+  var C=oxCard(c);Q.cur=C;
+  setKids(E.stage,C.el);
+  var x=h('button',{class:'cx-ans no ox-a',type:'button'},'← X'),u=h('button',{class:'cx-ans fl',type:'button'},'↓ 모름'),o=h('button',{class:'cx-ans ok ox-a',type:'button'},'O →');
+  x.addEventListener('click',function(){oxAnswer('X',0,0);});o.addEventListener('click',function(){oxAnswer('O',0,0);});u.addEventListener('click',function(){oxAnswer(null,0,0);});
+  E.acts.className='cx-acts';setKids(E.acts,[x,u,o]);
+  anim(C.el,[{opacity:0,transform:'translateY(14px) scale(.97)'},{opacity:1,transform:'none'}],{duration:420,easing:SPRING});
+}
+function oxCard(c){
+  var r=c.srs,k=cardKind(c);
+  var face=h('div',{class:'cx-face cx-front ox-face'});
+  var stO=h('div',{class:'cx-stamp ok ox-st'},'O'),stX=h('div',{class:'cx-stamp no ox-st'},'X'),stU=h('div',{class:'cx-stamp ox-u'},'모름');
+  var inner=h('div',{class:'cx-in'},face,stO,stX,stU);
+  var el=h('div',{class:'cx-card ox-card'},inner,h('div',{class:'ox-arw l','aria-hidden':'true'},'←',h('b',null,'X')),h('div',{class:'ox-arw r','aria-hidden':'true'},h('b',null,'O'),'→'),h('div',{class:'ox-arw u','aria-hidden':'true'},'↑ 모름'));
+  var C={el:el,face:face,stO:stO,stX:stX,stU:stU,c:c,gone:false};
+  var ob=String(c.body||'').trim(),one=ob.indexOf('\n')<0&&!isTblLine(ob)&&ob.length<=90;
+  C.q=function(){
+    face.className='cx-face cx-front ox-face cx-opt'+(one?'':' rich');
+    setKids(face,[
+      h('div',{class:'cx-tag'},h('i'),OXQ.mode==='exam'?'시험 · 정답은 끝에':k==='new'?'새 문제':optPct(c)==null?'측정 중 '+((r&&r.e)||0)+'/'+OPT_NEED:'성취도 '+optPct(c)+'%'),
+      one?h('div',{class:'cx-q opt'},richText(ob.replace(/^[-•·*]\s+/,''))):h('div',{class:'cx-q opt rich'},cardBody(ob)),
+      h('div',{class:'cx-hint'},'맞으면 오른쪽(O) · 틀리면 왼쪽(X) · 모르면 위로')]);
+    face.scrollTop=0;
+    /* 길어서 스크롤되는 문제는 위로 밀기 대신 ↓ 모름 버튼 (스크롤과 안 겹치게) */
+    requestAnimationFrame(function(){var sc=face.scrollHeight>face.clientHeight+4;el.style.touchAction=face.style.touchAction=sc?'pan-y':'none';el.classList.toggle('scr',sc);});
+  };
+  C.a=function(pick,ok){
+    face.className='cx-face cx-back ox-face';
+    setKids(face,[
+      h('div',{class:'ox-res '+(ok?'ok':pick?'no':'u')},h('span',{class:'ox-badge '+(c.a==='X'?'x':'o')},c.a),
+        h('b',null,ok?'정답!':pick?'틀렸어요':'모름'),h('span',null,ok?'':pick?'내 답 '+pick+' · 정답 '+c.a:'정답 '+c.a)),
+      h('div',{class:'ox-qs'},cardBody(ob)),
+      c.ex?h('div',{class:'cd-exl'},'해설'):null,
+      c.ex?cardBody(c.ex):h('p',{class:'cd-none'},'해설 없음')]);
+    face.scrollTop=0;
+    el.style.touchAction=face.style.touchAction='pan-y';
+  };
+  C.q();
+  oxDrag(C);
+  return C;
+}
+function oxDrag(C){
+  var el=C.el,x0=0,y0=0,t0=0,dx=0,dy=0,down=false,drag=0,moved=false,pid=null;
+  function tf(x,y){return 'translate('+x+'px,'+y+'px) rotate('+(x/22).toFixed(2)+'deg)';}
+  el.addEventListener('pointerdown',function(e){
+    if(C.gone||!OXQ||OXQ.busy||(e.button&&e.button>0))return;
+    down=true;drag=0;moved=false;x0=e.clientX;y0=e.clientY;t0=performance.now();dx=dy=0;pid=e.pointerId;
+  });
+  el.addEventListener('pointermove',function(e){
+    if(!down||e.pointerId!==pid)return;
+    var mx=e.clientX-x0,my=e.clientY-y0;
+    if(!drag){
+      if(Math.abs(mx)>8||Math.abs(my)>8)moved=true;
+      if(Math.abs(mx)>10&&Math.abs(mx)>Math.abs(my)*1.2)drag=1;
+      else if(OXQ.phase==='q'&&my<-10&&Math.abs(my)>Math.abs(mx)*1.2&&el.style.touchAction==='none')drag=2;
+      else return;
+      el.classList.add('drag');try{el.setPointerCapture(pid);}catch(_){}
+    }
+    if(drag===1){dx=mx;dy=0;}else{dx=0;dy=Math.min(0,my);}
+    el.querySelector('.cx-in').style.transform=tf(dx,dy);
+    if(OXQ.phase==='q'){
+      var p=Math.min(1,Math.abs(drag===1?dx:dy)/110);
+      C.stO.style.opacity=drag===1&&dx>0?p:0;C.stX.style.opacity=drag===1&&dx<0?p:0;C.stU.style.opacity=drag===2?p:0;
+    }
+  });
+  function reset(){
+    var inn=el.querySelector('.cx-in');inn.style.transform='';
+    anim(inn,[{transform:tf(dx,dy)},{transform:'none'}],{duration:440,easing:SPRING});
+    [C.stO,C.stX,C.stU].forEach(function(st){var o=+st.style.opacity||0;st.style.opacity='';if(o)anim(st,[{opacity:o},{opacity:0}],{duration:200});});
+  }
+  function up(e,cancel){
+    if(!down||e.pointerId!==pid)return;
+    down=false;
+    if(!drag){if(!cancel&&!moved&&OXQ&&OXQ.phase==='a')oxNext();return;}
+    var d=drag;drag=0;el.classList.remove('drag');
+    var dist=d===1?dx:dy,v=dist/Math.max(1,performance.now()-t0);
+    if(!cancel&&(Math.abs(dist)>110||(Math.abs(dist)>40&&Math.abs(v)>.55))){
+      if(OXQ.phase==='a'){oxNext(dx,dy);return;}
+      oxAnswer(d===2?null:dx>0?'O':'X',dx,dy);return;
+    }
+    reset();
+  }
+  el.addEventListener('pointerup',function(e){up(e,false);});
+  el.addEventListener('pointercancel',function(e){up(e,true);});
+}
+/* 답하기: 기록 → 암기면 그 자리에서 정답·해설, 시험이면 바로 다음 */
+function oxAnswer(pick,dx,dy){
+  var Q=OXQ,C=Q&&Q.cur;if(!C||C.gone||Q.busy||Q.phase!=='q')return;
+  var c=C.c,ok=pick===c.a,prev=c.srs?JSON.parse(JSON.stringify(c.srs)):null;
+  if(Q.rec){c.srs=optAnswer(prev,ok,Q.t);saveNow();}
+  Q.res.push({id:c.id,pick:pick,ok:ok,prev:prev});
+  var st=pick==='O'?C.stO:pick==='X'?C.stX:C.stU;st.style.opacity=1;
+  if(Q.mode==='exam'){oxFly(dx||(pick==='O'?1:pick==='X'?-1:0),dy||(pick?0:-1));return;}
+  Q.phase='a';Q.shownAt=Date.now();
+  var inn=C.el.querySelector('.cx-in');inn.style.transform='';
+  anim(inn,[{transform:'translate('+dx+'px,'+dy+'px)'},{transform:'none'}],{duration:420,easing:SPRING});
+  setTimeout(function(){[C.stO,C.stX,C.stU].forEach(function(s){s.style.opacity='';});},380);
+  C.el.classList.add('ans',ok?'ok':'no');
+  C.a(pick,ok);
+  anim(C.face,[{opacity:.2},{opacity:1}],{duration:260,easing:'ease-out'});
+  var nx=h('button',{class:'cx-big pri ox-next',type:'button'},Q.i+1<Q.ids.length?'다음 →':'결과 보기');
+  nx.addEventListener('click',function(){oxNext();});
+  Q.el.acts.className='cx-acts one';setKids(Q.el.acts,[nx]);
+  if(Q.rec&&(!prev||(prev.e||0)<OPT_NEED)&&c.srs.e===OPT_NEED)toast('측정 끝 · 성취도 '+Math.round(c.srs.m*100)+'%');
+}
+function oxNext(dx,dy){var Q=OXQ;if(!Q||Q.busy||Q.phase!=='a')return;if(Date.now()-(Q.shownAt||0)<350)return;oxFly(dx||1,dy||0);}
+function oxFly(dx,dy){
+  var Q=OXQ,C=Q.cur;C.gone=true;Q.busy=true;
+  var W=Math.max(window.innerWidth,700),H=Math.max(window.innerHeight,700);
+  var tx=dy&&!dx?0:(dx>0?1:-1)*W,ty=dy&&!dx?-H:0;
+  var inn=C.el.querySelector('.cx-in');
+  var a=anim(inn,[{transform:inn.style.transform||'none'},{transform:'translate('+tx+'px,'+ty+'px) rotate('+(tx?(tx>0?16:-16):0)+'deg)',opacity:.3}],{duration:300,easing:'cubic-bezier(.3,.5,.6,1)',fill:'forwards'});
+  finished(a).then(function(){if(!OXQ)return;Q.busy=false;Q.i++;oxDraw();});
+}
+/* 시험 중 되돌리기: 마지막 답 취소 */
+function oxUndo(){
+  var Q=OXQ;if(!Q||Q.busy||Q.mode!=='exam'||!Q.res.length||Q.i>=Q.ids.length)return;
+  var r=Q.res.pop(),c=cardById(r.id);
+  if(c&&Q.rec){if(r.prev)c.srs=r.prev;else delete c.srs;saveNow();}
+  Q.i=Math.max(0,Q.i-1);oxDraw();
+}
+function oxEnd(){
+  var Q=OXQ,E=Q.el,ok=Q.res.filter(function(r){return r.ok;}).length,n=Q.res.length,wrong=Q.res.filter(function(r){return !r.ok;});
+  Q.cur=null;E.cnt.textContent=n+'문제 끝';E.undo.disabled=true;
+  var pct=n?Math.round(ok/n*100):0;
+  var list=h('div',{class:'ox-wrong'},wrong.map(function(r,i){
+    var c=cardById(r.id);if(!c)return null;
+    return h('details',{class:'ox-w',open:i<3?'':null},
+      h('summary',null,h('span',{class:'ox-badge '+(c.a==='X'?'x':'o')},c.a),h('span',{class:'ox-wt'},c.title),h('em',null,r.pick?'내 답 '+r.pick:'모름')),
+      h('div',{class:'ox-wb'},String(optRest(c.body)||'').trim()?cardBody(optRest(c.body)):null,c.ex?h('div',{class:'cd-exl'},'해설'):null,c.ex?cardBody(c.ex):h('p',{class:'cd-none'},'해설 없음')));
+  }));
+  var box=h('div',{class:'cx-end ox-end'},
+    h('h2',null,Q.mode==='exam'?'시험 끝':'끝'),
+    h('div',{class:'ox-score '+(pct>=80?'hi':pct>=60?'mid':'lo')},h('b',null,ok+' / '+n),h('span',null,pct+'점')),
+    h('div',{class:'cx-sum'},h('div',{class:'ok'},h('b',null,String(ok)),'맞힘'),h('div',{class:'no'},h('b',null,String(n-ok)),'틀림·모름')),
+    wrong.length?h('div',{class:'ox-wh'},'틀린 문제 '+wrong.length+'개'):h('p',{class:'cx-note'},'다 맞혔어요.'),
+    wrong.length?list:null,
+    h('p',{class:'cx-note'},Q.rec?'맞힌 문제는 성취도에 맞춰 뒤로, 틀린 문제는 내일 다시 나와요.':'연습이라 일정은 그대로예요.'));
+  var acts=[];
+  if(wrong.length){
+    var again=h('button',{class:'cx-big',type:'button'},'틀린 것만 암기로 다시 · 연습');
+    again.addEventListener('click',function(){var ids=wrong.map(function(r){return r.id;});OXQ.mode='study';OXQ.rec=false;OXQ.ids=shuffled(ids);OXQ.i=0;OXQ.res=[];oxDraw();});
+    acts.push(again);
+  }
+  var done=h('button',{class:'cx-big'+(wrong.length?'':' pri'),type:'button'},'닫기');
+  done.addEventListener('click',function(){if(activeSheet&&activeSheet.kind==='ox')activeSheet.close();});
+  acts.push(done);
+  setKids(E.stage,box);E.acts.className='cx-acts end';setKids(E.acts,acts);
+  anim(box,[{opacity:0,transform:'translateY(10px) scale(.98)'},{opacity:1,transform:'none'}],{duration:480,easing:SPRING});
 }
 /* 검색에서 카드를 누르면: 암기카드 → 그 과목, 그 카드 펼치고 반짝 */
 function gotoCard(id){
