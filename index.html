@@ -2820,6 +2820,37 @@ textarea.ox-q{min-height:96px;font-size:16px;font-weight:500;line-height:1.55}
 .cd-split .ic{width:15px;height:15px;margin-right:4px;vertical-align:-2px}
 .cx-wrap.in-split{border-right:1px solid var(--sep)}
 @media (max-width:900px){.csplit{grid-template-columns:minmax(0,1fr)}.cpane{max-height:none;overflow:visible}.cpane+.cpane{border-left:0;border-top:1px solid var(--sep);padding-top:14px}}
+/* OX 풀이: 별표 · 편집 */
+.cx-tr{justify-self:end;display:flex;gap:2px}
+.ox-star{position:absolute;top:10px;right:12px;z-index:3;width:40px;height:40px;border-radius:50%;font-size:22px;line-height:1;color:var(--faint);opacity:.55;transition:color .15s,opacity .15s,transform .15s}
+.ox-star:hover{opacity:.9}
+.ox-star[aria-pressed="true"]{color:#f2b600;opacity:1;transform:scale(1.08)}
+.cx-card.starred .cx-face{box-shadow:inset 0 0 0 2px rgba(242,182,0,.55)}
+.cd-star{flex:none;color:#f2b600;font-size:14px;margin-right:-2px}
+.cd-f.ck-star[aria-pressed="true"]{background:rgba(242,182,0,.16);color:#a07800}
+.cd-f.ck-star i{background:#f2b600}
+.ox-edf{display:block;overflow-y:auto;padding:22px 22px 18px;text-align:left}
+.ox-ed{display:flex;flex-direction:column;gap:6px}
+.ox-ed-h{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.ox-ed-h .ic{width:15px;height:15px}
+.ox-ed-l{font-size:12.5px;font-weight:700;color:var(--fg-2);margin-top:6px}
+.ox-ed-ta{width:100%;min-height:72px;resize:none;padding:10px 12px;border-radius:var(--r);background:var(--fill);font:inherit;font-size:15px;line-height:1.55;color:var(--fg);border:0;outline:none}
+.ox-ed-ta:focus{box-shadow:inset 0 0 0 2px var(--accent)}
+.ox-ed-row{display:flex;align-items:center;gap:8px;margin-top:4px}
+.ox-ed-row .ox-ed-l{margin:0 4px 0 0}
+.ox-ed-a{width:52px;height:38px;border-radius:var(--r);font-size:18px;font-weight:800;background:var(--fill);color:var(--muted)}
+.ox-ed-a.o[aria-pressed="true"]{background:rgba(47,180,87,.16);color:#1f8f43;box-shadow:inset 0 0 0 2px #2fb457}
+.ox-ed-a.x[aria-pressed="true"]{background:var(--fail-soft);color:var(--fail);box-shadow:inset 0 0 0 2px var(--fail)}
+.cx-acts.two{grid-template-columns:1fr 1fr}
+.cx-face.cx-back .ox-exb .cd-exl{margin-top:2px}
+.cx-face.cx-back .ox-exb .cd-body{padding-top:6px;font-size:19px;line-height:1.6;font-weight:600;color:var(--fg)}
+.cx-face.cx-back .ox-qs{margin-top:20px;padding-top:12px;border-top:1px solid var(--sep)}
+.cx-face.cx-back .ox-qs .cd-exl{margin-top:0}
+.cx-face.cx-back .ox-qs .cd-body{padding-top:4px;font-size:14px;line-height:1.55;color:var(--muted)}
+.cx-face.cx-back .ox-qs .cd-ctx{font-size:12px}
+.ox-exn{margin:4px 0 0}
+.ox-exm{margin-top:10px;font-size:12px;line-height:1.5;color:var(--faint)}
+.cx-face.cx-back .ox-res{margin-right:38px}
 </style>
 
 <div class="wrap"><main id="view"></main></div>
@@ -3864,6 +3895,7 @@ function sanitize(s){
           var ex=String(c.ex||'').replace(/\r\n?/g,'\n').replace(/\s+$/,'').slice(0,6000);if(ex)o.ex=ex;
         }
         if(typeof c.f==='string'&&fdx[c.f]&&fdx[c.f].sid===o.sid&&fdx[c.f].k===(o.k||'cue'))o.f=c.f;
+        if(c.star===true)o.star=true;
         /* 시험 일정: {stage, due, wrong(모름 누적), hard(보라), hs(보라에서 연속 앎), last('k'|'u'), n(시험 횟수), hist[[날짜,1|0]] 최근 30개} */
         var r=c.srs;
         if(r&&typeof r==='object'&&isYmd(r.due)){
@@ -3974,6 +4006,7 @@ var ICONS={
   questfill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><defs><clipPath id="qi-clip"><rect x="4" y="4" width="16" height="16" rx="4.5"/></clipPath></defs><g clip-path="url(#qi-clip)"><rect class="qi-fill" x="3" y="3" width="18" height="18" stroke="none"/></g><rect x="4" y="4" width="16" height="16" rx="4.5"/><path class="qi-check" d="m8.4 12.3 2.5 2.5 4.8-5.3"/></svg>',
   play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a.8.8 0 0 0 1.22.68l10.6-6.8a.8.8 0 0 0 0-1.36L9.22 4.52A.8.8 0 0 0 8 5.2z"/></svg>',
   stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="3.8" height="14" rx=".8"/><rect x="13.7" y="5" width="3.8" height="14" rx=".8"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>',
   ox:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.6" cy="12" r="4.4"/><path d="m14.2 7.8 7 8.4M21.2 7.8l-7 8.4"/></svg>',
   cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="13" height="13" rx="2.2"/><path d="M8 4h10.3A2.2 2.2 0 0 1 20.5 6.2V16.5"/><path d="M6.8 11.5h6.4M6.8 15h4"/></svg>',
   anal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.4 15.4 4.6 4.6"/><path d="M7.6 12.6v-1.4M10.5 12.6V8.4M13.4 12.6v-2.6"/></svg>',
@@ -7419,6 +7452,7 @@ function cardEl(c,t,sel){
   if(sel)return cardSelEl(c,t,sel);
   var open=!!(ui.cardOpen&&ui.cardOpen[c.id]),k=cardKind(c),du=cardDueTxt(c,t),opt=cardM(c),isOx=cardK(c)==='ox';
   var head=h('button',{class:'cd-head',type:'button','aria-expanded':String(open)},
+    c.star?h('span',{class:'cd-star','aria-label':'별표'},'★'):null,
     h('span',{class:'cd-title'},opt?optHeadEl(c):c.title||'(제목 없음)'),
     !opt&&c.cue?h('span',{class:'cd-cue'},c.cue):null,
     opt&&c.srs?optPill(c):null,
@@ -7575,7 +7609,7 @@ function cardGroups(FD,list,lim,t,sel,selecting,OPT,filtered,rest){
 function cardList(el,selecting){if(selecting)return el;el.setAttribute('data-cardlist','1');return armReorder(el);}
 var CK_FILTERS=[['due','오늘 시험'],['new','새 카드'],['ok','앎'],['no','모름'],['hard','보라']];
 var OPT_FILTERS=[['due','오늘 시험'],['new','새 선지'],['meas','측정 중'],['low','약함 60%↓'],['ok','앎'],['no','모름']];
-var OX_FILTERS=[['due','오늘 암기'],['new','새 문제'],['meas','측정 중'],['low','약함 60%↓'],['ok','맞힘'],['no','틀림']];
+var OX_FILTERS=[['star','★ 별표'],['due','오늘 암기'],['new','새 문제'],['meas','측정 중'],['low','약함 60%↓'],['ok','맞힘'],['no','틀림']];
 function cardsView(_t,mode){
   if(seedCards()|seedPacks())saveNow();
   var t=cardT(),subs=state.subjects,MODE=mode==='ox'?'ox':'cards',SPLIT=ui.tab==='ox'&&oxSplitOn();
@@ -7587,11 +7621,11 @@ function cardsView(_t,mode){
   if(ui.cardFolder==='_none'&&!FD.length)ui.cardFolder=null;
   var FO=ui.cardFolder||null;
   var allK=cardsOf(ui.cardSid,K);
-  var all=FO?allK.filter(function(c){return inFolder(c,FO);}):allK,cnt={due:0,new:0,ok:0,no:0,hard:0,meas:0,low:0},pSum=0,pN=0;
+  var all=FO?allK.filter(function(c){return inFolder(c,FO);}):allK,cnt={due:0,new:0,ok:0,no:0,hard:0,meas:0,low:0,star:0},pSum=0,pN=0;
   var isMeas=function(c){return OPT&&c.srs&&(c.srs.e||0)<OPT_NEED;},isLow=function(c){var p=OPT?optPct(c):null;return p!=null&&p<60;};
-  all.forEach(function(c){cnt[cardKind(c)]++;if(cardIsDue(c,t))cnt.due++;if(isMeas(c))cnt.meas++;if(isLow(c))cnt.low++;var p=OPT?optPct(c):null;if(p!=null){pSum+=c.srs.m;pN++;}});
+  all.forEach(function(c){cnt[cardKind(c)]++;if(c.star)cnt.star++;if(cardIsDue(c,t))cnt.due++;if(isMeas(c))cnt.meas++;if(isLow(c))cnt.low++;var p=OPT?optPct(c):null;if(p!=null){pSum+=c.srs.m;pN++;}});
   var F=(ui.cardF&&cnt[ui.cardF])?ui.cardF:null;
-  var list=F?all.filter(function(c){return F==='due'?cardIsDue(c,t):F==='meas'?isMeas(c):F==='low'?isLow(c):cardKind(c)===F;}):all;
+  var list=F?all.filter(function(c){return F==='due'?cardIsDue(c,t):F==='star'?!!c.star:F==='meas'?isMeas(c):F==='low'?isLow(c):cardKind(c)===F;}):all;
   /* 선지는 성취도 낮은 것부터 보고 싶을 수 있으니, '약함'을 고르면 낮은 순 */
   if(F==='low')list=list.slice().sort(function(a,b){return a.srs.m-b.srs.m;});
   /* 선택 모드: 체크해서 여러 장 지우기 */
@@ -7648,8 +7682,9 @@ function cardsView(_t,mode){
     }else top=h('div',{class:'q-top cd-seltop'},h('h1',{class:'lt'},cntEl),h('div',{class:'cd-acts'},allB,ordB,mvB,cancel,del));
     sel.update();
   }
-  var test=h('button',{class:'cd-test',type:'button',disabled:!all.length},iconEl('play'),OX?(cnt.due?['암기 ',h('b',null,String(cnt.due))]:'암기 연습'):cnt.due?['시험 ',h('b',null,String(cnt.due))]:'연습');
-  test.addEventListener('click',function(){if(OX)oxStart(ui.cardSid,FO,'study',!cnt.due);else startCardTest(ui.cardSid,!cnt.due,null,K,FO);});
+  var STAR=OX&&F==='star';
+  var test=h('button',{class:'cd-test',type:'button',disabled:!all.length},iconEl('play'),STAR?['★ 별표 암기 ',h('b',null,String(cnt.star))]:OX?(cnt.due?['암기 ',h('b',null,String(cnt.due))]:'암기 연습'):cnt.due?['시험 ',h('b',null,String(cnt.due))]:'연습');
+  test.addEventListener('click',function(){if(STAR)oxStart(ui.cardSid,FO,'study',false,list.filter(function(c){return c.a==='O'||c.a==='X';}).map(function(c){return c.id;}));else if(OX)oxStart(ui.cardSid,FO,'study',!cnt.due);else startCardTest(ui.cardSid,!cnt.due,null,K,FO);});
   if(OX){var exam=h('button',{class:'cd-test ox-exam',type:'button',disabled:!all.length},iconEl('check'),'시험');exam.addEventListener('click',function(){oxExamSheet(ui.cardSid,FO);});test=[test,exam];}
   var add=h('button',{class:'add-btn lab',type:'button'},iconEl('plus'),OX?'OX':OPT?'선지':'카드');
   add.addEventListener('click',function(){cardInsAfter=null;openCardSheet(null,K);});
@@ -8209,10 +8244,11 @@ function oxExamSheet(sid,fid){
 }
 function oxOpen(){
   var close=h('button',{class:'cx-btn',type:'button'},iconEl('x'),'닫기');
-  var undo=h('button',{class:'cx-btn',type:'button'},iconEl('undo'),'되돌리기');
+  var undo=h('button',{class:'cx-btn',type:'button',title:'되돌리기 (Backspace)'},iconEl('undo'),'되돌리기');
+  var edit=h('button',{class:'cx-btn',type:'button',title:'이 문제 고치기'},iconEl('edit'),'편집');
   var ttl=h('h2',{class:'cx-ttl'}),prog=h('div',{class:'cx-prog'},h('i')),cnt=h('div',{class:'cx-n'});
   var stage=h('div',{class:'cx-stage'}),acts=h('div',{class:'cx-acts'});
-  var panel=h('div',{class:'cx ox',role:'dialog','aria-modal':'true','aria-label':'OX 퀴즈'},h('div',{class:'cx-top'},close,ttl,undo),prog,cnt,stage,acts);
+  var panel=h('div',{class:'cx ox',role:'dialog','aria-modal':'true','aria-label':'OX 퀴즈'},h('div',{class:'cx-top'},close,ttl,h('div',{class:'cx-tr'},edit,undo)),prog,cnt,stage,acts);
   var wrap=h('div',{class:'cx-wrap'},panel);
   var rp=ui.tab==='ox'&&oxSplitOn()?document.querySelector('.csplit .cpane[data-pane="cards"]'):null;
   if(rp){var rr=rp.getBoundingClientRect();wrap.classList.add('in-split');wrap.style.right=Math.max(0,window.innerWidth-rr.left+6)+'px';}
@@ -8221,8 +8257,12 @@ function oxOpen(){
     if(activeSheet!==api||e.isComposing||e.altKey||e.metaKey||e.ctrlKey)return;
     if(rp&&e.target&&rp.contains(e.target)&&(e.key==='Enter'||e.key===' '))return;
     if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(OXQ&&OXQ.editing)return;
+    /* 스페이스 = 별표, Backspace = 되돌리기 */
+    if(e.key===' '){if(e.target&&e.target.tagName==='BUTTON'&&panel.contains(e.target)&&!e.target.classList.contains('ox-star'))e.target.blur();e.preventDefault();oxStar();return;}
+    if(e.key==='Backspace'){e.preventDefault();oxUndo();return;}
     if(OXQ&&OXQ.phase==='a'){
-      if(/^(ArrowRight|ArrowLeft|ArrowDown|ArrowUp|Enter| )$/.test(e.key)){if(e.target&&e.target.tagName==='BUTTON'&&panel.contains(e.target)&&(e.key==='Enter'||e.key===' '))return;e.preventDefault();oxNext();}
+      if(/^(ArrowRight|ArrowLeft|ArrowDown|ArrowUp|Enter)$/.test(e.key)){if(e.target&&e.target.tagName==='BUTTON'&&panel.contains(e.target)&&(e.key==='Enter'||e.key===' '))return;e.preventDefault();oxNext();}
       return;
     }
     if(e.key==='ArrowRight'){e.preventDefault();oxAnswer('O',0,0);}
@@ -8235,9 +8275,10 @@ function oxOpen(){
   var api={kind:'ox',wrap:wrap,scrim:wrap,sheet:panel,detach:function(){document.removeEventListener('keydown',key);document.documentElement.classList.remove('cx-on');},
     close:function(){if(activeSheet!==api)return;closeSheet(false);OXQ=null;renderView();}};
   activeSheet=api;
-  OXQ.el={ttl:ttl,prog:prog,cnt:cnt,stage:stage,acts:acts,undo:undo};
+  OXQ.el={ttl:ttl,prog:prog,cnt:cnt,stage:stage,acts:acts,undo:undo,edit:edit};
   close.addEventListener('click',api.close);
   undo.addEventListener('click',oxUndo);
+  edit.addEventListener('click',oxEdit);
   anim(wrap,[{opacity:0},{opacity:1}],{duration:200,easing:'ease-out'});
   anim(panel,[{opacity:0,transform:'translateY(22px) scale(.98)'},{opacity:1,transform:'none'}],{duration:520,easing:SPRING});
   oxDraw();
@@ -8247,7 +8288,7 @@ function oxDraw(){
   var E=OXQ.el,n=OXQ.ids.length,Q=OXQ;
   setKids(E.ttl,[Q.name,h('span',{class:'cx-mode'+(Q.rec?'':' prac')},Q.mode==='exam'?'시험':Q.rec?'암기':'연습 · 기록 안 됨')]);
   E.prog.firstChild.style.width=(n?Math.min(Q.i,n)/n*100:0)+'%';
-  E.undo.disabled=!Q.res.length||Q.mode!=='exam'||Q.i>=n;
+  E.undo.disabled=!Q.res.length;
   if(Q.i>=n){oxEnd();return;}
   var c=cardById(Q.ids[Q.i]);
   if(!c){Q.ids.splice(Q.i,1);oxDraw();return;}
@@ -8268,6 +8309,13 @@ function oxCard(c){
   var el=h('div',{class:'cx-card ox-card'},inner,h('div',{class:'ox-arw l','aria-hidden':'true'},'←',h('b',null,'X')),h('div',{class:'ox-arw r','aria-hidden':'true'},h('b',null,'O'),'→'),h('div',{class:'ox-arw u','aria-hidden':'true'},'↑ 모름'));
   var C={el:el,face:face,stO:stO,stX:stX,stU:stU,c:c,gone:false};
   var ob=String(c.body||'').trim(),one=ob.indexOf('\n')<0&&!isTblLine(ob)&&ob.length<=90;
+  var star=h('button',{class:'ox-star',type:'button','aria-label':'별표 (스페이스)'},'★');
+  star.addEventListener('click',function(e){e.stopPropagation();oxStar();});
+  star.addEventListener('pointerdown',function(e){e.stopPropagation();});
+  C.paintStar=function(){star.setAttribute('aria-pressed',String(!!c.star));el.classList.toggle('starred',!!c.star);};
+  C.paintStar();
+  el.appendChild(star);
+  C.redraw=function(){ob=String(c.body||'').trim();one=ob.indexOf('\n')<0&&!isTblLine(ob)&&ob.length<=90;if(C.last)C.a(C.last[0],C.last[1]);else C.q();};
   C.q=function(){
     face.className='cx-face cx-front ox-face cx-opt'+(one?'':' rich');
     setKids(face,[
@@ -8279,13 +8327,14 @@ function oxCard(c){
     requestAnimationFrame(function(){var sc=face.scrollHeight>face.clientHeight+4;el.style.touchAction=face.style.touchAction=sc?'pan-y':'none';el.classList.toggle('scr',sc);});
   };
   C.a=function(pick,ok){
+    C.last=[pick,ok];
     face.className='cx-face cx-back ox-face';
     setKids(face,[
       h('div',{class:'ox-res '+(ok?'ok':pick?'no':'u')},h('span',{class:'ox-badge '+(c.a==='X'?'x':'o')},c.a),
         h('b',null,ok?'정답!':pick?'틀렸어요':'모름'),h('span',null,ok?'':pick?'내 답 '+pick+' · 정답 '+c.a:'정답 '+c.a)),
-      h('div',{class:'ox-qs'},cardBody(ob)),
-      c.ex?h('div',{class:'cd-exl'},'해설'):null,
-      c.ex?cardBody(c.ex):h('p',{class:'cd-none'},'해설 없음')]);
+      /* 해설이 먼저, 크게. 문제는 아래에 작게 */
+      oxExEl(c.ex,c.a),
+      h('div',{class:'ox-qs'},h('div',{class:'cd-exl'},'문제'),cardBody(ob))]);
     face.scrollTop=0;
     el.style.touchAction=face.style.touchAction='pan-y';
   };
@@ -8297,7 +8346,7 @@ function oxDrag(C){
   var el=C.el,x0=0,y0=0,t0=0,dx=0,dy=0,down=false,drag=0,moved=false,pid=null;
   function tf(x,y){return 'translate('+x+'px,'+y+'px) rotate('+(x/22).toFixed(2)+'deg)';}
   el.addEventListener('pointerdown',function(e){
-    if(C.gone||!OXQ||OXQ.busy||(e.button&&e.button>0))return;
+    if(C.gone||!OXQ||OXQ.busy||OXQ.editing||(e.button&&e.button>0))return;
     down=true;drag=0;moved=false;x0=e.clientX;y0=e.clientY;t0=performance.now();dx=dy=0;pid=e.pointerId;
   });
   el.addEventListener('pointermove',function(e){
@@ -8342,7 +8391,7 @@ function oxAnswer(pick,dx,dy){
   var Q=OXQ,C=Q&&Q.cur;if(!C||C.gone||Q.busy||Q.phase!=='q')return;
   var c=C.c,ok=pick===c.a,prev=c.srs?JSON.parse(JSON.stringify(c.srs)):null;
   if(Q.rec){c.srs=optAnswer(prev,ok,Q.t);saveNow();}
-  Q.res.push({id:c.id,pick:pick,ok:ok,prev:prev});
+  Q.res.push({id:c.id,pick:pick,ok:ok,prev:prev});if(Q.el&&Q.el.undo)Q.el.undo.disabled=false;
   var st=pick==='O'?C.stO:pick==='X'?C.stX:C.stU;st.style.opacity=1;
   if(Q.mode==='exam'){oxFly(dx||(pick==='O'?1:pick==='X'?-1:0),dy||(pick?0:-1));return;}
   Q.phase='a';Q.shownAt=Date.now();
@@ -8366,12 +8415,72 @@ function oxFly(dx,dy){
   var a=anim(inn,[{transform:inn.style.transform||'none'},{transform:'translate('+tx+'px,'+ty+'px) rotate('+(tx?(tx>0?16:-16):0)+'deg)',opacity:.3}],{duration:300,easing:'cubic-bezier(.3,.5,.6,1)',fill:'forwards'});
   finished(a).then(function(){if(!OXQ)return;Q.busy=false;Q.i++;oxDraw();});
 }
-/* 시험 중 되돌리기: 마지막 답 취소 */
+/* 해설: 문제집에서 넣은 것(출처·단원 줄 + '바른 내용:'/'해설:' 줄)은 본문만 크게, 출처는 작게 아래 */
+function oxExEl(ex,ans){
+  ex=String(ex||'').trim();
+  if(!ex)return h('p',{class:'cd-none ox-exn'},'해설 없음');
+  var ls=ex.split('\n'),k=-1;
+  for(var i=0;i<ls.length;i++)if(/^(바른 내용|해설)\s*:/.test(ls[i].trim())){k=i;break;}
+  /* 출처·단원 줄만 있으면(맞는 지문이라 해설이 따로 없음) 작게만 */
+  if(k<0&&ls.length<=3&&ls.every(function(l){return /( · | › |^Ch\.|^\d{4}-\d|p\.\d)/.test(l)&&l.length<120;}))return h('div',{class:'ox-exb'},h('p',{class:'cd-none ox-exn'},ans==='O'?'맞는 지문이라 따로 해설 없음':'따로 해설 없음'),h('div',{class:'ox-exm'},ls.join(' · ')));
+  if(k<0)return h('div',{class:'ox-exb'},h('div',{class:'cd-exl'},'해설'),cardBody(ex));
+  var lab=/^바른/.test(ls[k].trim())?'바른 내용':'해설',main=[ls[k].trim().replace(/^(바른 내용|해설)\s*:\s*/,'')].concat(ls.slice(k+1)).join('\n'),meta=ls.slice(0,k).join(' · ').trim();
+  return h('div',{class:'ox-exb'},h('div',{class:'cd-exl'},lab),cardBody(main),meta?h('div',{class:'ox-exm'},meta):null);
+}
+/* 별표: 중요한 문제 표시 (스페이스) */
+function oxStar(){
+  var Q=OXQ,C=Q&&Q.cur;if(!C||C.gone||Q.i>=Q.ids.length)return;
+  var c=C.c;if(c.star)delete c.star;else c.star=true;saveNow();
+  C.paintStar();
+  toast(c.star?'★ 별표했어요':'별표 뺐어요');
+}
+/* 풀다가 바로 고치기: 문제·정답·해설 */
+function oxEdit(){
+  var Q=OXQ,C=Q&&Q.cur;if(!C||C.gone||Q.busy||Q.editing||Q.i>=Q.ids.length)return;
+  var c=C.c,ans=c.a||'O';Q.editing=true;
+  var body=h('textarea',{class:'ox-ed-ta',rows:'4','aria-label':'문제'});body.value=c.body||'';
+  var ex=h('textarea',{class:'ox-ed-ta',rows:'4','aria-label':'해설',placeholder:'해설 (없어도 돼요)'});ex.value=c.ex||'';
+  var ob=h('button',{class:'ox-ed-a o',type:'button'},'O'),xb=h('button',{class:'ox-ed-a x',type:'button'},'X');
+  var paint=function(){ob.setAttribute('aria-pressed',String(ans==='O'));xb.setAttribute('aria-pressed',String(ans==='X'));};
+  ob.addEventListener('click',function(){ans='O';paint();});xb.addEventListener('click',function(){ans='X';paint();});paint();
+  var fit=function(ta){ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight+2,320)+'px';};
+  [body,ex].forEach(function(ta){ta.addEventListener('input',function(){fit(ta);});});
+  var box=h('div',{class:'ox-ed'},h('div',{class:'ox-ed-h'},iconEl('edit'),'문제 고치기'),
+    h('label',{class:'ox-ed-l'},'문제'),body,
+    h('div',{class:'ox-ed-row'},h('label',{class:'ox-ed-l'},'정답'),ob,xb),
+    h('label',{class:'ox-ed-l'},'해설'),ex);
+  var save=h('button',{class:'cx-big pri',type:'button'},'저장'),cancel=h('button',{class:'cx-big',type:'button'},'취소');
+  var keepActs=Array.prototype.slice.call(Q.el.acts.childNodes),keepCls=Q.el.acts.className;
+  var done=function(ok){
+    if(ok){
+      var b=body.value.replace(/\r\n?/g,'\n').replace(/\s+$/,'');
+      if(!b.trim()){toast('문제가 비었어요');body.focus();return;}
+      c.body=b.slice(0,6000);c.title=optTitle(c.body)||c.title;c.a=ans;
+      var e2=ex.value.replace(/\r\n?/g,'\n').replace(/\s+$/,'');if(e2)c.ex=e2.slice(0,6000);else delete c.ex;
+      saveNow();toast('고쳤어요');
+    }
+    Q.editing=false;
+    Q.el.acts.className=keepCls;setKids(Q.el.acts,keepActs);
+    C.redraw();
+  };
+  save.addEventListener('click',function(){done(true);});cancel.addEventListener('click',function(){done(false);});
+  box.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){e.preventDefault();e.stopPropagation();done(false);}
+    else if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){e.preventDefault();done(true);}
+  });
+  C.face.className='cx-face ox-face ox-edf';C.el.style.touchAction=C.face.style.touchAction='pan-y';
+  setKids(C.face,box);
+  Q.el.acts.className='cx-acts two';setKids(Q.el.acts,[cancel,save]);
+  requestAnimationFrame(function(){fit(body);fit(ex);body.focus();});
+}
+/* 되돌리기: 마지막 답 취소 */
 function oxUndo(){
-  var Q=OXQ;if(!Q||Q.busy||Q.mode!=='exam'||!Q.res.length||Q.i>=Q.ids.length)return;
+  var Q=OXQ;if(!Q||Q.busy||Q.editing||!Q.res.length)return;
   var r=Q.res.pop(),c=cardById(r.id);
   if(c&&Q.rec){if(r.prev)c.srs=r.prev;else delete c.srs;saveNow();}
-  Q.i=Math.max(0,Q.i-1);oxDraw();
+  var at=Q.ids.lastIndexOf(r.id,Math.min(Q.i,Q.ids.length-1));
+  Q.i=at>=0?at:Math.max(0,Q.i-1);
+  oxDraw();toast('되돌렸어요');
 }
 function oxEnd(){
   var Q=OXQ,E=Q.el,ok=Q.res.filter(function(r){return r.ok;}).length,n=Q.res.length,wrong=Q.res.filter(function(r){return !r.ok;});
